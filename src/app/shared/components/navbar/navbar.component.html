@@ -6,8 +6,7 @@
           routerLink="/home"
           class="hover:cursor-pointer text-white block h-4 sm:h-5 md:h6 w-auto"
           src="/assets/header/tmdb.svg"
-          alt="The IMTB"
-        />
+          alt="The IMTB" />
       </div>
       <div id="header-routes" class="hidden sm:ml-6 sm:flex sm:space-x-8">
         <a
@@ -18,8 +17,7 @@
             ' flex items-center px-1 pt-1 border-b-2 text-sm font-medium'
           "
           routerLinkActive
-          #rlam="routerLinkActive"
-        >
+          #rlam="routerLinkActive">
           Movies
         </a>
         <a
@@ -30,8 +28,7 @@
             ' flex items-center px-1 pt-1 border-b-2 text-sm font-medium'
           "
           routerLinkActive
-          #rlaf="routerLinkActive"
-        >
+          #rlaf="routerLinkActive">
           Favorites
         </a>
         <a
@@ -42,25 +39,22 @@
             ' flex items-center px-1 pt-1 border-b-2 text-sm font-medium'
           "
           routerLinkActive
-          #rlal="routerLinkActive"
-        >
+          #rlal="routerLinkActive">
           Lists
         </a>
       </div>
       <div id="header-auth" class="ml-6 flex items-center">
         <a
           routerLink="/login"
-          class="hidden sm:block border-transparent text-white hover:bg-white/10 rounded-sm items-center px-2 pt-1 border-b-2 text-sm font-medium"
-        >
+          class="hidden sm:block border-transparent text-white hover:bg-white/10 rounded-sm items-center px-2 pt-1 border-b-2 text-sm font-medium">
           Login
         </a>
         <div class="sm:hidden">
           <button
+            color="primary"
             class="hover:cursor-pointer border-transparent text-white hover:bg-white/10 rounded-sm items-center px-2 pt-1 border-b-2 text-sm font-medium"
             mat-mini-fab
-            color="accent"
-            (click)="toggleOptions()"
-          >
+            (click)="toggleOptions()">
             <mat-icon>menu</mat-icon>
           </button>
         </div>
@@ -68,19 +62,16 @@
       <div
         *ngIf="optionsOpen"
         id="header-mobile"
-        class="sm:hidden absolute top-16 -left-4"
-      >
+        class="sm:hidden absolute top-16 -left-4">
         <div
           id="header-routes"
-          class="w-[100vw] min-h-16 bg-primary flex flex-col"
-        >
+          class="w-[100vw] min-h-16 bg-primary flex flex-col">
           <a
             routerLink="/movies"
             [class]="
               (rlam.isActive ? styleActive : styleNormal) +
               ' flex items-center p-3 border-l-2 text-lg font-medium'
-            "
-          >
+            ">
             Movies
           </a>
 
@@ -89,8 +80,7 @@
             [class]="
               (rlaf.isActive ? styleActive : styleNormal) +
               ' flex items-center p-3 border-l-2 text-lg font-medium'
-            "
-          >
+            ">
             Favorites
           </a>
 
@@ -99,8 +89,7 @@
             [class]="
               (rlal.isActive ? styleActive : styleNormal) +
               ' flex items-center p-3 border-l-2 text-lg font-medium'
-            "
-          >
+            ">
             Lists
           </a>
         </div>

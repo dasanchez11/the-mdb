@@ -8,10 +8,44 @@
 // Be sure that you only ever include this mixin once!
 @include mat.core();
 
+/* For use in src/lib/core/theming/_palette.scss */
+$md-customtmdb: (
+  50: #e1e7ec,
+  100: #b5c3d0,
+  200: #839bb1,
+  300: #517392,
+  400: #2c557a,
+  500: #073763,
+  600: #06315b,
+  700: #052a51,
+  800: #042347,
+  900: #042541,
+  A100: #6d97ff,
+  A200: #3a73ff,
+  A400: #074fff,
+  A700: #0044ec,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #ffffff,
+    A400: #ffffff,
+    A700: #ffffff,
+  ),
+);
+
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$moviedb-primary: mat.define-palette(mat.$blue-palette, 900);
+$moviedb-primary: mat.define-palette($md-customtmdb, 900);
 $moviedb-accent: mat.define-palette(mat.$grey-palette, 50);
 
 // The warn palette is optional (defaults to red).
