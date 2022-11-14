@@ -17,6 +17,14 @@ export class AuthLocalStorageService {
       return null;
     }
   }
+
+  static getCurrentUser() {
+    const value = localStorage.getItem('currentUser');
+    if (value) {
+      return JSON.parse(value);
+    }
+    return null;
+  }
 }
 
 export type LocalStorageItems = 'expiresAt' | 'sessionId' | 'requestToken';

@@ -1,4 +1,4 @@
-export interface IGetAccountDetails {
+export interface User {
   avatar: {
     gravatar: {
       hash: string;

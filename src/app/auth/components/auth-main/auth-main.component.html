@@ -14,10 +14,15 @@
     </h6>
     <h6>To Authorize your account click on the following Login Button</h6>
     <button
+      [disabled]="loginStarted"
       (click)="loginClick()"
-      class="w-44 font-extrabold p-2 text-white text-xl bg-primary hover:bg-white/30 hover:text-primary border-primary border-2 rounded-md"
+      class="w-44 flex flex-row items-center justify-center font-extrabold p-2 text-white text-xl bg-primary hover:bg-primary/90 rounded-md disabled:bg-gray-500 disabled:cursor-not-allowed"
       color="primary">
-      Login
+      <mat-spinner
+        color="accent"
+        diameter="20"
+        *ngIf="loginStarted"></mat-spinner>
+      <span class="pl-3">Login</span>
     </button>
   </div>
 </div>

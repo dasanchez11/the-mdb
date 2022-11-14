@@ -5,14 +5,12 @@ import { AuthHttpService } from '../../services/auth-http.service';
   selector: 'app-auth-main',
   templateUrl: './auth-main.component.html',
 })
-export class AuthMainComponent implements OnInit {
+export class AuthMainComponent {
+  loginStarted = false;
   constructor(private authHttp: AuthHttpService) {}
 
-  ngOnInit(): void {}
-
   loginClick() {
-    this.authHttp.getToken().subscribe(value => {
-      console.log(value);
-    });
+    this.loginStarted = true;
+    this.authHttp.getToken().subscribe();
   }
 }

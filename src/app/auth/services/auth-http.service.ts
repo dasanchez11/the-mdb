@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, switchMap, throwError } from 'rxjs';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { IGetTokenResponse } from '../interfaces/get-token-reponse.interface';
-import { IGetAccountDetails } from '../interfaces/responses/get-account-response';
+import { User } from '../interfaces/responses/get-account-response';
 import { IGetSessionId } from '../interfaces/responses/get-sessionId-response.interface';
 import { API_KEY } from './apiKey';
 import { AuthLocalStorageService } from './auth-local-storage.service';
@@ -50,40 +50,16 @@ export class AuthHttpService {
     const url = this.baseUrl + restUrl + this.apiKey;
     return this.http.post<IGetSessionId>(url, { request_token }).pipe(
       catchError(error => {
-        console.log(error);
         this.snackBar.openSnackBar(error.error.status_message, true);
         return throwError(() => 'new Error');
       })
     );
   }
 
-  getuserInfo(sessionId: string): Observable<IGetAccountDetails> {
+  getuserInfo(sessionId: string): Observable<User> {
     const restUrl = '/account?api_key=';
     const sessionUrl = '&session_id=';
     const url = this.baseUrl + restUrl + this.apiKey + sessionUrl + sessionId;
-    return this.http.get<IGetAccountDetails>(url);
-  }
-
-  loginUser(requestToken: string): Observable<boolean> {
-    this.localStorageService.setElement('requestToken', requestToken);
-    return this.getSessionId(requestToken).pipe(
-      switchMap((response: IGetSessionId) => {
-        const sessionId = response.session_id;
-        if (!response.success) {
-          return of(false);
-        }
-        return this.getuserInfo(sessionId).pipe(
-          switchMap((response: IGetAccountDetails) => {
-            if (!response) {
-              return of(false);
-            } else {
-              this.localStorageService.setElement('sessionId', sessionId);
-              this.localStorageService.setElement('currentUse', response);
-              return of(true);
-            }
-          })
-        );
-      })
-    );
+    return this.http.get<User>(url);
   }
 }

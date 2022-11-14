@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { of, switchMap, take } from 'rxjs';
-import { AuthHttpService } from '../../services/auth-http.service';
+import { Store } from '@ngrx/store';
+import { Observable, of } from 'rxjs';
+import { AppState } from 'src/app/app.store';
+import { SignInStart } from '../../store/auth.actions';
+import { selectCurrentUserLoading } from '../../store/auth.selectors';
 
 @Component({
   selector: 'app-auth-redirect',
@@ -9,31 +12,23 @@ import { AuthHttpService } from '../../services/auth-http.service';
   styleUrls: ['./auth-redirect.component.scss'],
 })
 export class AuthRedirectComponent implements OnInit {
+  currentUserLoading$!: Observable<boolean>;
+
   constructor(
     private activatedRoute: ActivatedRoute,
-    private authHttp: AuthHttpService,
-    private router: Router
+    private router: Router,
+    private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.queryParamMap
-      .pipe(
-        take(1),
-        switchMap(params => {
-          const requestToken = params.get('request_token');
-          if (!requestToken) {
-            this.router.navigate(['login']);
-            return of(false);
-          }
-          return this.authHttp.loginUser(requestToken);
-        })
-      )
-      .subscribe(value => {
-        if (value) {
-          this.router.navigate(['home']);
-        } else {
-          this.router.navigate(['login']);
-        }
-      });
+    this.currentUserLoading$ = this.store.select(selectCurrentUserLoading);
+    this.activatedRoute.queryParamMap.subscribe(params => {
+      const requestToken = params.get('request_token');
+      if (!requestToken) {
+        this.router.navigate(['login']);
+      } else {
+        this.store.dispatch(SignInStart({ payload: requestToken }));
+      }
+    });
   }
 }

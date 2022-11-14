@@ -11,6 +11,10 @@ import { HomeModule } from './home/home.module';
 import { ListsModule } from './lists/lists.module';
 import { MovieDetailsModule } from './movie-details/movie-details.module';
 import { SharedModule } from './shared/shared.module';
+import { EffectsModule } from '@ngrx/effects';
+import { storeReducer } from './app.store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,7 +29,18 @@ import { SharedModule } from './shared/shared.module';
     ListsModule,
     MovieDetailsModule,
     SharedModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot(storeReducer, {
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+      },
+    }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+      autoPause: true,
+    }),
+    EffectsModule.forRoot([]),
   ],
   providers: [],
   bootstrap: [AppComponent],

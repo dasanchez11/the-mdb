@@ -8,11 +8,11 @@ export class SnackbarService {
   constructor(private _snackBar: MatSnackBar) {}
 
   openSnackBar(message: string, fail: boolean = false) {
-    const color = fail ? 'mat-warn' : 'bg-green-900';
+    const color = fail ? 'mat-warn' : 'bg-green-800';
     this._snackBar.open(message, '', {
       duration: 3000,
-      horizontalPosition: 'left',
-      verticalPosition: 'bottom',
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
       panelClass: ['mat-toolbar', color],
     });
   }
