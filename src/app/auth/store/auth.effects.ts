@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { User } from '../interfaces/responses/get-account-response';
 import { AuthLocalStorageService } from '../services/auth-local-storage.service';
+import { HttpErrorResponse } from '@angular/common/http';
 @Injectable()
 export class AuthEffects {
   constructor(
@@ -21,13 +22,13 @@ export class AuthEffects {
   authSuccess = createEffect(
     () =>
       this.actions$.pipe(
-        ofType('[AuthHttpService] SIGN_IN_SUCCESS'),
+        ofType('[AuthEffects authLogin] SIGN_IN_SUCCESS'),
         tap((value: { payload: User }) => {
           this.authStorage.setElement('currentUser', value.payload);
           this.snackBar.openSnackBar('Login Success', false);
           setTimeout(() => {
             this.router.navigate(['/home']);
-          }, 1000);
+          }, 500);
         })
       ),
     { dispatch: false }
@@ -35,7 +36,7 @@ export class AuthEffects {
 
   authLogin = createEffect(() =>
     this.actions$.pipe(
-      ofType('[AuthHttpService] SIGN_IN_START'),
+      ofType('[Auth RedirectComponent] SIGN_IN_START'),
       switchMap((data: { payload: string }) => {
         return this.authHttp.getSessionId(data.payload).pipe(
           switchMap((session: IGetSessionId) => {
@@ -44,13 +45,13 @@ export class AuthEffects {
               switchMap(user => {
                 return of(SignInSuccess({ payload: user }));
               }),
-              catchError((errorResponse: any) => {
-                return of(SignInFailure({ payload: errorResponse }));
+              catchError((errorResponse: HttpErrorResponse) => {
+                return of(SignInFailure({ payload: errorResponse.error }));
               })
             );
           }),
-          catchError((errorResponse: any) => {
-            return of(SignInFailure({ payload: errorResponse }));
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(SignInFailure({ payload: errorResponse.error }));
           })
         );
       })
