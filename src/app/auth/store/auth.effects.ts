@@ -9,6 +9,7 @@ import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { User } from '../interfaces/responses/get-account-response';
 import { AuthLocalStorageService } from '../services/auth-local-storage.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { IErrorResponse } from '../interfaces/responses/error.response';
 @Injectable()
 export class AuthEffects {
   constructor(
@@ -26,9 +27,7 @@ export class AuthEffects {
         tap((value: { payload: User }) => {
           this.authStorage.setElement('currentUser', value.payload);
           this.snackBar.openSnackBar('Login Success', false);
-          setTimeout(() => {
-            this.router.navigate(['/home']);
-          }, 500);
+          this.router.navigate(['/home']);
         })
       ),
     { dispatch: false }
@@ -45,13 +44,17 @@ export class AuthEffects {
               switchMap(user => {
                 return of(SignInSuccess({ payload: user }));
               }),
-              catchError((errorResponse: HttpErrorResponse) => {
-                return of(SignInFailure({ payload: errorResponse.error }));
+              catchError((errorResponse: { error: IErrorResponse }) => {
+                return of(
+                  SignInFailure({ payload: errorResponse.error.status_message })
+                );
               })
             );
           }),
-          catchError((errorResponse: HttpErrorResponse) => {
-            return of(SignInFailure({ payload: errorResponse.error }));
+          catchError((errorResponse: { error: IErrorResponse }) => {
+            return of(
+              SignInFailure({ payload: errorResponse.error.status_message })
+            );
           })
         );
       })

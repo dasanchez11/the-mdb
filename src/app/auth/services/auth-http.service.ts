@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of, switchMap, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { IGetTokenResponse } from '../interfaces/get-token-reponse.interface';
 import { User } from '../interfaces/responses/get-account-response';
