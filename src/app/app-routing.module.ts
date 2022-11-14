@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthMainComponent } from './auth/components/auth-main/auth-main.component';
+import { AuthRedirectComponent } from './auth/components/auth-redirect/auth-redirect.component';
 import { FavoritesMainComponent } from './favorites/components/favorites-main/favorites-main.component';
 import { HomeMainComponent } from './home/components/home-main/home-main.component';
 import { ListsMainComponent } from './lists/components/lists-main/lists-main.component';
@@ -15,6 +16,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: AuthMainComponent,
+  },
+  {
+    path: 'authenticate',
+    component: AuthRedirectComponent,
   },
   {
     path: 'favorites',
