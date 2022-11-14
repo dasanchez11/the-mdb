@@ -11,7 +11,7 @@ import { selectCurrentUserLoading } from '../../store/auth.selectors';
 import { By } from '@angular/platform-browser';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-describe('AuthRedirectComponent', () => {
+fdescribe('AuthRedirectComponent', () => {
   let component: AuthRedirectComponent;
   let fixture: ComponentFixture<AuthRedirectComponent>;
   let el: DebugElement;
@@ -31,19 +31,20 @@ describe('AuthRedirectComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            queryParamMap: of(convertToParamMap({ requestToken: 'asdfasd' })),
+            queryParamMap: of(convertToParamMap({ request_token: 'asdfasd' })),
           },
         },
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AuthRedirectComponent);
+    store = TestBed.inject(MockStore);
+    store.overrideSelector(selectCurrentUserLoading, true);
+    spyOn(store, 'dispatch');
     component = fixture.componentInstance;
     fixture.detectChanges();
     el = fixture.debugElement;
-    activatedRoute = TestBed.get(ActivatedRoute);
-    store = TestBed.get(Store);
-    store.overrideSelector(selectCurrentUserLoading, true);
+    activatedRoute = TestBed.inject(ActivatedRoute);
   });
 
   it('should create', () => {
@@ -69,7 +70,6 @@ describe('AuthRedirectComponent', () => {
   });
 
   it('should navigate if !request token', () => {
-    pending();
     expect(store.dispatch).toHaveBeenCalledTimes(1);
   });
 });
