@@ -1,3 +1,4 @@
 export interface Movies {
-    name:string
+  name: string;
+  id: number;
 }

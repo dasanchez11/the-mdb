@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IMoviesMeta } from '../../interfaces/movies-response-meta.interface';
+import { IMoviesReponse } from '../../interfaces/movies-response.interface';
 import { HomeActionTypes } from './home.types';
 
 export const FetchPlayingNowStart = createAction(
@@ -26,22 +26,22 @@ export const FetchTopRatedStart = createAction(
 
 export const FetchPlayingNowSuccess = createAction(
   HomeActionTypes.FETCH_PLAYING_NOW_SUCCESS,
-  props<{ payload: IMoviesMeta }>()
+  props<{ payload: IMoviesReponse }>()
 );
 
 export const FetchUpcomingSuccess = createAction(
   HomeActionTypes.FETCH_UPCOMING_SUCCESS,
-  props<{ payload: IMoviesMeta }>()
+  props<{ payload: IMoviesReponse }>()
 );
 
 export const FetchPopularSuccess = createAction(
   HomeActionTypes.FETCH_POPULAR_SUCCESS,
-  props<{ payload: IMoviesMeta }>()
+  props<{ payload: IMoviesReponse }>()
 );
 
 export const FetchTopRatedSuccess = createAction(
   HomeActionTypes.FETCH_TOP_RATED_SUCCESS,
-  props<{ payload: IMoviesMeta }>()
+  props<{ payload: IMoviesReponse }>()
 );
 
 // Failure

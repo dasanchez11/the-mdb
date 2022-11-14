@@ -12,6 +12,13 @@ export const errorsInitialState = {
   upcoming: null,
 };
 
+export const idsInitialState = {
+  popular: [],
+  topRated: [],
+  playingNow: [],
+  upcoming: [],
+};
+
 export const metaInitialState = {
   popular: {
     page: 1,
