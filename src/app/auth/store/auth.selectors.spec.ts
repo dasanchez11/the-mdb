@@ -1,5 +1,5 @@
 import { AppState } from 'src/app/app.store';
-import { mockUser } from 'src/app/shared/test/mock-user';
+import { mockUser } from 'src/app/auth/test/mock-user';
 import { AuthState } from './auth.reducer';
 import {
   selectAuthState,

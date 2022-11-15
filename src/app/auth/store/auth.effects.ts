@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { SignInFailure, SignInSuccess } from './auth.actions';
-import { catchError, map, of, switchMap, tap } from 'rxjs';
+import { catchError, map, of, switchMap, take, tap } from 'rxjs';
 import { AuthHttpService } from '../services/auth-http.service';
 import { IGetSessionId } from '../interfaces/responses/get-sessionId-response.interface';
 import { Router } from '@angular/router';
@@ -10,6 +10,7 @@ import { User } from '../interfaces/responses/get-account-response';
 import { AuthLocalStorageService } from '../services/auth-local-storage.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IErrorResponse } from '../interfaces/responses/error.response';
+import { AuthActionTypes } from './auth.types';
 @Injectable()
 export class AuthEffects {
   constructor(
@@ -19,6 +20,23 @@ export class AuthEffects {
     private router: Router,
     private authStorage: AuthLocalStorageService
   ) {}
+
+  logout = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActionTypes.LOGOUT),
+        map(() => {
+          console.log('logout');
+          this.router.navigate(['/home']);
+          localStorage.removeItem('sessionId');
+          localStorage.removeItem('currentUser');
+          localStorage.removeItem('expiresAt');
+          localStorage.removeItem('requestToken');
+          this.authHttp.deleteSession().pipe(take(1)).subscribe();
+        })
+      ),
+    { dispatch: false }
+  );
 
   authSuccess = createEffect(
     () =>
@@ -37,9 +55,11 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType('[Auth RedirectComponent] SIGN_IN_START'),
       switchMap((data: { payload: string }) => {
-        return this.authHttp.getSessionId(data.payload).pipe(
+        this.authStorage.setElement('requestToken', data.payload);
+        return this.authHttp.postSessionId(data.payload).pipe(
           switchMap((session: IGetSessionId) => {
             const sessionId = session.session_id;
+            this.authStorage.setElement('sessionId', sessionId);
             return this.authHttp.getuserInfo(sessionId).pipe(
               switchMap(user => {
                 return of(SignInSuccess({ payload: user }));

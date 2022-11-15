@@ -1,5 +1,5 @@
-import { mockErrorResponse } from 'src/app/shared/test/mock-error-response';
-import { mockUser } from 'src/app/shared/test/mock-user';
+import { mockErrorResponse } from 'src/app/auth/test/mock-error-response';
+import { mockUser } from 'src/app/auth/test/mock-user';
 import {
   Logout,
   SignInFailure,
