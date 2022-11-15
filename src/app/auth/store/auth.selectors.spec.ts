@@ -1,6 +1,8 @@
+import { AppState } from 'src/app/app.store';
 import { mockUser } from 'src/app/shared/test/mock-user';
 import { AuthState } from './auth.reducer';
 import {
+  selectAuthState,
   selectCurrentUser,
   selectCurrentUserErrors,
   selectCurrentUserLoading,
@@ -8,6 +10,19 @@ import {
 } from './auth.selectors';
 
 describe('Auth selectors', () => {
+  it('Should select authState', () => {
+    const mockAuthState: AuthState = {
+      isLoading: true,
+      currentUser: null,
+      authErrors: null,
+    };
+    const mockStore: AppState = {
+      auth: mockAuthState,
+    };
+    const result = selectAuthState.projector(mockStore);
+    expect(result).toBe(mockAuthState);
+  });
+
   it('Should select current User Loading', () => {
     const mockInitialState: AuthState = {
       isLoading: true,

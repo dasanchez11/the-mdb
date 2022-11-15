@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, of, switchMap, throwError } from 'rxjs';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { IGetTokenResponse } from '../interfaces/get-token-reponse.interface';
 import { User } from '../interfaces/responses/get-account-response';
@@ -27,7 +27,7 @@ export class AuthHttpService {
     const restUrl = 'authentication/token/new?api_key=';
     const url = this.baseUrl + restUrl + this.apiKey;
     return this.http.get<IGetTokenResponse>(url).pipe(
-      map(response => {
+      switchMap(response => {
         if (response.request_token) {
           this.localStorageService.setElement('expiresAt', response.expires_at);
           const url =
@@ -37,8 +37,9 @@ export class AuthHttpService {
             this.redirectPath +
             redirect;
           window.location.href = url;
+          return of(true);
         } else {
-          throwError(() => 'An Error Occurred');
+          return of(false);
         }
       })
     );

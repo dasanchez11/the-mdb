@@ -9,7 +9,6 @@ import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { MatProgressSpinnerHarness } from '@angular/material/progress-spinner/testing';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { Router } from '@angular/router';
 import { of } from 'rxjs';
 
 describe('AuthMainComponent', () => {
@@ -18,20 +17,17 @@ describe('AuthMainComponent', () => {
   let el: DebugElement;
   let loader: HarnessLoader;
   let authHttp: AuthHttpService;
-  let router: Router;
+  let mockHttp: any;
 
   beforeEach(async () => {
+    mockHttp = jasmine.createSpyObj('authHttp', ['getToken']);
     await TestBed.configureTestingModule({
       declarations: [AuthMainComponent],
       imports: [HttpClientTestingModule, MatProgressSpinnerModule],
       providers: [
         {
-          provide: Router,
-          useValue: jasmine.createSpyObj('router', ['navigate']),
-        },
-        {
           provide: AuthHttpService,
-          useValue: jasmine.createSpyObj('authHttp', ['getToken']),
+          useValue: mockHttp,
         },
       ],
     }).compileComponents();
@@ -41,8 +37,7 @@ describe('AuthMainComponent', () => {
     el = fixture.debugElement;
     loader = TestbedHarnessEnvironment.loader(fixture);
     fixture.detectChanges();
-    authHttp = TestBed.get(AuthHttpService);
-    router = TestBed.get(Router);
+    authHttp = TestBed.inject(AuthHttpService);
   });
 
   it('should create', () => {
@@ -75,12 +70,11 @@ describe('AuthMainComponent', () => {
     expect(disabled).toBeTrue();
   });
 
-  it('should navigate and set strted to true', () => {
-    pending();
+  it('should navigate and set started to true', () => {
+    mockHttp.getToken.and.returnValue(of(true));
     component.loginClick();
     fixture.detectChanges();
     expect(component.loginStarted).toBeTrue();
-    expect(router.navigate).toHaveBeenCalledTimes(1);
-    expect(authHttp.getToken).toHaveBeenCalledTimes(1);
+    expect(mockHttp.getToken).toHaveBeenCalledTimes(1);
   });
 });
