@@ -12,6 +12,10 @@ import { API_KEY } from './apiKey';
 import { AuthHttpService } from './auth-http.service';
 import { AuthLocalStorageService } from './auth-local-storage.service';
 import { RedirectService } from './redirect.service';
+import {
+  mockErrorResponse,
+  mockExpectederror,
+} from '../test/mock-error-response';
 
 describe('AuthHttpService', () => {
   let service: AuthHttpService;
@@ -118,5 +122,80 @@ describe('AuthHttpService', () => {
     expect(request.request.method).toEqual('DELETE');
     expect(request.request.url).toEqual(url);
     request.flush({ success: true });
+  });
+
+  describe('Catch Errors', () => {
+    it('should catch errors get token', () => {
+      const restUrl = 'authentication/token/new?api_key=';
+      const url = baseUrl + restUrl + apiKey;
+
+      service.getToken().subscribe({
+        error: error => {
+          expect(snackBar.openSnackBar).toHaveBeenCalledTimes(1);
+          expect(error).toBe(mockExpectederror.status_message);
+        },
+      });
+
+      const request = httpController.expectOne(url);
+      expect(request.request.method).toEqual('GET');
+      expect(request.request.url).toEqual(url);
+      request.flush(mockExpectederror, mockErrorResponse);
+    });
+
+    it('should catch error getUserInfo', () => {
+      const restUrl = '/account?api_key=';
+      const sessionUrl = '&session_id=';
+      const url = baseUrl + restUrl + apiKey + sessionUrl + 'session';
+
+      service.getuserInfo('session').subscribe({
+        next: response => {
+          expect(response).toBeUndefined();
+        },
+        error: error => {
+          expect(snackBar.openSnackBar).toHaveBeenCalledTimes(1);
+          expect(error).toBe(mockExpectederror.status_message);
+        },
+      });
+      const request = httpController.expectOne(url);
+      expect(request.request.method).toEqual('GET');
+      expect(request.request.url).toEqual(url);
+      request.flush(mockExpectederror, mockErrorResponse);
+    });
+
+    it('should catch errors sessionId', () => {
+      const restUrl = 'authentication/session/new?api_key=';
+      const url = baseUrl + restUrl + apiKey;
+
+      service.postSessionId('testToken').subscribe({
+        error: error => {
+          expect(snackBar.openSnackBar).toHaveBeenCalledTimes(1);
+          expect(error).toBe(mockExpectederror.status_message);
+        },
+      });
+
+      const request = httpController.expectOne(url);
+      expect(request.request.method).toEqual('POST');
+      expect(request.request.url).toEqual(url);
+      request.flush(mockExpectederror, mockErrorResponse);
+    });
+
+    it('should catch errors delete session', () => {
+      mockStorage.getElement.withArgs('sessionId').and.returnValue('session');
+      const restUrl = '/authentication/session?api_key=';
+      const sessionUrl = '&session_id=';
+      const url = baseUrl + restUrl + apiKey + sessionUrl + 'session';
+
+      service.deleteSession().subscribe({
+        error: error => {
+          expect(snackBar.openSnackBar).toHaveBeenCalledTimes(1);
+          expect(error).toBe(mockExpectederror.status_message);
+        },
+      });
+
+      const request = httpController.expectOne(url);
+      expect(request.request.method).toEqual('DELETE');
+      expect(request.request.url).toEqual(url);
+      request.flush(mockExpectederror, mockErrorResponse);
+    });
   });
 });

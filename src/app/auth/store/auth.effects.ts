@@ -21,23 +21,6 @@ export class AuthEffects {
     private authStorage: AuthLocalStorageService
   ) {}
 
-  logout = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(AuthActionTypes.LOGOUT),
-        map(() => {
-          console.log('logout');
-          this.router.navigate(['/home']);
-          localStorage.removeItem('sessionId');
-          localStorage.removeItem('currentUser');
-          localStorage.removeItem('expiresAt');
-          localStorage.removeItem('requestToken');
-          this.authHttp.deleteSession().pipe(take(1)).subscribe();
-        })
-      ),
-    { dispatch: false }
-  );
-
   authSuccess = createEffect(
     () =>
       this.actions$.pipe(
