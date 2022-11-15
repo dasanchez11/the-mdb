@@ -12,3 +12,9 @@ export enum HomeActionTypes {
   FETCH_UPCOMING_SUCCESS = '[HomeEffects fetchTopRated] FETCH_UPCOMING_SUCCESS',
   FETCH_UPCOMING_FAILURE = '[HomeEffects fetchTopRated] FETCH_UPCOMING_FAILURE',
 }
+
+export type HomeStartActions =
+  | HomeActionTypes.FETCH_PLAYING_NOW_START
+  | HomeActionTypes.FETCH_POPULAR_START
+  | HomeActionTypes.FETCH_TOP_RATED_START
+  | HomeActionTypes.FETCH_UPCOMING_START;
