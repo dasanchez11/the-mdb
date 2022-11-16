@@ -1,11 +1,21 @@
 import { Component, OnInit } from '@angular/core';
+import { IMovieList } from '../../interfaces/movie-list-response.interface';
+import { ListsService } from '../../services/lists.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-lists-main',
   templateUrl: './lists-main.component.html',
 })
 export class ListsMainComponent implements OnInit {
-  constructor() {}
+  moviesList$!: Observable<IMovieList[] | null>;
 
-  ngOnInit(): void {}
+  constructor(private moviesListService: ListsService) {}
+
+  ngOnInit(): void {
+    this.moviesList$ = this.moviesListService
+      .getLoggedUserLists()
+      .pipe(map(response => response.results));
+  }
 }
