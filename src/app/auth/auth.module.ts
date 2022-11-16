@@ -9,6 +9,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './store/auth.effects';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { authReducer } from './store/auth.reducer';
+import { AuthRoutingModule } from './auth-routing.module';
 
 @NgModule({
   declarations: [AuthMainComponent, AuthRedirectComponent],
@@ -19,6 +20,7 @@ import { authReducer } from './store/auth.reducer';
     MatProgressSpinnerModule,
     StoreModule.forFeature('auth', authReducer),
     EffectsModule.forFeature([AuthEffects]),
+    AuthRoutingModule
   ],
 })
 export class AuthModule {}

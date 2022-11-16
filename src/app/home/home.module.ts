@@ -1,3 +1,4 @@
+<<<<<<< src/app/home/home.module.ts
 import { NgModule } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { HomeMainComponent } from './components/home-main/home-main.component';
@@ -13,6 +14,13 @@ import { MatCardModule } from '@angular/material/card';
 import { CircleComponent } from './components/home-card/components/circle/circle.component';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from '../shared/shared.module';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { HomeDiscoverComponent } from './components/home-discover/home-discover.component';
+import { HomeMainComponent } from './components/home-main/home-main.component';
+import { HomeRoutingModule } from './home-routing.module';
+
+
 @NgModule({
   declarations: [
     HomeMainComponent,
@@ -30,6 +38,7 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule,
     StoreModule.forFeature('home', homeReducer),
     EffectsModule.forFeature([HomeEffects]),
-  ],
+    HomeRoutingModule
+  ]
 })
 export class HomeModule {}
