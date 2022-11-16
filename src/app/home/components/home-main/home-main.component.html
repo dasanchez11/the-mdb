@@ -1,7 +1,25 @@
 <div class="home max-w-[82rem] m-auto">
   <app-home-discover></app-home-discover>
-  <app-home-carrousel
-    [page]="1"
-    [totalPages]="3"
-    [actionToPerform]="playing"></app-home-carrousel>
+  <div class="carrousels__container flex flex-col gap-12 mt-28">
+    <app-home-carrousel
+      [actionToPerform]="playing"
+      carrouselName="playingNow"
+      sectionTitle="Movies Playing Now">
+    </app-home-carrousel>
+    <app-home-carrousel
+      [actionToPerform]="popular"
+      carrouselName="popular"
+      sectionTitle="What's Popular">
+    </app-home-carrousel>
+    <app-home-carrousel
+      [actionToPerform]="topRated"
+      carrouselName="topRated"
+      sectionTitle="Top Rated Movies">
+    </app-home-carrousel>
+    <app-home-carrousel
+      [actionToPerform]="upcoming"
+      carrouselName="upcoming"
+      sectionTitle="Upcoming Movies">
+    </app-home-carrousel>
+  </div>
 </div>

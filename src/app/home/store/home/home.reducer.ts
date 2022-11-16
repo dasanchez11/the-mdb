@@ -13,7 +13,7 @@ import { HomeUtils } from './home.utils';
 export interface HomeState {
   loading: IMoviesFetch<boolean, boolean>;
   errors: IMoviesFetch<string, null>;
-  meta: IMoviesFetch<IMoviesMeta, null>;
+  meta: IMoviesFetch<IMoviesMeta, IMoviesMeta>;
   ids: IMoviesFetch<number[], number[]>;
 }
 
@@ -24,7 +24,7 @@ export const homeInitialState: HomeState = {
   ids: idsInitialState,
 };
 
-export const homReducer = createReducer(
+export const homeReducer = createReducer(
   homeInitialState,
   // start
   on(HomeActions.FetchPlayingNowStart, state => ({

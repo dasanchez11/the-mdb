@@ -30,7 +30,7 @@ const routes: Routes = [
     component: ListsMainComponent,
   },
   {
-    path: 'movies',
+    path: 'movies/:id',
     component: MovieDetailsMainComponent,
   },
 ];

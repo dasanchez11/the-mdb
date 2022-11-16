@@ -41,3 +41,5 @@ export const metaInitialState = {
     total_pages: 0,
   },
 };
+
+export type HomeSections = 'popular' | 'topRated' | 'playingNow' | 'upcoming';

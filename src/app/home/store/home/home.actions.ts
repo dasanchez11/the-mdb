@@ -8,6 +8,12 @@ export type HomeStartActions =
   | typeof FetchPopularStart
   | typeof FetchTopRatedStart;
 
+export type HomeSuccessActions =
+  | typeof FetchPlayingNowSuccess
+  | typeof FetchUpcomingSuccess
+  | typeof FetchPopularSuccess
+  | typeof FetchTopRatedSuccess;
+
 export const FetchPlayingNowStart = createAction(
   HomeActionTypes.FETCH_PLAYING_NOW_START,
   props<{ payload: number }>()

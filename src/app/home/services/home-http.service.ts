@@ -14,15 +14,17 @@ export class HomeHttpService {
 
   getPopular(page = 1): Observable<IMoviesReponse> {
     const queryParams = `&page=${page}`;
-    const restUrl = 'popular';
-    const url = this.baseUrl + restUrl + queryParams;
+    const restUrl = 'popular?';
+    const url =
+      this.baseUrl + restUrl + queryParams + `&api_key=${this.apiKey}`;
     return this.http.get<IMoviesReponse>(url);
   }
 
   getTopRated(page = 1): Observable<IMoviesReponse> {
     const queryParams = `&page=${page}`;
-    const restUrl = 'top_rated';
-    const url = this.baseUrl + restUrl + queryParams;
+    const restUrl = 'top_rated?';
+    const url =
+      this.baseUrl + restUrl + queryParams + `&api_key=${this.apiKey}`;
     return this.http.get<IMoviesReponse>(url);
   }
 
@@ -36,8 +38,9 @@ export class HomeHttpService {
 
   getUpcoming(page = 1): Observable<IMoviesReponse> {
     const queryParams = `&page=${page}`;
-    const restUrl = 'upcoming';
-    const url = this.baseUrl + restUrl + queryParams;
+    const restUrl = 'upcoming?';
+    const url =
+      this.baseUrl + restUrl + queryParams + `&api_key=${this.apiKey}`;
     return this.http.get<IMoviesReponse>(url);
   }
 }
