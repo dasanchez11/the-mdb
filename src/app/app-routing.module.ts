@@ -20,8 +20,8 @@ const routes: Routes = [
     loadChildren: () => import('src/app/lists/lists.module').then((m) => m.ListsModule)
   },
   {
-    path: 'movies',
-    loadChildren: () => import('src/app/movie-details/movie-details.module').then((m) => m.MovieDetailsModule)
+    path: 'movies/:id',
+    component: MovieDetailsMainComponent,
   },
 ];
 

@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 
 import { HomeDiscoverComponent } from './home-discover.component';
 
-fdescribe('HomeDiscoverComponent', () => {
+describe('HomeDiscoverComponent', () => {
   let component: HomeDiscoverComponent;
   let fixture: ComponentFixture<HomeDiscoverComponent>;
   let el: DebugElement;
