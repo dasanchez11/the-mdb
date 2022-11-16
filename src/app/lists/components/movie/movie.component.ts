@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { IMovie } from '../../interfaces/movie.interface';
 
 @Component({
@@ -9,6 +9,12 @@ import { IMovie } from '../../interfaces/movie.interface';
 export class MovieComponent {
   @Input() movie!: IMovie;
   @Input() position!: number;
+  @Output() movieIdToDelete = new EventEmitter<number>()
 
-  constructor() {}
+  constructor() { }
+
+  deleteMovie(): void {
+    this.movieIdToDelete.emit(this.movie.id)
+  }
+
 }

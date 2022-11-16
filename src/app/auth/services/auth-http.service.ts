@@ -48,6 +48,10 @@ export class AuthHttpService {
     const restUrl = 'authentication/session/new?api_key=';
     const url = this.baseUrl + restUrl + this.apiKey;
     return this.http.post<IGetSessionId>(url, { request_token }).pipe(
+      map((response) => {
+        this.localStorageService.setElement('sessionId',response.session_id)
+        return response
+      }),
       catchError(error => {
         this.snackBar.openSnackBar(error.error.status_message, true);
         return throwError(() => error.error.status_message);

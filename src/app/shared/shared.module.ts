@@ -10,6 +10,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { StoreModule } from '@ngrx/store';
 import { movieReducer } from './store/movies.reducer';
 import { EffectsModule } from '@ngrx/effects';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './helpers/auth.interceptor';
+import { ListsResolver } from '../lists/resolvers/lists.resolver';
 
 @NgModule({
   declarations: [NavbarComponent, UserDropdownComponent],
@@ -23,5 +26,9 @@ import { EffectsModule } from '@ngrx/effects';
     StoreModule.forFeature('movie', movieReducer),
   ],
   exports: [NavbarComponent],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    ListsResolver
+  ]
 })
 export class SharedModule {}

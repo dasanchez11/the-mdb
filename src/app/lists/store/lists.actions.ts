@@ -12,3 +12,8 @@ export const loadListSuccess = createAction(
 export const loadListFailure = createAction(
   ListsActionsTypes.LOAD_LISTS_FAILURE
 );
+
+export const deleteMovieFromList = createAction(
+  ListsActionsTypes.DELETE_MOVIE_FROM_LIST,
+  props<{ listId: number, movieId: number}>()
+)
