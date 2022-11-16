@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { MovieDetailsMainComponent } from './movie-details/components/movie-details-main/movie-details-main.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -20,11 +21,16 @@ const routes: Routes = [
     loadChildren: () => import('src/app/lists/lists.module').then((m) => m.ListsModule)
   },
   {
-    path: 'movies/:id',
-    component: MovieDetailsMainComponent,
+    path: 'movies',
+    loadChildren: () => import('src/app/movie-details/movie-details.module').then((m) => m.MovieDetailsModule)
   },
 ];
 
+//deleted path
+// {
+//   path: 'movies/:id',
+//   component: MovieDetailsMainComponent,
+// }
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],

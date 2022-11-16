@@ -8,6 +8,7 @@ import { IGetSessionId } from '../interfaces/responses/get-sessionId-response.in
 import { API_KEY } from './apiKey';
 import { AuthLocalStorageService } from './auth-local-storage.service';
 import { RedirectService } from './redirect.service';
+import { map } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root',
