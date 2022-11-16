@@ -11,7 +11,8 @@
   </div>
   <div>
     <h1 class="bold text-4xl text-center">Elements:</h1>
-    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 w-fit m-auto">
+    <div
+      class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 w-fit m-auto">
       <app-movie
         *ngFor="let movie of movieList.items; index as movieIndex"
         [movie]="movie"

@@ -34,7 +34,7 @@ describe('ListDetailsComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            snapshot: { params: { listId: '1' } },
+            snapshot: { params: { listId: mockMovieList.id } },
           },
         },
         {
@@ -54,10 +54,18 @@ describe('ListDetailsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should load list details', () => {
+  it('should load list details', async () => {
     const title = element.query(By.css('.list-name'));
-    expect(title.nativeElement.textContent).toEqual(mockMovieList.name);
+    expect(title.nativeElement.textContent.trim()).toEqual(mockMovieList.name);
     const description = element.query(By.css('.list-description'));
-    expect(description.nativeElement.textContent);
+    expect(description.nativeElement.textContent.trim()).toEqual(
+      mockMovieList.description
+    );
+  });
+
+  it('should retrieve a list which id matches the id in the query params', () => {
+    component.movieListDetails$.subscribe(response => {
+      expect(response.id).toEqual(mockMovieList.id);
+    });
   });
 });
