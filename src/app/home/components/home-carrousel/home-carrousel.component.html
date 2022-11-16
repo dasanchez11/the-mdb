@@ -1,0 +1,19 @@
+<div
+  class="carrousel h-80 overflow-x-auto flex flex-row mt-28 gap-10 pb-10 first:pl-10 last:pr-10"
+  [horizontal]="true"
+  infinite-scroll
+  [scrollWindow]="false"
+  [infiniteScrollDistance]="0"
+  [infiniteScrollThrottle]="1000"
+  (scrolled)="onScroll()">
+  <app-home-card
+    *ngFor="let value of cards"
+    [title]="value.title"
+    [released]="value.release_date"
+    [voteAvg]="value.vote_average * 10"
+    [voteCount]="value.vote_count"
+    [popularity]="value.popularity"
+    [imageUrl]="value.poster_path">
+    value
+  </app-home-card>
+</div>

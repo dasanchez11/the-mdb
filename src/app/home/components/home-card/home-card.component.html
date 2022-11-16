@@ -1,0 +1,17 @@
+<div class="card w-[150px] relative">
+  <img
+    class="rounded-sm h-[250px] w-[150px] object-cover hover:cursor-pointer"
+    width="125"
+    height="187"
+    mat-card-image
+    [src]="imagePath + imageUrl"
+    alt="Photo of a Shiba Inu" />
+  <app-circle
+    [percent]="voteAvg"
+    class="absolute top-[205px] left-2"></app-circle>
+  <div class="card__text-container pt-[30px] px-2">
+    <h1 class="card__title font-bold text-black">{{ title }}</h1>
+    <h3 class="card__subtitle font-thin text-gray-500">{{ released }}</h3>
+    <h3 class="card__subtitle font-thin text-gray-500">{{ released }}</h3>
+  </div>
+</div>

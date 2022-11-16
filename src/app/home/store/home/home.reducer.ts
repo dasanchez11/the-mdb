@@ -24,7 +24,7 @@ export const homeInitialState: HomeState = {
   ids: idsInitialState,
 };
 
-export const homReduce = createReducer(
+export const homReducer = createReducer(
   homeInitialState,
   // start
   on(HomeActions.FetchPlayingNowStart, state => ({

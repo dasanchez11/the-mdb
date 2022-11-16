@@ -1,3 +1,7 @@
-<div class="home">
+<div class="home max-w-[82rem] m-auto">
   <app-home-discover></app-home-discover>
+  <app-home-carrousel
+    [page]="1"
+    [totalPages]="3"
+    [actionToPerform]="playing"></app-home-carrousel>
 </div>
