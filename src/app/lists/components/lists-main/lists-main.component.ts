@@ -15,7 +15,7 @@ export class ListsMainComponent implements OnInit {
 
   ngOnInit(): void {
     this.moviesList$ = this.moviesListService
-      .getLists()
+      .getLoggedUserLists()
       .pipe(map(response => response.results));
   }
 }

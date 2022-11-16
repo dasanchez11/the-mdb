@@ -39,7 +39,7 @@ class MockComponent {
 fdescribe('MovieslistsComponent', () => {
   let component: MovieslistsComponent;
   let fixture: ComponentFixture<MovieslistsComponent>;
-  let element : DebugElement;
+  let element: DebugElement;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -48,8 +48,8 @@ fdescribe('MovieslistsComponent', () => {
 
     fixture = TestBed.createComponent(MovieslistsComponent);
     component = fixture.componentInstance;
-    element = fixture.debugElement
-    component.lists = mockMoviesList
+    element = fixture.debugElement;
+    component.lists = mockMoviesList;
     fixture.detectChanges();
   });
 
@@ -58,7 +58,7 @@ fdescribe('MovieslistsComponent', () => {
   });
 
   it('should render the correct amount of movies', () => {
-    const elementCount = element.queryAll(By.css('app-list-preview'))
-    expect(elementCount.length).toEqual(mockMoviesList.length)
-  })
+    const elementCount = element.queryAll(By.css('app-list-preview'));
+    expect(elementCount.length).toEqual(mockMoviesList.length);
+  });
 });

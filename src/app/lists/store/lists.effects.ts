@@ -9,7 +9,7 @@ export class ListsEffects {
   loadList$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loadLists),
-      concatMap(() => this.listsService.getLists()),
+      concatMap(() => this.listsService.getLoggedUserLists()),
       map(response => loadListSuccess({ lists: response.results }))
     );
   });
