@@ -11,7 +11,10 @@ import { ListsMainComponent } from './components/lists-main/lists-main.component
 import { MovieComponent } from './components/movie/movie.component';
 import { MovieslistsComponent } from './components/movieslists/movieslists.component';
 import { NewListComponent } from './components/new-list/new-list.component';
+import { ListsRoutingModule } from './lists-routing.module';
 import { ListsService } from './services/lists.service';
+
+
 
 @NgModule({
   declarations: [
@@ -30,6 +33,7 @@ import { ListsService } from './services/lists.service';
     ReactiveFormsModule,
     SharedModule,
     MatIconModule,
+    ListsRoutingModule
   ],
   providers: [ListsService],
 })

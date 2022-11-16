@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeMainComponent } from './components/home-main/home-main.component';
+import { NgModule } from '@angular/core';
 import { HomeDiscoverComponent } from './components/home-discover/home-discover.component';
-
+import { HomeMainComponent } from './components/home-main/home-main.component';
+import { HomeRoutingModule } from './home-routing.module';
 
 
 @NgModule({
@@ -11,7 +11,8 @@ import { HomeDiscoverComponent } from './components/home-discover/home-discover.
     HomeDiscoverComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    HomeRoutingModule
   ]
 })
 export class HomeModule { }
