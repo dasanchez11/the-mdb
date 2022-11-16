@@ -4,7 +4,10 @@ import { AuthMainComponent } from './auth/components/auth-main/auth-main.compone
 import { AuthRedirectComponent } from './auth/components/auth-redirect/auth-redirect.component';
 import { FavoritesMainComponent } from './favorites/components/favorites-main/favorites-main.component';
 import { HomeMainComponent } from './home/components/home-main/home-main.component';
+import { ListDetailsComponent } from './lists/components/list-details/list-details.component';
 import { ListsMainComponent } from './lists/components/lists-main/lists-main.component';
+import { NewListComponent } from './lists/components/new-list/new-list.component';
+import { ListsResolver } from './lists/resolvers/lists.resolver';
 import { MovieDetailsMainComponent } from './movie-details/components/movie-details-main/movie-details-main.component';
 
 const routes: Routes = [
@@ -27,7 +30,17 @@ const routes: Routes = [
   },
   {
     path: 'lists',
-    component: ListsMainComponent,
+    component: ListsMainComponent
+  },
+  
+  {
+    path: 'lists/create',
+    component: NewListComponent
+  },
+  {
+    path: 'lists/:listId',
+    component: ListDetailsComponent,
+    resolve: { lists: ListsResolver}
   },
   {
     path: 'movies',

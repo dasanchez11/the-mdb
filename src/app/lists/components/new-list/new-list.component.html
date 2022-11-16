@@ -13,7 +13,11 @@
         formControlName="name"
         type="text"
         placeholder="List name" />
-        <p class="text-red-500 text-xs italic" *ngIf="name.touched && name?.errors?.['required']">Please provide a name.</p>
+      <p
+        class="text-red-500 text-xs italic"
+        *ngIf="name.touched && name?.errors?.['required']">
+        Please provide a name.
+      </p>
     </div>
     <div class="mb-6">
       <label class="block text-gray-700 text-sm font-bold mb-2" for="password">

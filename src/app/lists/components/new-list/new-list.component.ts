@@ -15,29 +15,37 @@ export class NewListComponent {
     description: new FormControl(null),
   });
 
-  constructor(private snackBar : SnackbarService, private listService : ListsService, private router : Router) {}
+  constructor(
+    private snackBar: SnackbarService,
+    private listService: ListsService,
+    private router: Router
+  ) {}
 
   get name(): FormControl {
-    return this.form.get('name') as FormControl
+    return this.form.get('name') as FormControl;
   }
 
-  get description() : FormControl {
-    return this.form.get('description') as FormControl
+  get description(): FormControl {
+    return this.form.get('description') as FormControl;
   }
 
   onSubmit() {
-    if(this.form.invalid){
-      this.snackBar.openSnackBar("Please fill the fields as required",true)
-    }else{
-      this.listService.createList(this.name.value,this.description.value).subscribe(response => {
-        if(response){
-          this.snackBar.openSnackBar("List created succesfully")
-          this.router.navigate(['/lists'])
-        }else{
-          this.snackBar.openSnackBar("There was a problem creating the list.",true)
-        }
-      })
+    if (this.form.invalid) {
+      this.snackBar.openSnackBar('Please fill the fields as required', true);
+    } else {
+      this.listService
+        .createList(this.name.value, this.description.value)
+        .subscribe(response => {
+          if (response) {
+            this.snackBar.openSnackBar('List created succesfully');
+            this.router.navigate(['/lists']);
+          } else {
+            this.snackBar.openSnackBar(
+              'There was a problem creating the list.',
+              true
+            );
+          }
+        });
     }
   }
-
 }

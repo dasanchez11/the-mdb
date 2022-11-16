@@ -1,10 +1,21 @@
 <div class="h-[320px] w-[200px]">
   <div
-    class="rounded-t-lg h-[300px] w-[200px] bg-cover"
+    class="rounded-t-lg h-[300px] w-[200px] bg-cover hover:cursor-pointer"
     [style.background-image]="
       'url(https://image.tmdb.org/t/p/w500' + movie.poster_path + ')'
     "></div>
-  <div class="bg-primary text-white">
-    {{ position }}
+  <div
+    class="flex flex-row text-white bg-primary h-[30px] justify-between items-center p-2">
+    <p>{{ position }}</p>
+    <div class="flex flex-row">
+      <mat-icon
+        class="text-gray-400 scale-75 hover:cursor-pointer hover:text-white"
+        >favorite</mat-icon
+      >
+      <mat-icon
+        class="text-gray-400 scale-75 hover:cursor-pointer hover:text-white"
+        >delete</mat-icon
+      >
+    </div>
   </div>
 </div>

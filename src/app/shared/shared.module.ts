@@ -7,6 +7,9 @@ import { RouterModule } from '@angular/router';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './helpers/auth.interceptor';
+import { ListsResolver } from '../lists/resolvers/lists.resolver';
 
 @NgModule({
   declarations: [NavbarComponent, UserDropdownComponent],
@@ -19,5 +22,9 @@ import { MatMenuModule } from '@angular/material/menu';
     MatMenuModule,
   ],
   exports: [NavbarComponent],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    ListsResolver
+  ]
 })
 export class SharedModule {}

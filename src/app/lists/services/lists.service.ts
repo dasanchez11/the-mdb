@@ -35,10 +35,16 @@ export class ListsService {
     );
   }
 
-  createList(name: string, description: string) : Observable<boolean> {
-    return this.http.post<ICreateListResponse>(`${this.url}list`, {
-      name: name,
-      description: description,
-    }).pipe(map(response => response.success))
+  createList(name: string, description: string): Observable<boolean> {
+    return this.http
+      .post<ICreateListResponse>(`${this.url}list`, {
+        name: name,
+        description: description,
+      })
+      .pipe(map(response => response.success));
+  }
+
+  deleteMovieFromList(movieId: number, listId: number) {
+    return this.http.post(`${this.url}/${listId}/remove_item`,{ media_id : movieId});
   }
 }

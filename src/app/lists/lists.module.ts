@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 import { AppRoutingModule } from '../app-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { ListDetailsComponent } from './components/list-details/list-details.component';
@@ -27,7 +28,8 @@ import { ListsService } from './services/lists.service';
     SharedModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    MatIconModule,
   ],
   providers: [ListsService],
 })
