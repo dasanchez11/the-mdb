@@ -16,13 +16,13 @@
     <button
       [disabled]="loginStarted"
       (click)="loginClick()"
-      class="w-44 flex flex-row items-center justify-center font-extrabold p-2 text-white text-xl bg-primary hover:bg-primary/90 rounded-md disabled:bg-gray-500 disabled:cursor-not-allowed"
+      class="login__button w-44 flex flex-row items-center justify-center font-extrabold p-2 text-white text-xl bg-primary hover:bg-primary/90 rounded-md disabled:bg-gray-500 disabled:cursor-not-allowed"
       color="primary">
       <mat-spinner
         color="accent"
         diameter="20"
         *ngIf="loginStarted"></mat-spinner>
-      <span class="pl-3">Login</span>
+      <span class="login__text pl-3">Login</span>
     </button>
   </div>
 </div>

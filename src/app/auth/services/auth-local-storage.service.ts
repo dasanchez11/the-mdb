@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { IGetTokenResponse } from '../interfaces/get-token-reponse.interface';
 
 @Injectable({
   providedIn: 'root',

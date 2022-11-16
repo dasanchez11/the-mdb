@@ -19,6 +19,11 @@ export const selectCurrentUserLoading = createSelector(
   (state: AuthState) => state.isLoading
 );
 
+export const selectCurrentUserErrors = createSelector(
+  selectAuthState,
+  (state: AuthState) => state.authErrors
+);
+
 export const selectCurrentUserLogged = createSelector(
   selectAuthState,
   (state: AuthState) => !!state.currentUser
