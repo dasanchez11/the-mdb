@@ -1,0 +1,23 @@
+<div class="h-screen" *ngIf="movieListDetails$ | async as movieList">
+  <div class="h-40 bg-gradient-radial">
+    <div class="h-full bg-account-pipes">
+      <div class="h-[95%] w-[95%] m-auto flex flex-col">
+        <h1 class="list-name text-white bold text-4xl mt-3">
+          {{ movieList.name }}
+        </h1>
+        <p class="list-description text-white">{{ movieList.description }}</p>
+      </div>
+    </div>
+  </div>
+  <div>
+    <h1 class="bold text-4xl text-center">Elements:</h1>
+    <div
+      class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 w-fit m-auto">
+      <app-movie
+        *ngFor="let movie of movieList.items; index as movieIndex"
+        [movie]="movie"
+        [position]="movieIndex + 1"
+        class="w-fit"></app-movie>
+    </div>
+  </div>
+</div>

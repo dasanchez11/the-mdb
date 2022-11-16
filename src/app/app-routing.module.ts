@@ -1,36 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthMainComponent } from './auth/components/auth-main/auth-main.component';
-import { AuthRedirectComponent } from './auth/components/auth-redirect/auth-redirect.component';
-import { FavoritesMainComponent } from './favorites/components/favorites-main/favorites-main.component';
-import { HomeMainComponent } from './home/components/home-main/home-main.component';
-import { ListsMainComponent } from './lists/components/lists-main/lists-main.component';
-import { MovieDetailsMainComponent } from './movie-details/components/movie-details-main/movie-details-main.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
     path: 'home',
-    component: HomeMainComponent,
+    loadChildren: () => import('src/app/home/home.module').then((m) => m.HomeModule)
   },
   {
     path: 'login',
-    component: AuthMainComponent,
-  },
-  {
-    path: 'authenticate',
-    component: AuthRedirectComponent,
+    loadChildren: () => import('src/app/auth/auth.module').then((m) => m.AuthModule)
   },
   {
     path: 'favorites',
-    component: FavoritesMainComponent,
+    loadChildren: () => import('src/app/favorites/favorites.module').then((m) => m.FavoritesModule)
   },
   {
     path: 'lists',
-    component: ListsMainComponent,
+    loadChildren: () => import('src/app/lists/lists.module').then((m) => m.ListsModule)
   },
   {
-    path: 'movies',
+    path: 'movies/:id',
     component: MovieDetailsMainComponent,
   },
 ];
