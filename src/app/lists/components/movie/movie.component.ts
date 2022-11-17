@@ -9,12 +9,11 @@ import { IMovie } from '../../interfaces/movie.interface';
 export class MovieComponent {
   @Input() movie!: IMovie;
   @Input() position!: number;
-  @Output() movieIdToDelete = new EventEmitter<number>()
+  @Output() movieIdToDelete = new EventEmitter<number>();
 
-  constructor() { }
+  constructor() {}
 
   deleteMovie(): void {
-    this.movieIdToDelete.emit(this.movie.id)
+    this.movieIdToDelete.emit(this.movie.id);
   }
-
 }

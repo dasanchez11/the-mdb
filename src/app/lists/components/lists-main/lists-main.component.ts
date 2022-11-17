@@ -1,21 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { IMovieList } from '../../interfaces/movie-list-response.interface';
-import { ListsService } from '../../services/lists.service';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { IListDetails } from '../../interfaces/list-details-response.interface';
+import { selectAllLists } from '../../store/lists.selector';
 
 @Component({
   selector: 'app-lists-main',
   templateUrl: './lists-main.component.html',
 })
 export class ListsMainComponent implements OnInit {
-  moviesList$!: Observable<IMovieList[] | null>;
+  moviesList$!: Observable<IListDetails[] | null>;
 
-  constructor(private moviesListService: ListsService) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.moviesList$ = this.moviesListService
-      .getLoggedUserLists()
-      .pipe(map(response => response.results));
+    this.moviesList$ = this.store.select(selectAllLists);
   }
 }

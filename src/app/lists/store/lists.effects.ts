@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { concatMap, map } from 'rxjs/operators';
 import { ListsService } from '../services/lists.service';
 import { loadLists, loadListSuccess } from './lists.actions';
-import { map, concatMap } from 'rxjs/operators';
 
 @Injectable()
 export class ListsEffects {

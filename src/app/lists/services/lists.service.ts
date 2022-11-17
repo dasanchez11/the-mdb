@@ -45,6 +45,8 @@ export class ListsService {
   }
 
   deleteMovieFromList(movieId: number, listId: number) {
-    return this.http.post(`${this.url}/${listId}/remove_item`,{ media_id : movieId});
+    return this.http.post(`${this.url}/${listId}/remove_item`, {
+      media_id: movieId,
+    });
   }
 }
