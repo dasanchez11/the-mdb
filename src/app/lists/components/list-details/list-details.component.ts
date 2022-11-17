@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { IListDetails } from '../../interfaces/list-details-response.interface';
 import { ListsService } from '../../services/lists.service';
-import { Observable } from 'rxjs';
+import { selectListItems } from '../../store/lists.selector';
 
 @Component({
   selector: 'app-list-details',
@@ -13,12 +14,10 @@ export class ListDetailsComponent implements OnInit {
   movieListDetails$!: Observable<IListDetails>;
 
   constructor(
-    private route: ActivatedRoute,
-    private listService: ListsService
+    private store: Store
   ) {}
 
   ngOnInit(): void {
-    let listId = this.route.snapshot.params['listId'];
-    this.movieListDetails$ = this.listService.getListDetails(parseInt(listId!));
+    this.movieListDetails$ = this.store.select(selectListItems)
   }
 }

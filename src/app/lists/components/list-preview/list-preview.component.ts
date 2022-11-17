@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IMovieList } from '../../interfaces/movie-list-response.interface';
+import { IListDetails } from '../../interfaces/list-details-response.interface';
 
 @Component({
   selector: 'app-list-preview',
@@ -7,6 +7,6 @@ import { IMovieList } from '../../interfaces/movie-list-response.interface';
   styleUrls: ['./list-preview.component.scss'],
 })
 export class ListPreviewComponent {
-  @Input() list!: IMovieList;
+  @Input() list!: IListDetails;
   constructor() {}
 }

@@ -10,4 +10,5 @@ export interface IListDetails {
   iso_639_1: string;
   name: string;
   poster_path: string | null;
+  list_type: string;
 }

@@ -3,6 +3,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 import { SharedModule } from '../shared/shared.module';
 import { ListDetailsComponent } from './components/list-details/list-details.component';
 import { ListPreviewComponent } from './components/list-preview/list-preview.component';
@@ -11,9 +13,11 @@ import { MovieComponent } from './components/movie/movie.component';
 import { MovieslistsComponent } from './components/movieslists/movieslists.component';
 import { NewListComponent } from './components/new-list/new-list.component';
 import { ListsRoutingModule } from './lists-routing.module';
+import { ListDetailsResolver } from './resolvers/list-details.resolver';
+import { ListsResolver } from './resolvers/lists.resolver';
 import { ListsService } from './services/lists.service';
-
-
+import { ListsEffects } from './store/lists.effects';
+import * as fromLists from './store/lists.reducer';
 
 @NgModule({
   declarations: [
@@ -31,8 +35,10 @@ import { ListsService } from './services/lists.service';
     ReactiveFormsModule,
     SharedModule,
     MatIconModule,
-    ListsRoutingModule
+    ListsRoutingModule,
+    EffectsModule.forFeature([ListsEffects]),
+    StoreModule.forFeature(fromLists.listsFeatureKey, fromLists.listsReducer),
   ],
-  providers: [ListsService],
+  providers: [ListsService, ListsResolver, ListDetailsResolver],
 })
 export class ListsModule {}

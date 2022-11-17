@@ -1,28 +1,40 @@
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
+import { IListDetails } from '../interfaces/list-details-response.interface';
 import { ListsActions } from './list-actions';
-import { IMovieList } from '../interfaces/movie-list-response.interface';
 
 export const listsFeatureKey = 'lists';
 
-interface ListState extends EntityState<IMovieList> {}
-
-const listsAdapter = createEntityAdapter<IMovieList>();
-
-export interface ListsState {
-  lists: ListState;
+export interface ListsState extends EntityState<IListDetails> {
+  loaded: boolean;
+  selectListId: number | undefined;
 }
+const listsAdapter = createEntityAdapter<IListDetails>();
 
-export const initialListsState = {
-  lists: listsAdapter.getInitialState(),
-};
+export const initialListsState: ListsState = listsAdapter.getInitialState( { loaded: false, selectListId: undefined} );
 
 export const listsReducer = createReducer(
   initialListsState,
-  on(ListsActions.loadListSuccess, (state, action) => {
+  on(ListsActions.loadListSuccess, (state, action) =>
+    listsAdapter.addMany(action.lists, state)
+  ),
+  on(ListsActions.loadListSuccess, (state, action) : ListsState => {
+    return{
+      ...state,
+      loaded: true
+    }
+  }),
+  on(ListsActions.updateLists, (state, action) =>
+    listsAdapter.upsertOne(action.list, state)
+  ),
+  on(ListsActions.loadListDetails, (state, action): ListsState => {
     return {
       ...state,
-      lists: listsAdapter.addMany(action.lists, state.lists),
-    };
-  })
+      selectListId: action.listId
+    }
+  }),
+  on(ListsActions.loadListDetailsSucess, (state,action) => listsAdapter.upsertOne(action.listDetails,state))
 );
+
+export const selectListsState = (state: ListsState) => state;
+export const { selectAll: selectAllLists } = listsAdapter.getSelectors();
