@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { IListDetails } from '../../interfaces/list-details-response.interface';
 import { ListsService } from '../../services/lists.service';
-import { ListsActions } from '../../store/list-actions';
+import { selectListItems } from '../../store/lists.selector';
 
 @Component({
   selector: 'app-list-details',
@@ -11,19 +11,13 @@ import { ListsActions } from '../../store/list-actions';
   styleUrls: ['./list-details.component.scss'],
 })
 export class ListDetailsComponent implements OnInit {
-  movieListDetails$!: IListDetails;
+  movieListDetails$!: Observable<IListDetails>;
 
   constructor(
-    private route: ActivatedRoute,
-    private listService: ListsService,
     private store: Store
   ) {}
 
   ngOnInit(): void {
-    let listId = this.route.snapshot.params['listId'];
-    this.listService.getListDetails(parseInt(listId!)).subscribe(response => {
-      this.movieListDetails$ = response;
-      this.store.dispatch(ListsActions.updateLists({ list: response }));
-    });
+    this.movieListDetails$ = this.store.select(selectListItems)
   }
 }

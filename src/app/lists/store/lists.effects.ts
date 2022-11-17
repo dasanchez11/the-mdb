@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { concatMap, map } from 'rxjs/operators';
 import { ListsService } from '../services/lists.service';
-import { loadLists, loadListSuccess } from './lists.actions';
+import { loadListDetails, loadListDetailsSucess, loadLists, loadListSuccess } from './lists.actions';
 
 @Injectable()
 export class ListsEffects {
@@ -13,6 +13,14 @@ export class ListsEffects {
       map(response => loadListSuccess({ lists: response.results }))
     );
   });
+
+  loadListDetails$ = createEffect(() => { 
+    return this.actions$.pipe(
+      ofType(loadListDetails),
+      concatMap((action) => this.listsService.getListDetails(action.listId)),
+      map(listDetails => loadListDetailsSucess({ listDetails }))
+    )
+  })
 
   constructor(private listsService: ListsService, private actions$: Actions) {}
 }

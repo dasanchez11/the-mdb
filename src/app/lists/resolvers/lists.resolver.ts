@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   Resolve,
-  RouterStateSnapshot,
+  RouterStateSnapshot
 } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
+import { Observable, of, tap, first } from 'rxjs';
 import { AuthLocalStorageService } from 'src/app/auth/services/auth-local-storage.service';
 import { ListsActions } from '../store/list-actions';
+import { selectIsListsLoaded } from '../store/lists.selector';
 
 @Injectable()
 export class ListsResolver implements Resolve<boolean> {
@@ -19,10 +20,13 @@ export class ListsResolver implements Resolve<boolean> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
-    this.store.dispatch(ListsActions.loadLists());
-    if (this.storageService.getElement('requestToken')) {
-      this.store.dispatch(ListsActions.loadLists());
-    }
-    return of(true);
+    return this.store.select(selectIsListsLoaded).pipe(
+      tap((listsLoaded) => {
+        if(!listsLoaded){
+          this.store.dispatch(ListsActions.loadLists());
+        }
+      }),
+      first()
+    )
   }
 }

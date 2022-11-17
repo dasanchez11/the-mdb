@@ -1,4 +1,4 @@
-<div class="h-screen" *ngIf="movieListDetails$ as movieList">
+<div class="h-screen" *ngIf="movieListDetails$ | async as movieList">
   <div class="h-40 bg-gradient-radial">
     <div class="h-full bg-account-pipes">
       <div class="h-[95%] w-[95%] m-auto flex flex-col">

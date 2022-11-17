@@ -4,4 +4,7 @@ export enum ListsActionsTypes {
   LOAD_LISTS_SUCCESS = '[ListsEfects loadLists] Lists Loaded',
   DELETE_MOVIE_FROM_LIST = '[Lists lists-details] Delete Movie From List',
   UPDATE_LIST = '[Lists list-details] Update List',
+  LOAD_LIST_DETAILS = '[Lists list-details-resolver] Load List Details',
+  LOAD_LIST_DETAILS_SUCCESS = '[ListsEffects loadListDetails] List Details Loaded',
+  SET_SELECTED_MOVIE_ID = '[Lists list-details-resolver] Set Selected Movie Id'
 }

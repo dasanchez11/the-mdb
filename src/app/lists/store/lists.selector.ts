@@ -9,3 +9,13 @@ export const selectAllLists = createSelector(
   selectListsState,
   fromLists.selectAllLists
 );
+
+export const selectListItems = createSelector(
+  selectListsState,
+  (state) => state.entities[state.selectListId!]!
+)
+
+export const selectIsListsLoaded = createSelector(
+  selectListsState,
+  (state) => state.loaded
+)

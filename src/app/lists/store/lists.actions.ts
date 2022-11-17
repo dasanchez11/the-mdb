@@ -22,3 +22,14 @@ export const updateLists = createAction(
   ListsActionsTypes.UPDATE_LIST,
   props<{ list: IListDetails }>()
 );
+
+export const loadListDetails = createAction(
+  ListsActionsTypes.LOAD_LIST_DETAILS,
+  props<{ listId : number}>()
+)
+
+export const loadListDetailsSucess = createAction(
+  ListsActionsTypes.LOAD_LIST_DETAILS_SUCCESS,
+  props<{listDetails : IListDetails}>()
+)
+

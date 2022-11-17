@@ -5,19 +5,35 @@ import { ListsActions } from './list-actions';
 
 export const listsFeatureKey = 'lists';
 
-export interface ListsState extends EntityState<IListDetails> {}
+export interface ListsState extends EntityState<IListDetails> {
+  loaded: boolean;
+  selectListId: number | undefined;
+}
 const listsAdapter = createEntityAdapter<IListDetails>();
 
-export const initialListsState: ListsState = listsAdapter.getInitialState();
+export const initialListsState: ListsState = listsAdapter.getInitialState( { loaded: false, selectListId: undefined} );
 
 export const listsReducer = createReducer(
   initialListsState,
   on(ListsActions.loadListSuccess, (state, action) =>
     listsAdapter.addMany(action.lists, state)
   ),
+  on(ListsActions.loadListSuccess, (state, action) : ListsState => {
+    return{
+      ...state,
+      loaded: true
+    }
+  }),
   on(ListsActions.updateLists, (state, action) =>
     listsAdapter.upsertOne(action.list, state)
-  )
+  ),
+  on(ListsActions.loadListDetails, (state, action): ListsState => {
+    return {
+      ...state,
+      selectListId: action.listId
+    }
+  }),
+  on(ListsActions.loadListDetailsSucess, (state,action) => listsAdapter.upsertOne(action.listDetails,state))
 );
 
 export const selectListsState = (state: ListsState) => state;
