@@ -11,9 +11,12 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.component';
 import { AuthInterceptor } from './helpers/auth.interceptor';
 import { movieReducer } from './store/movies.reducer';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 @NgModule({
-  declarations: [NavbarComponent, UserDropdownComponent],
+  declarations: [NavbarComponent, UserDropdownComponent, ConfirmationDialogComponent],
   imports: [
     CommonModule,
     MatButtonModule,
@@ -22,6 +25,7 @@ import { movieReducer } from './store/movies.reducer';
     MatSnackBarModule,
     MatMenuModule,
     StoreModule.forFeature('movie', movieReducer),
+    MatDialogModule
   ],
   exports: [NavbarComponent],
   providers: [
