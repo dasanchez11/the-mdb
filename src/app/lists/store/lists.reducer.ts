@@ -18,7 +18,7 @@ export const listsReducer = createReducer(
   on(ListsActions.loadListSuccess, (state, action) =>
     listsAdapter.addMany(action.lists, state)
   ),
-  on(ListsActions.loadListSuccess, (state, action) : ListsState => {
+  on(ListsActions.loadListSuccess, (state) : ListsState => {
     return{
       ...state,
       loaded: true
@@ -33,7 +33,16 @@ export const listsReducer = createReducer(
       selectListId: action.listId
     }
   }),
-  on(ListsActions.loadListDetailsSucess, (state,action) => listsAdapter.upsertOne(action.listDetails,state))
+  on(ListsActions.loadListDetailsSucess, (state,action) => listsAdapter.upsertOne(action.listDetails,state)),
+  on(ListsActions.deleteMovieFromListSucess, (state,action) : ListsState => {
+    const updatedList : IListDetails = {
+      ...state.entities[state.selectListId!],
+      items: state.entities[state.selectListId!]?.items?.filter(items => items.id !== action.movieId),
+      item_count: state.entities[state.selectListId!]?.item_count! - 1
+    }
+    return listsAdapter.updateOne({ id: updatedList.id!, changes: updatedList}, state)
+  }),
+  on(ListsActions.deleteListSuccess, (state,action) => listsAdapter.removeOne(action.listId,state))
 );
 
 export const selectListsState = (state: ListsState) => state;

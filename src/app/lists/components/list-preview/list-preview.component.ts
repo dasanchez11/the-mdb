@@ -1,5 +1,9 @@
 import { Component, Input } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { IListDetails } from '../../interfaces/list-details-response.interface';
+import { deleteList } from '../../store/lists.actions';
 
 @Component({
   selector: 'app-list-preview',
@@ -8,5 +12,21 @@ import { IListDetails } from '../../interfaces/list-details-response.interface';
 })
 export class ListPreviewComponent {
   @Input() list!: IListDetails;
-  constructor() {}
+  confirmDialog! : MatDialogRef<ConfirmationDialogComponent>
+
+  deleteVisible = false
+
+  constructor(private dialog : MatDialog, private store : Store) {}
+
+  deleteList() : void {
+    this.confirmDialog = this.dialog.open(ConfirmationDialogComponent, {
+      disableClose: true
+    });
+    this.confirmDialog.componentInstance.dialogMessage = "Are you sure you want to delete this list?"
+    this.confirmDialog.afterClosed().subscribe(result => {
+      if(result){
+        this.store.dispatch(deleteList({listId : parseInt(this.list.id!)}))
+      }
+    })
+  }
 }

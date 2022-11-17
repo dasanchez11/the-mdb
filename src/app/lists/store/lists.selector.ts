@@ -1,4 +1,4 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector, StateObservable } from '@ngrx/store';
 import * as fromLists from './lists.reducer';
 
 export const selectListsState = createFeatureSelector<fromLists.ListsState>(
@@ -18,4 +18,9 @@ export const selectListItems = createSelector(
 export const selectIsListsLoaded = createSelector(
   selectListsState,
   (state) => state.loaded
+)
+
+export const selectSelectedListId = createSelector(
+  selectListsState,
+  (state) => state.selectListId
 )
