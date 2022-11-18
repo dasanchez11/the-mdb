@@ -34,8 +34,21 @@ export const authReducer = createReducer(
     isLoading: false,
     authErrors: action.payload,
   })),
-  on(AuthActions.Logout, state => ({
+
+  on(AuthActions.LogoutStart, state => ({
+    ...state,
+    isLoading: true,
+  })),
+
+  on(AuthActions.LogoutSuccess, state => ({
     ...state,
     currentUser: null,
+    isLoading: false,
+  })),
+
+  on(AuthActions.LogoutFailure, (state, action) => ({
+    ...state,
+    isLoading: false,
+    authErrors: action.payload,
   }))
 );

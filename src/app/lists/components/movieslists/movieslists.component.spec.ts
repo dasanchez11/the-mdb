@@ -36,7 +36,7 @@ class MockComponent {
   @Input() list!: IMovieList;
 }
 
-fdescribe('MovieslistsComponent', () => {
+describe('MovieslistsComponent', () => {
   let component: MovieslistsComponent;
   let fixture: ComponentFixture<MovieslistsComponent>;
   let element: DebugElement;

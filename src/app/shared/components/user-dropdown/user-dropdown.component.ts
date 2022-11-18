@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
 import { AppState } from 'src/app/app.store';
-import { Logout } from 'src/app/auth/store/auth.actions';
+import { LogoutStart } from 'src/app/auth/store/auth.actions';
 import { selectCurrentUser } from 'src/app/auth/store/auth.selectors';
 
 @Component({
@@ -23,7 +23,6 @@ export class UserDropdownComponent implements OnInit {
   }
 
   handleLogout() {
-    this.store.dispatch(Logout());
-    localStorage.removeItem('currentUser');
+    this.store.dispatch(LogoutStart());
   }
 }

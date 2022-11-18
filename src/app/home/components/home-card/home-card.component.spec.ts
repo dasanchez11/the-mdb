@@ -4,6 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIconModule } from '@angular/material/icon';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { CircleComponent } from './components/circle/circle.component';
 
 import { HomeCardComponent } from './home-card.component';
@@ -17,13 +18,8 @@ describe('HomeCardComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [HomeCardComponent, CircleComponent],
-      imports: [MatIconModule, NgOptimizedImage],
-      providers: [
-        {
-          provide: Router,
-          useValue: jasmine.createSpyObj('router', ['navigate']),
-        },
-      ],
+      imports: [MatIconModule, NgOptimizedImage, RouterTestingModule],
+      providers: [],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HomeCardComponent);
@@ -66,6 +62,7 @@ describe('HomeCardComponent', () => {
   });
 
   it('should trigger click to navigate', () => {
+    spyOn(router, 'navigate');
     component.handleClick();
     fixture.detectChanges();
     expect(router.navigate).toHaveBeenCalledTimes(1);
