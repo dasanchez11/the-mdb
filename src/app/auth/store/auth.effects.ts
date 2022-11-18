@@ -61,11 +61,15 @@ export class AuthEffects {
             if (data.success) {
               return of(LogoutSuccess());
             } else {
-              return throwError(() => 'Unexpected Error Occurred');
+              return of(
+                LogoutFailure({ payload: 'Unexpected Error Occurred' })
+              );
             }
           }),
           catchError(errorResponse => {
-            return of(LogoutFailure(errorResponse.error.status_message));
+            return of(
+              LogoutFailure({ payload: errorResponse.error.status_message })
+            );
           })
         );
       })
