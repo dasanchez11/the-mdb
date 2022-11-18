@@ -28,7 +28,7 @@ export const selectHomeMeta = createSelector(
   (state: HomeState) => state.meta
 );
 
-export type IHomeSelector = ISectionItems & { movies: Dictionary<Movie> };
+// export type IHomeSelector = ISectionItems & { movies: Dictionary<Movie> };
 
 export const selectHomePlayingNow = createSelector(
   selectHomeLoading,

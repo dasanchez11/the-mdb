@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { SignInFailure, SignInSuccess } from './auth.actions';
-import { catchError, map, of, switchMap, take, tap } from 'rxjs';
+import {
+  LogoutFailure,
+  LogoutSuccess,
+  SignInFailure,
+  SignInSuccess,
+} from './auth.actions';
+import { catchError, map, of, switchMap, take, tap, throwError } from 'rxjs';
 import { AuthHttpService } from '../services/auth-http.service';
 import { IGetSessionId } from '../interfaces/responses/get-sessionId-response.interface';
 import { Router } from '@angular/router';
@@ -20,6 +25,56 @@ export class AuthEffects {
     private router: Router,
     private authStorage: AuthLocalStorageService
   ) {}
+
+  logoutSuccess = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActionTypes.LOGOUT_SUCCESS),
+        tap(() => {
+          localStorage.removeItem('currentUser');
+          localStorage.removeItem('sessionId');
+          localStorage.removeItem('expiresAt');
+          localStorage.removeItem('requestToken');
+          this.router.navigate(['/home']);
+        })
+      ),
+    { dispatch: false }
+  );
+
+  logoutFailure = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActionTypes.LOGOUT_FAILURE),
+        tap(() => {
+          this.snackBar.openSnackBar('Failed logging you out');
+        })
+      ),
+    { dispatch: false }
+  );
+
+  logout = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActionTypes.LOGOUT_START),
+      switchMap(() => {
+        return this.authHttp.deleteSession().pipe(
+          switchMap(data => {
+            if (data.success) {
+              return of(LogoutSuccess());
+            } else {
+              return of(
+                LogoutFailure({ payload: 'Unexpected Error Occurred' })
+              );
+            }
+          }),
+          catchError(errorResponse => {
+            return of(
+              LogoutFailure({ payload: errorResponse.error.status_message })
+            );
+          })
+        );
+      })
+    )
+  );
 
   authSuccess = createEffect(
     () =>

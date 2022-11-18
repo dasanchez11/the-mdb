@@ -1,7 +1,9 @@
 import { mockErrorResponse } from 'src/app/auth/test/mock-error-response';
 import { mockUser } from 'src/app/auth/test/mock-user';
 import {
-  Logout,
+  LogoutFailure,
+  LogoutStart,
+  LogoutSuccess,
   SignInFailure,
   SignInStart,
   SignInSuccess,
@@ -52,12 +54,36 @@ describe('Auth Reducer', () => {
     expect(state).not.toBe(newState);
   });
 
-  it('should change for Logout', () => {
-    const action = Logout();
+  it('should change for Logout Start', () => {
+    const action = LogoutStart();
+    const state = authReducer(authInitialState, action);
+    const newState: AuthState = {
+      isLoading: true,
+      authErrors: null,
+      currentUser: null,
+    };
+    expect(state).toEqual(newState);
+    expect(state).not.toBe(newState);
+  });
+
+  it('should change for Logout Success', () => {
+    const action = LogoutSuccess();
     const state = authReducer(authInitialState, action);
     const newState: AuthState = {
       isLoading: false,
       authErrors: null,
+      currentUser: null,
+    };
+    expect(state).toEqual(newState);
+    expect(state).not.toBe(newState);
+  });
+
+  it('should change for Logout Failure', () => {
+    const action = LogoutFailure({ payload: 'error' });
+    const state = authReducer(authInitialState, action);
+    const newState: AuthState = {
+      isLoading: false,
+      authErrors: 'error',
       currentUser: null,
     };
     expect(state).toEqual(newState);

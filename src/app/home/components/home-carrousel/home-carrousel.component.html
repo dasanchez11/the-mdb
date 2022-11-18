@@ -11,7 +11,7 @@
     [infiniteScrollThrottle]="1000"
     (scrolled)="onScroll()">
     <app-home-card
-      class="first:pl-10"
+      class="carrousel__card first:pl-10"
       *ngFor="let value of cards"
       [id]="value.id"
       [title]="value.title"

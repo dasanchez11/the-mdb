@@ -6,7 +6,9 @@ import { AuthHttpService } from '../services/auth-http.service';
 import { Router } from '@angular/router';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {
-  Logout,
+  LogoutFailure,
+  LogoutStart,
+  LogoutSuccess,
   SignInFailure,
   SignInStart,
   SignInSuccess,
@@ -17,14 +19,15 @@ import { mockSessionId } from 'src/app/auth/test/mock-session-id';
 import { mockErrorResponse } from 'src/app/auth/test/mock-error-response';
 import { AuthLocalStorageService } from '../services/auth-local-storage.service';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('Current User Effects', () => {
   let actions$: Actions;
   let effects: AuthEffects;
   let mockHttp: any;
   let router: Router;
-  let mockStorage: AuthLocalStorageService;
-  let snachBar: SnackbarService;
+  let mockStorage: any;
+  let mockSnackBar: any;
 
   beforeEach(async () => {
     mockHttp = jasmine.createSpyObj('authHttp', [
@@ -32,81 +35,54 @@ describe('Current User Effects', () => {
       'getuserInfo',
       'deleteSession',
     ]);
+    mockStorage = jasmine.createSpyObj('authStorage', ['setElement']);
+    mockSnackBar = jasmine.createSpyObj('snackBar', ['openSnackBar']);
 
     await TestBed.configureTestingModule({
       declarations: [],
-      imports: [MatSnackBarModule],
+      imports: [MatSnackBarModule, RouterTestingModule],
       providers: [
         AuthEffects,
         provideMockActions(() => actions$),
-        {
-          provide: Router,
-          useValue: jasmine.createSpyObj('router', ['navigate']),
-        },
         {
           provide: AuthHttpService,
           useValue: mockHttp,
         },
         {
           provide: AuthLocalStorageService,
-          useValue: jasmine.createSpyObj('authStorage', ['setElement']),
+          useValue: mockStorage,
         },
         {
           provide: SnackbarService,
-          useValue: jasmine.createSpyObj('snackBar', ['openSnackBar']),
+          useValue: mockSnackBar,
         },
       ],
     }).compileComponents();
 
     effects = TestBed.inject(AuthEffects);
-    router = TestBed.get(Router);
-    mockStorage = TestBed.get(AuthLocalStorageService);
-    snachBar = TestBed.get(SnackbarService);
+    router = TestBed.inject(Router);
   });
 
   it('should create', () => {
     expect(effects).toBeTruthy();
   });
 
-  it('should trigger dispatch sign in success action when request success', () => {
-    const mockRequestToken = 'requestToken';
-    const _mockUser = mockUser;
-    const _mockSession = mockSessionId;
-    actions$ = of(SignInStart({ payload: mockRequestToken }));
-    mockHttp.postSessionId.and.returnValue(of(_mockSession));
-    mockHttp.getuserInfo.and.returnValue(of(_mockUser));
+  describe('sign in', () => {
+    it('should trigger dispatch sign in success action when request success', () => {
+      const mockRequestToken = 'requestToken';
+      const _mockUser = mockUser;
+      const _mockSession = mockSessionId;
+      actions$ = of(SignInStart({ payload: mockRequestToken }));
+      mockHttp.postSessionId.and.returnValue(of(_mockSession));
+      mockHttp.getuserInfo.and.returnValue(of(_mockUser));
 
-    effects.authLogin.pipe(take(1)).subscribe((action: any) => {
-      expect(mockHttp.postSessionId).toHaveBeenCalledTimes(1);
-      expect(mockHttp.getuserInfo).toHaveBeenCalledTimes(1);
-      expect(action).toEqual(SignInSuccess({ payload: _mockUser }));
+      effects.authLogin.pipe(take(1)).subscribe((action: any) => {
+        expect(mockHttp.postSessionId).toHaveBeenCalledTimes(1);
+        expect(mockHttp.getuserInfo).toHaveBeenCalledTimes(1);
+        expect(action).toEqual(SignInSuccess({ payload: _mockUser }));
+      });
     });
-  });
 
-  it('should redirect when login success', () => {
-    const _mockUser = mockUser;
-    actions$ = of(SignInSuccess({ payload: _mockUser }));
-    effects.authSuccess.pipe(take(1)).subscribe((action: any) => {
-      expect(router.navigate).toHaveBeenCalledTimes(1);
-      expect(router.navigate).toHaveBeenCalledWith(['/home']);
-      expect(mockStorage.setElement).toHaveBeenCalledTimes(1);
-      expect(snachBar.openSnackBar).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  it('should logout with httpRequest', () => {
-    pending();
-    // spyOn(localStorage, 'removeItem');
-    // actions$ = of(Logout());
-    // effects.logout.pipe(take(1)).subscribe((action: any) => {
-    //   expect(router.navigate).toHaveBeenCalledTimes(1);
-    //   expect(router.navigate).toHaveBeenCalledWith(['/home']);
-    //   expect(mockHttp.deleteSession).toHaveBeenCalledTimes(1);
-    //   expect(localStorage.removeItem).toHaveBeenCalledTimes(4);
-    // });
-  });
-
-  describe('Dispatch sign in Failure', () => {
     it('should dispatch sign in failure when GET Session id fails ', () => {
       const mockRequestToken = 'requestToken';
       actions$ = of(SignInStart({ payload: mockRequestToken }));
@@ -130,6 +106,68 @@ describe('Current User Effects', () => {
         expect(mockHttp.postSessionId).toHaveBeenCalledTimes(1);
         expect(mockHttp.getuserInfo).toHaveBeenCalledTimes(1);
         expect(action).toEqual(SignInFailure({ payload: 'Error Message' }));
+      });
+    });
+
+    it('should redirect when login success', () => {
+      spyOn(router, 'navigate');
+      const _mockUser = mockUser;
+      actions$ = of(SignInSuccess({ payload: _mockUser }));
+      effects.authSuccess.pipe(take(1)).subscribe((action: any) => {
+        expect(router.navigate).toHaveBeenCalledTimes(1);
+        expect(router.navigate).toHaveBeenCalledWith(['/home']);
+        expect(mockStorage.setElement).toHaveBeenCalledTimes(1);
+        expect(mockSnackBar.openSnackBar).toHaveBeenCalledTimes(1);
+      });
+    });
+  });
+
+  describe('Logout', () => {
+    it('should Dispatch logout success:true', () => {
+      actions$ = of(LogoutStart());
+      mockHttp.deleteSession.and.returnValue(of({ success: true }));
+      effects.logout.pipe(take(1)).subscribe((action: any) => {
+        expect(mockHttp.deleteSession).toHaveBeenCalledTimes(1);
+        expect(action).toEqual(LogoutSuccess());
+      });
+    });
+
+    it('should Dispatch logout success:false', () => {
+      actions$ = of(LogoutStart());
+      mockHttp.deleteSession.and.returnValue(of({ success: false }));
+      effects.logout.pipe(take(1)).subscribe((action: any) => {
+        expect(mockHttp.deleteSession).toHaveBeenCalledTimes(1);
+        expect(action).toEqual(
+          LogoutFailure({ payload: 'Unexpected Error Occurred' })
+        );
+      });
+    });
+
+    it('should Dispatch logout logout failure', () => {
+      actions$ = of(LogoutStart());
+      mockHttp.deleteSession.and.returnValue(
+        throwError(() => mockErrorResponse)
+      );
+      effects.logout.pipe(take(1)).subscribe((action: any) => {
+        expect(mockHttp.deleteSession).toHaveBeenCalledTimes(1);
+        expect(action).toEqual(LogoutFailure({ payload: 'Error Message' }));
+      });
+    });
+
+    it('should handle logout success logic', () => {
+      spyOn(localStorage, 'removeItem');
+      spyOn(router, 'navigate');
+      actions$ = of(LogoutSuccess());
+      effects.logoutSuccess.pipe(take(1)).subscribe((action: any) => {
+        expect(localStorage.removeItem).toHaveBeenCalledTimes(4);
+        expect(router.navigate).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    it('should handle logout failure logic', () => {
+      actions$ = of(LogoutFailure({ payload: 'error' }));
+      effects.logoutFailure.pipe(take(1)).subscribe((action: any) => {
+        expect(mockSnackBar.openSnackBar).toHaveBeenCalledTimes(1);
       });
     });
   });

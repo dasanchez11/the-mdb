@@ -21,15 +21,14 @@ describe('AuthHttpService', () => {
   let service: AuthHttpService;
   let httpController: HttpTestingController;
   let baseUrl = 'https://api.themoviedb.org/3/';
-  let snackBar: SnackbarService;
-  let storage: AuthLocalStorageService;
   let apiKey = API_KEY;
-  let redirect: RedirectService;
   let mockStorage: any;
+  let mockSnackBar: any;
+  let mockRedirect: any;
 
   beforeEach(() => {
-    const mockSnackBar = jasmine.createSpyObj('snackBar', ['openSnackBar']);
-    const mockRedirect = jasmine.createSpyObj('redirect', ['redirectToLogin']);
+    mockSnackBar = jasmine.createSpyObj('snackBar', ['openSnackBar']);
+    mockRedirect = jasmine.createSpyObj('redirect', ['redirectToLogin']);
 
     mockStorage = jasmine.createSpyObj('localStorageService', [
       'setElement',
@@ -55,9 +54,6 @@ describe('AuthHttpService', () => {
     });
     service = TestBed.inject(AuthHttpService);
     httpController = TestBed.inject(HttpTestingController);
-    snackBar = TestBed.inject(SnackbarService);
-    storage = TestBed.inject(AuthLocalStorageService);
-    redirect = TestBed.inject(RedirectService);
   });
 
   it('should be created', () => {
@@ -70,7 +66,7 @@ describe('AuthHttpService', () => {
 
     service.getToken().subscribe(response => {
       expect(response).toBe(true);
-      expect(redirect.redirectToLogin).toHaveBeenCalledTimes(1);
+      expect(mockRedirect.redirectToLogin).toHaveBeenCalledTimes(1);
     });
 
     const request = httpController.expectOne(url);
@@ -108,20 +104,29 @@ describe('AuthHttpService', () => {
     request.flush(mockUser);
   });
 
-  it('should delete session', () => {
-    mockStorage.getElement.withArgs('sessionId').and.returnValue('session');
-    const restUrl = '/authentication/session?api_key=';
-    const sessionUrl = '&session_id=';
-    const url = baseUrl + restUrl + apiKey + sessionUrl + 'session';
+  describe('should delete session', () => {
+    it('should delete session if sessionId', () => {
+      mockStorage.getElement.withArgs('sessionId').and.returnValue('session');
+      const restUrl = '/authentication/session?api_key=';
+      const sessionUrl = '&session_id=';
+      const url = baseUrl + restUrl + apiKey + sessionUrl + 'session';
 
-    service.deleteSession().subscribe(response => {
-      expect(response).toEqual({ success: true });
+      service.deleteSession().subscribe(response => {
+        expect(response).toEqual({ success: true });
+      });
+
+      const request = httpController.expectOne(url);
+      expect(request.request.method).toEqual('DELETE');
+      expect(request.request.url).toEqual(url);
+      request.flush({ success: true });
     });
 
-    const request = httpController.expectOne(url);
-    expect(request.request.method).toEqual('DELETE');
-    expect(request.request.url).toEqual(url);
-    request.flush({ success: true });
+    it('should not call the deleteSession if no session Id', () => {
+      mockStorage.getElement.withArgs('sessionId').and.returnValue(null);
+      service.deleteSession().subscribe(response => {
+        expect(response).toEqual({ success: false });
+      });
+    });
   });
 
   describe('Catch Errors', () => {
@@ -131,7 +136,7 @@ describe('AuthHttpService', () => {
 
       service.getToken().subscribe({
         error: error => {
-          expect(snackBar.openSnackBar).toHaveBeenCalledTimes(1);
+          expect(mockSnackBar.openSnackBar).toHaveBeenCalledTimes(1);
           expect(error).toBe(mockExpectederror.status_message);
         },
       });
@@ -152,7 +157,7 @@ describe('AuthHttpService', () => {
           expect(response).toBeUndefined();
         },
         error: error => {
-          expect(snackBar.openSnackBar).toHaveBeenCalledTimes(1);
+          expect(mockSnackBar.openSnackBar).toHaveBeenCalledTimes(1);
           expect(error).toBe(mockExpectederror.status_message);
         },
       });
@@ -168,7 +173,7 @@ describe('AuthHttpService', () => {
 
       service.postSessionId('testToken').subscribe({
         error: error => {
-          expect(snackBar.openSnackBar).toHaveBeenCalledTimes(1);
+          expect(mockSnackBar.openSnackBar).toHaveBeenCalledTimes(1);
           expect(error).toBe(mockExpectederror.status_message);
         },
       });
@@ -187,7 +192,7 @@ describe('AuthHttpService', () => {
 
       service.deleteSession().subscribe({
         error: error => {
-          expect(snackBar.openSnackBar).toHaveBeenCalledTimes(1);
+          expect(mockSnackBar.openSnackBar).toHaveBeenCalledTimes(1);
           expect(error).toBe(mockExpectederror.status_message);
         },
       });

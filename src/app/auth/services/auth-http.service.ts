@@ -8,7 +8,7 @@ import { IGetSessionId } from '../interfaces/responses/get-sessionId-response.in
 import { API_KEY } from './apiKey';
 import { AuthLocalStorageService } from './auth-local-storage.service';
 import { RedirectService } from './redirect.service';
-import { map } from 'rxjs/operators'
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -33,13 +33,9 @@ export class AuthHttpService {
         return throwError(() => error.error.status_message);
       }),
       switchMap(response => {
-        if (response.request_token) {
-          this.localStorageService.setElement('expiresAt', response.expires_at);
-          this.redirect.redirectToLogin(response);
-          return of(true);
-        } else {
-          return of(false);
-        }
+        this.localStorageService.setElement('expiresAt', response.expires_at);
+        this.redirect.redirectToLogin(response);
+        return of(true);
       })
     );
   }
@@ -49,9 +45,9 @@ export class AuthHttpService {
     const restUrl = 'authentication/session/new?api_key=';
     const url = this.baseUrl + restUrl + this.apiKey;
     return this.http.post<IGetSessionId>(url, { request_token }).pipe(
-      map((response) => {
-        this.localStorageService.setElement('sessionId',response.session_id)
-        return response
+      map(response => {
+        this.localStorageService.setElement('sessionId', response.session_id);
+        return response;
       }),
       catchError(error => {
         this.snackBar.openSnackBar(error.error.status_message, true);
@@ -74,7 +70,6 @@ export class AuthHttpService {
 
   deleteSession(): Observable<{ success: boolean }> {
     const sessionId = this.localStorageService.getElement('sessionId');
-    console.log(sessionId);
     if (sessionId) {
       const restUrl = '/authentication/session?api_key=';
       const sessionUrl = '&session_id=';

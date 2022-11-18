@@ -35,4 +35,12 @@ describe('HomeDiscoverComponent', () => {
     const text = button[0].nativeElement.innerText;
     expect(text).toBe('Search');
   });
+
+  it('should render backGroundImage', () => {
+    component.imageUrl = 'image';
+    fixture.detectChanges();
+    const image = el.queryAll(By.css('.discover__img-src'));
+    expect(image.length).toBe(1);
+    expect(image[0].nativeElement.src).toBe('http://localhost:9876/image');
+  });
 });
