@@ -1,5 +1,7 @@
 import {
-  Logout,
+  LogoutFailure,
+  LogoutStart,
+  LogoutSuccess,
   SignInFailure,
   SignInStart,
   SignInSuccess,
@@ -39,8 +41,20 @@ describe('Auth Actions', () => {
     expect(action.payload).toEqual(errorMock);
   });
 
-  it('Should Logout [Logout]', () => {
-    const action = Logout();
-    expect(action.type).toEqual('[Shared Navbar] LOGOUT');
+  it('Should Logout Start', () => {
+    const action = LogoutStart();
+    expect(action.type).toEqual('[Shared Navbar] LOGOUT_START');
+  });
+
+  it('Should Logout Success', () => {
+    const action = LogoutSuccess();
+    expect(action.type).toEqual('[Shared Navbar] LOGOUT_SUCCESS');
+  });
+
+  it('Should Logout Failure', () => {
+    const errorMock = 'Error Occurred';
+    const action = LogoutFailure({ payload: errorMock });
+    expect(action.type).toEqual('[Shared Navbar] LOGOUT_SUCCESS');
+    expect(action.payload).toEqual(errorMock);
   });
 });

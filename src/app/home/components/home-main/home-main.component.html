@@ -1,24 +1,24 @@
 <div class="home max-w-[82rem] m-auto">
-  <app-home-discover></app-home-discover>
+  <app-home-discover class="home__discover"></app-home-discover>
   <div class="carrousels__container flex flex-col gap-12 mt-28">
     <app-home-carrousel
-      [actionToPerform]="playing"
-      carrouselName="playingNow"
+      [actionToPerform]="playingStart"
+      [carrouselSelector]="playingMovies"
       sectionTitle="Movies Playing Now">
     </app-home-carrousel>
     <app-home-carrousel
-      [actionToPerform]="popular"
-      carrouselName="popular"
+      [actionToPerform]="popularStart"
+      [carrouselSelector]="popularMovies"
       sectionTitle="What's Popular">
     </app-home-carrousel>
     <app-home-carrousel
-      [actionToPerform]="topRated"
-      carrouselName="topRated"
+      [actionToPerform]="topRatedStart"
+      [carrouselSelector]="topRatedMovies"
       sectionTitle="Top Rated Movies">
     </app-home-carrousel>
     <app-home-carrousel
-      [actionToPerform]="upcoming"
-      carrouselName="upcoming"
+      [actionToPerform]="upcomingStart"
+      [carrouselSelector]="upcomingMovies"
       sectionTitle="Upcoming Movies">
     </app-home-carrousel>
   </div>

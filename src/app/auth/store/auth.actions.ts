@@ -17,4 +17,9 @@ export const SignInFailure = createAction(
   props<{ payload: string }>()
 );
 
-export const Logout = createAction(AuthActionTypes.LOGOUT);
+export const LogoutStart = createAction(AuthActionTypes.LOGOUT_START);
+export const LogoutSuccess = createAction(AuthActionTypes.LOGOUT_SUCCESS);
+export const LogoutFailure = createAction(
+  AuthActionTypes.LOGOUT_FAILURE,
+  props<{ payload: string }>()
+);
