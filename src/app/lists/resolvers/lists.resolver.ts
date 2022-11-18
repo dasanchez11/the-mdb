@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   Resolve,
-  RouterStateSnapshot
+  RouterStateSnapshot,
 } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, of, tap, first } from 'rxjs';
@@ -21,12 +21,12 @@ export class ListsResolver implements Resolve<boolean> {
     state: RouterStateSnapshot
   ): Observable<boolean> {
     return this.store.select(selectIsListsLoaded).pipe(
-      tap((listsLoaded) => {
-        if(!listsLoaded){
+      tap(listsLoaded => {
+        if (!listsLoaded) {
           this.store.dispatch(ListsActions.loadLists());
         }
       }),
       first()
-    )
+    );
   }
 }

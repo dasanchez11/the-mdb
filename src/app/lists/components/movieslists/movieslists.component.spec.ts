@@ -9,7 +9,7 @@ const mockMoviesList = [
   {
     description: 'test',
     favorite_count: 1,
-    id: 1,
+    id: '1',
     item_count: 1,
     iso_639_1: 'test',
     list_type: 'test',
@@ -19,7 +19,7 @@ const mockMoviesList = [
   {
     description: 'test',
     favorite_count: 1,
-    id: 1,
+    id: '2',
     item_count: 1,
     iso_639_1: 'test',
     list_type: 'test',
@@ -36,7 +36,7 @@ class MockComponent {
   @Input() list!: IMovieList;
 }
 
-fdescribe('MovieslistsComponent', () => {
+describe('MovieslistsComponent', () => {
   let component: MovieslistsComponent;
   let fixture: ComponentFixture<MovieslistsComponent>;
   let element: DebugElement;

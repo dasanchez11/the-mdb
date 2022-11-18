@@ -2,9 +2,9 @@ import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
+import { provideMockStore } from '@ngrx/store/testing';
 import { IListDetails } from '../../interfaces/list-details-response.interface';
-import { ListsService } from '../../services/lists.service';
+import * as Selectors from '../../store/lists.selector';
 import { ListDetailsComponent } from './list-details.component';
 
 const mockMovieList: IListDetails = {
@@ -23,10 +23,6 @@ describe('ListDetailsComponent', () => {
   let fixture: ComponentFixture<ListDetailsComponent>;
   let element: DebugElement;
 
-  const listServiceSpy = jasmine.createSpyObj('ListsService', [
-    'getListDetails',
-  ]);
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ListDetailsComponent],
@@ -37,16 +33,19 @@ describe('ListDetailsComponent', () => {
             snapshot: { params: { listId: mockMovieList.id } },
           },
         },
-        {
-          provide: ListsService,
-          useValue: listServiceSpy,
-        },
+        provideMockStore({
+          selectors: [
+            {
+              selector: Selectors.selectListItems,
+              value: mockMovieList,
+            },
+          ],
+        }),
       ],
     }).compileComponents();
     fixture = TestBed.createComponent(ListDetailsComponent);
     component = fixture.componentInstance;
     element = fixture.debugElement;
-    listServiceSpy.getListDetails.and.returnValue(of(mockMovieList));
     fixture.detectChanges();
   });
 

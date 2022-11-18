@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { IMovie } from '../../interfaces/movie.interface';
 import { deleteMovieFromList } from '../../store/lists.actions';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-movie',
@@ -13,20 +14,24 @@ import { deleteMovieFromList } from '../../store/lists.actions';
 export class MovieComponent {
   @Input() movie!: IMovie;
   @Input() position!: number;
-  confirmDialog! : MatDialogRef<ConfirmationDialogComponent>
+  confirmDialog!: MatDialogRef<ConfirmationDialogComponent>;
 
-  constructor(private store : Store, private dialog : MatDialog) {}
+  constructor(private store: Store, private dialog: MatDialog) {}
+
+  openConfirmationDialog(): Observable<boolean> {
+    this.confirmDialog = this.dialog.open(ConfirmationDialogComponent, {
+      disableClose: true,
+    });
+    this.confirmDialog.componentInstance.dialogMessage =
+      'Are you sure you want to remove this movie from the list?';
+    return this.confirmDialog.afterClosed();
+  }
 
   deleteMovie(): void {
-    this.confirmDialog = this.dialog.open(ConfirmationDialogComponent, {
-      disableClose: true
-    });
-    this.confirmDialog.componentInstance.dialogMessage = "Are you sure you want to remove this movie from the list?"
-    this.confirmDialog.afterClosed().subscribe(result => {
-      if(result){
-        this.store.dispatch(deleteMovieFromList({movieId : this.movie.id}))
+    this.openConfirmationDialog().subscribe(result => {
+      if (result) {
+        this.store.dispatch(deleteMovieFromList({ movieId: this.movie.id }));
       }
-    })
-
+    });
   }
 }

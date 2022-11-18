@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { IListDetails } from '../../interfaces/list-details-response.interface';
-import { ListsService } from '../../services/lists.service';
 import { selectListItems } from '../../store/lists.selector';
 
 @Component({
@@ -13,11 +12,9 @@ import { selectListItems } from '../../store/lists.selector';
 export class ListDetailsComponent implements OnInit {
   movieListDetails$!: Observable<IListDetails>;
 
-  constructor(
-    private store: Store
-  ) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.movieListDetails$ = this.store.select(selectListItems)
+    this.movieListDetails$ = this.store.select(selectListItems);
   }
 }

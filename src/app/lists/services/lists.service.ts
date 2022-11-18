@@ -45,24 +45,26 @@ export class ListsService {
   }
 
   deleteMovieFromList(movieId: number, listId: number): Observable<number> {
-    return this.http.post(`${this.url}list/${listId}/remove_item`, {
-      media_id: movieId,
-    }).pipe(
-      map(() => {
-        return movieId
-      }),
-      catchError(error => {
-        this.snackBar.openSnackBar(error.error.status_message, true);
-        return throwError(() => 'new Error');
+    return this.http
+      .post(`${this.url}list/${listId}/remove_item`, {
+        media_id: movieId,
       })
-    )
+      .pipe(
+        map(() => {
+          return movieId;
+        }),
+        catchError(error => {
+          this.snackBar.openSnackBar(error.error.status_message, true);
+          return throwError(() => 'new Error');
+        })
+      );
   }
 
-  deleteList(listId : number) : Observable<number> {
+  deleteList(listId: number): Observable<number> {
     return this.http.delete(`${this.url}list/${listId}`).pipe(
       map(response => {
-        return listId
+        return listId;
       })
-    )
+    );
   }
 }

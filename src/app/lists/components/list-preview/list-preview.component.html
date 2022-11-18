@@ -3,7 +3,12 @@
   (mouseleave)="deleteVisible = false"
   [style.background-image]="'url(' + list.poster_path + ')'"
   class="bg-primary rounded flex flex-col items-center justify-center h-full w-full relative">
-  <mat-icon class="text-red-500 absolute right-2 top-2 hover:cursor-pointer" *ngIf="deleteVisible" (click)="deleteList()">cancel</mat-icon>
+  <mat-icon
+    class="text-red-500 absolute right-2 top-2 hover:cursor-pointer"
+    *ngIf="deleteVisible"
+    (click)="deleteList()"
+    >cancel</mat-icon
+  >
   <div class="flex flex-col">
     <h1
       class="text-white italic bold text-2xl hover:cursor-pointer"
