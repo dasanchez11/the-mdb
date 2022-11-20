@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Movie } from 'src/app/home/interfaces/movies.interface';
+import { FavoriteActions } from '../../store/favorites-actions';
 
 @Component({
   selector: 'app-favorite-preview',
@@ -9,7 +11,11 @@ import { Movie } from 'src/app/home/interfaces/movies.interface';
 export class FavoritePreviewComponent implements OnInit {
   @Input() movie!: Movie;
 
-  constructor() {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {}
+
+  removeFromFavorites() : void {
+    this.store.dispatch(FavoriteActions.deleteFavorite({favoriteMovieId: this.movie.id}))
+  }
 }

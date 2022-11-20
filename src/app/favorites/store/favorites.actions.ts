@@ -11,3 +11,13 @@ export const loadFavoritesSuccess = createAction(
 export const loadFavoriteFailure = createAction(
   FavoriteActionTypes.LOAD_FAVORITES_FAILURE
 );
+
+export const deleteFavorite = createAction(
+  FavoriteActionTypes.DELETE_FAVORITE,
+  props<{ favoriteMovieId: number }>()
+);
+
+export const deleteFavoriteSuccess = createAction(
+  FavoriteActionTypes.DELETE_FAVORITE_SUCCESS,
+  props<{ favoriteMovieId: number}>()
+)

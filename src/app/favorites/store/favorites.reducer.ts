@@ -20,5 +20,11 @@ export const favoritesReducer = createReducer(
       loaded: true,
       favorites: action.favoriteMovieIds,
     };
+  }),
+  on(FavoriteActions.deleteFavoriteSuccess, (state,action) => {
+    return {
+      ...state,
+      favorites: state.favorites.filter(id => id !== action.favoriteMovieId)
+    }
   })
 );

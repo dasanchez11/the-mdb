@@ -4,7 +4,7 @@ import { concatMap, of } from 'rxjs';
 import { FavoriteService } from '../services/favorite.service';
 import { FavoriteActions } from './favorites-actions';
 import { catchError, map } from 'rxjs/operators';
-import { loadFavoriteFailure, loadFavoritesSuccess } from './favorites.actions';
+import { deleteFavoriteSuccess, loadFavoriteFailure, loadFavoritesSuccess } from './favorites.actions';
 
 @Injectable()
 export class FavoriteEffects {
@@ -19,6 +19,16 @@ export class FavoriteEffects {
       )
     );
   });
+
+  deleteFavorite$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(FavoriteActions.deleteFavorite),
+      concatMap((prop) => this.favoriteService.markFavorite(prop.favoriteMovieId, false)),
+      map(response => 
+        deleteFavoriteSuccess({ favoriteMovieId: response}))
+    )
+  }
+  )
 
   constructor(
     private actions$: Actions,

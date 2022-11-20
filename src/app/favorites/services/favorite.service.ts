@@ -30,4 +30,20 @@ export class FavoriteService {
       )
     );
   }
+
+  markFavorite(movieId : number, favorite : boolean) : Observable<number> {
+    return this.store.select(selectCurrentUser).pipe(
+      map(user => user?.id),
+      switchMap(val =>
+        this.http.post<Response>(
+          `${this.url}account/${val}/favorite`,{
+            media_type: 'movie',
+            media_id: movieId,
+            favorite: favorite
+          } ).pipe(map(() => {
+            return movieId
+          }))
+      )
+    );
+  }
 }
