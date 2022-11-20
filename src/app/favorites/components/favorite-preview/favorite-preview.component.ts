@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -13,7 +13,7 @@ import { FavoriteActions } from '../../store/favorites-actions';
 })
 export class FavoritePreviewComponent {
   @Input() movie!: Movie;
-  confirmDialog! : MatDialogRef<ConfirmationDialogComponent>
+  confirmDialog!: MatDialogRef<ConfirmationDialogComponent>;
 
   constructor(private store: Store, private dialog: MatDialog) {}
 
@@ -26,11 +26,13 @@ export class FavoritePreviewComponent {
     return this.confirmDialog.afterClosed();
   }
 
-  removeFromFavorites() : void {
+  removeFromFavorites(): void {
     this.openConfirmationDialog().subscribe(result => {
-      if(result){
-        this.store.dispatch(FavoriteActions.deleteFavorite({favoriteMovieId: this.movie.id}))
+      if (result) {
+        this.store.dispatch(
+          FavoriteActions.deleteFavorite({ favoriteMovieId: this.movie.id })
+        );
       }
-    })
+    });
   }
 }

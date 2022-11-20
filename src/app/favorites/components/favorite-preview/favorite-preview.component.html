@@ -12,13 +12,15 @@
     <div class="text-gray-400 mb-2">
       {{ movie.release_date | date }}
     </div>
-    <p class="text-gray-700 overflow-hidden line-clamp-2 md:line-clamp-3">
+    <p class="text-gray-700 overflow-hidden line-clamp-3">
       {{ movie.overview }}
     </p>
     <div class="flex flex-row mt-auto gap-2">
       <div
         class="w-8 h-8 rounded-full flex justify-center items-center border border-red-400 bg-red-400">
-        <mat-icon class="text-white scale-75 hover:cursor-pointer" (click)="removeFromFavorites()"
+        <mat-icon
+          class="text-white scale-75 hover:cursor-pointer"
+          (click)="removeFromFavorites()"
           >favorite</mat-icon
         >
       </div>

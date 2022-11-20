@@ -1,16 +1,33 @@
+import {
+  animate,
+  query,
+  stagger,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectCurrentUser } from 'src/app/auth/store/auth.selectors';
-import { User } from 'src/app/auth/interfaces/responses/get-account-response';
 import { Observable } from 'rxjs';
 import { AppState } from 'src/app/app.store';
-import { IMovie } from 'src/app/lists/interfaces/movie.interface';
-import { selectFavoriteMovies } from '../../store/favorite.selectors';
+import { User } from 'src/app/auth/interfaces/responses/get-account-response';
+import { selectCurrentUser } from 'src/app/auth/store/auth.selectors';
 import { Movie } from 'src/app/home/interfaces/movies.interface';
+import { selectFavoriteMovies } from '../../store/favorite.selectors';
 
 @Component({
   selector: 'app-favorites-main',
   templateUrl: './favorites-main.component.html',
+  animations: [
+    trigger('slide-left', [
+      transition('* => *', [
+        query(':enter', [
+          style({ transform: 'translateX(-100%)' }),
+          stagger(100, [animate(200, style({ transform: 'translateX(0%)' }))]),
+        ])
+      ]),
+    ]),
+  ],
 })
 export class FavoritesMainComponent implements OnInit {
   userLoggedIn$!: Observable<User | null>;
