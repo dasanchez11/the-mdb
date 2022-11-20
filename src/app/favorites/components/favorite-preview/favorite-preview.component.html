@@ -1,0 +1,19 @@
+<div class="w-full flex flex-row shadow-lg">
+  <img
+    class="h-[220px] rounded-l"
+    src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}"
+    [alt]="movie.title" />
+  <div
+    class="movie__details h-[220px] border-r border-b border-l border-t border-gray-200 bg-white p-4 flex flex-col leading-normal w-full rounded-r">
+    <div
+      class="text-gray-900 font-bold text-xl mb-2 hover:cursor-pointer hover:text-gradientBlue w-fit">
+      {{ movie.title }}
+    </div>
+    <div class="text-gray-400 mb-2">
+      {{ movie.release_date | date }}
+    </div>
+    <p class="text-gray-700 overflow-hidden text-ellipsis">
+      {{ movie.overview }}
+    </p>
+  </div>
+</div>
