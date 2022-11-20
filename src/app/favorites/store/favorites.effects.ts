@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { concatMap, of } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { FavoriteService } from '../services/favorite.service';
 import { FavoriteActions } from './favorites-actions';
-import { catchError, map } from 'rxjs/operators';
 import {
-  deleteFavoriteSuccess,
-  loadFavoriteFailure,
-  loadFavoritesSuccess,
+  deleteFavoriteFailure,
+  deleteFavoriteSuccess, loadFavoritesSuccess
 } from './favorites.actions';
 
 @Injectable()
@@ -19,7 +18,7 @@ export class FavoriteEffects {
       map(favorites =>
         loadFavoritesSuccess({
           favoriteMovieIds: favorites.results.map(result => result.id),
-        })
+        }),
       )
     );
   });
@@ -27,10 +26,14 @@ export class FavoriteEffects {
   deleteFavorite$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(FavoriteActions.deleteFavorite),
-      concatMap(prop =>
-        this.favoriteService.markFavorite(prop.favoriteMovieId, false)
-      ),
-      map(response => deleteFavoriteSuccess({ favoriteMovieId: response }))
+      switchMap(prop =>
+        this.favoriteService.markFavorite(prop.favoriteMovieId, false).pipe(
+          map(response => deleteFavoriteSuccess({ favoriteMovieId: response })),
+          catchError((error) => {
+            deleteFavoriteFailure({ error : error})
+            return of(error)})
+        )
+      )
     );
   });
 

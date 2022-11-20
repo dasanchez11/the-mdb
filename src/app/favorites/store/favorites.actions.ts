@@ -21,3 +21,8 @@ export const deleteFavoriteSuccess = createAction(
   FavoriteActionTypes.DELETE_FAVORITE_SUCCESS,
   props<{ favoriteMovieId: number }>()
 );
+
+export const deleteFavoriteFailure = createAction(
+  FavoriteActionTypes.DELETE_FAVORITE_FAILURE,
+  props<{ error : Error}>()
+)

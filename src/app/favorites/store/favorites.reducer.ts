@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { FavoriteActions } from './favorites-actions';
 
-export const favoriteFeatureKey = 'favorite';
+export const favoriteFeatureKey = 'favorites';
 
 export interface FavoriteState {
   favorites: number[];
