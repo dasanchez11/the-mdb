@@ -22,15 +22,30 @@
       </div>
     </div>
   </div>
+
   <div class="flex flex-row space-x-200 w-11/12 m-auto justify-between mt-3">
-    <h1 class="font-bold text-black text-3xl flex flex-row">My Favorites</h1>
+    <h1 class="font-bold text-black text-3xl">My Favorites</h1>
   </div>
   <div
-    class="w-11/12 m-auto mt-5 flex flex-col gap-1 pb-10"
-    [@slide-left]="(favorites$ | async)!.length">
-    <app-favorite-preview
-      *ngFor="let favorite of favorites$ | async"
-      [movie]="favorite!">
-    </app-favorite-preview>
+    *ngIf="favorites$ | async as favorites"
+    class="w-11/12 m-auto mt-5 flex flex-col gap-1 pb-10">
+    <div
+      [@slide-left]="favorites!.length"
+      *ngIf="favorites.length > 0; else noFavorites">
+      <app-favorite-preview
+        *ngFor="let favorite of favorites"
+        [movie]="favorite!">
+      </app-favorite-preview>
+    </div>
+    <ng-template #noFavorites>
+      <div class="text-black text-xl">
+        You have no favorites.
+        <a
+          routerLink="/home"
+          class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
+          >Go to home.</a
+        >
+      </div>
+    </ng-template>
   </div>
 </div>

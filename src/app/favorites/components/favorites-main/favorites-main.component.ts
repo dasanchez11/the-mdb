@@ -21,10 +21,16 @@ import { selectFavoriteMovies } from '../../store/favorite.selectors';
   animations: [
     trigger('slide-left', [
       transition('* => *', [
-        query(':enter',[
-          style({ transform: 'translateX(-100%)' }),
-          stagger(100, [animate(200, style({ transform: 'translateX(0%)' }))]),
-        ], {optional: true})
+        query(
+          ':enter',
+          [
+            style({ transform: 'translateX(-100%)' }),
+            stagger(100, [
+              animate(200, style({ transform: 'translateX(0%)' })),
+            ]),
+          ],
+          { optional: true }
+        ),
       ]),
     ]),
   ],

@@ -6,7 +6,8 @@ import { FavoriteService } from '../services/favorite.service';
 import { FavoriteActions } from './favorites-actions';
 import {
   deleteFavoriteFailure,
-  deleteFavoriteSuccess, loadFavoritesSuccess
+  deleteFavoriteSuccess,
+  loadFavoritesSuccess,
 } from './favorites.actions';
 
 @Injectable()
@@ -18,7 +19,7 @@ export class FavoriteEffects {
       map(favorites =>
         loadFavoritesSuccess({
           favoriteMovieIds: favorites.results.map(result => result.id),
-        }),
+        })
       )
     );
   });
@@ -29,9 +30,10 @@ export class FavoriteEffects {
       switchMap(prop =>
         this.favoriteService.markFavorite(prop.favoriteMovieId, false).pipe(
           map(response => deleteFavoriteSuccess({ favoriteMovieId: response })),
-          catchError((error) => {
-            deleteFavoriteFailure({ error : error})
-            return of(error)})
+          catchError(error => {
+            deleteFavoriteFailure({ error: error });
+            return of(error);
+          })
         )
       )
     );

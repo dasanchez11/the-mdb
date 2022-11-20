@@ -24,5 +24,5 @@ export const deleteFavoriteSuccess = createAction(
 
 export const deleteFavoriteFailure = createAction(
   FavoriteActionTypes.DELETE_FAVORITE_FAILURE,
-  props<{ error : Error}>()
-)
+  props<{ error: Error }>()
+);
