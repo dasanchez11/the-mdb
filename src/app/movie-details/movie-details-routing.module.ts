@@ -4,8 +4,8 @@ import { MovieDetailsMainComponent } from './components/movie-details-main/movie
 
 const routes: Routes = [
   {
-    path: '',
-    component: MovieDetailsMainComponent
+    path: ':id',
+    component: MovieDetailsMainComponent,
   },
 ];
 
@@ -13,4 +13,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class MovieDetailsRoutingModule { }
+export class MovieDetailsRoutingModule {}

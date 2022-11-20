@@ -1,1 +1,19 @@
-<p>movie-details-main works!</p>
+<div class="loading"></div>
+<div *ngIf="movie$ | async as movie" class="movie-details max-w-[82rem] m-auto">
+  <app-movie-details-movie [movie]="movie"></app-movie-details-movie>
+  <app-movie-details-reviews></app-movie-details-reviews>
+  <app-carrousel
+    [movieId]="movie.id"
+    [actionToPerform]="null"
+    [actionToPerformMovieId]="similarStart"
+    [carrouselSelector]="similarMovies"
+    sectionTitle="Similar Movies">
+  </app-carrousel>
+  <app-carrousel
+    [movieId]="movie.id"
+    [actionToPerform]="null"
+    [actionToPerformMovieId]="recommendedStart"
+    [carrouselSelector]="recommendedMovies"
+    sectionTitle="Recommended Movies">
+  </app-carrousel>
+</div>

@@ -2,11 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-home-card',
-  templateUrl: './home-card.component.html',
-  styleUrls: ['./home-card.component.scss'],
+  selector: 'app-card',
+  templateUrl: './card.component.html',
 })
-export class HomeCardComponent {
+export class CardComponent {
   imagePath = 'https://image.tmdb.org/t/p/w500';
   @Input() id!: number;
   @Input() title!: string;

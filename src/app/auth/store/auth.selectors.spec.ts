@@ -1,6 +1,7 @@
 import { AppState } from 'src/app/app.store';
 import { mockUser } from 'src/app/auth/test/mock-user';
 import { homeInitialState } from 'src/app/home/store/home/home.reducer';
+import { initialListsState } from 'src/app/lists/store/lists.reducer';
 import { moviesInitialState } from 'src/app/shared/store/movies.reducer';
 import { AuthState } from './auth.reducer';
 import {
@@ -22,6 +23,7 @@ describe('Auth selectors', () => {
       auth: mockAuthState,
       movie: moviesInitialState,
       home: homeInitialState,
+      lists: initialListsState,
     };
     const result = selectAuthState(mockStore);
     expect(result).toBe(mockAuthState);
