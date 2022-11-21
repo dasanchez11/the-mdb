@@ -39,7 +39,7 @@ import { CircleComponent } from './components/card/components/circle/circle.comp
     InfiniteScrollModule,
     NgOptimizedImage,
   ],
-  exports: [NavbarComponent, CardComponent, CarrouselComponent],
+  exports: [NavbarComponent, CardComponent, CarrouselComponent, MatIconModule],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
