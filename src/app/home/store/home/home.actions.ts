@@ -2,12 +2,6 @@ import { createAction, props } from '@ngrx/store';
 import { IMoviesReponse } from '../../interfaces/movies-response.interface';
 import { HomeActionTypes } from './home.types';
 
-export type HomeStartActions =
-  | typeof FetchPlayingNowStart
-  | typeof FetchUpcomingStart
-  | typeof FetchPopularStart
-  | typeof FetchTopRatedStart;
-
 export type HomeSuccessActions =
   | typeof FetchPlayingNowSuccess
   | typeof FetchUpcomingSuccess

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, concatMap, map, mergeMap, of, switchMap } from 'rxjs';
+import { SpecificMovieActionTypes } from 'src/app/movie-details/store/specific-movie.types';
 import { UpsertManyMovies } from 'src/app/shared/store/movies.actions';
 import { IMoviesReponse } from '../../interfaces/movies-response.interface';
 import { HomeHttpService } from '../../services/home-http.service';

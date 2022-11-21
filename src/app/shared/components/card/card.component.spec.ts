@@ -7,22 +7,22 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CircleComponent } from './components/circle/circle.component';
 
-import { HomeCardComponent } from './home-card.component';
+import { CardComponent } from './card.component';
 
 describe('HomeCardComponent', () => {
-  let component: HomeCardComponent;
-  let fixture: ComponentFixture<HomeCardComponent>;
+  let component: CardComponent;
+  let fixture: ComponentFixture<CardComponent>;
   let router: Router;
   let el: DebugElement;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HomeCardComponent, CircleComponent],
+      declarations: [CardComponent, CircleComponent],
       imports: [MatIconModule, NgOptimizedImage, RouterTestingModule],
       providers: [],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(HomeCardComponent);
+    fixture = TestBed.createComponent(CardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
     router = TestBed.inject(Router);

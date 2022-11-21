@@ -1,14 +1,17 @@
 <div class="card w-[150px] relative">
-  <img
-    *ngIf="imagePath && imageUrl"
-    class="card__image backdrop:rounded-sm h-[225px] w-[150px] object-cover hover:cursor-pointer"
-    width="150"
-    height="225"
-    mat-card-image
-    [ngSrc]="imagePath + imageUrl"
-    alt="Movie Picture"
-    (click)="handleClick()" />
+  <div class="min-h-[225px] min-w-[150px]">
+    <img
+      *ngIf="imagePath && imageUrl"
+      class="card__image rounded-md backdrop:rounded-sm h-[225px] w-[150px] object-cover hover:cursor-pointer"
+      width="150"
+      height="225"
+      mat-card-image
+      [ngSrc]="imagePath + imageUrl"
+      alt="Movie Picture"
+      (click)="handleClick()" />
+  </div>
   <app-circle
+    *ngIf="voteAvg > 0"
     [percent]="voteAvg"
     class="card__voteAvg absolute top-[205px] left-2"></app-circle>
   <div class="card__text-container pt-[30px] px-2">

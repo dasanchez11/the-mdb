@@ -12,7 +12,7 @@ export const DeleteOneMovie = createAction(
   props<{ payload: string }>()
 );
 
-export const AddOneMovie = createAction(
-  MoviesActionTypes.ADD_ONE,
-  props<{ payload: Movie }>()
+export const UpdateOneMovie = createAction(
+  MoviesActionTypes.UPDATE_ONE,
+  props<{ payload: { id: number; changes: Movie } }>()
 );

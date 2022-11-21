@@ -1,4 +1,4 @@
-<div class="carrousel__container min-h-80">
+<div class="carrousel__container min-h-[455px]">
   <h1 class="carrousel-title font-bold py-3 text-2xl px-10 text-primary">
     {{ sectionTitle }}
   </h1>
@@ -10,7 +10,7 @@
     [infiniteScrollDistance]="0"
     [infiniteScrollThrottle]="1000"
     (scrolled)="onScroll()">
-    <app-home-card
+    <app-card
       class="carrousel__card first:pl-10"
       *ngFor="let value of cards"
       [id]="value.id"
@@ -21,6 +21,6 @@
       [popularity]="value.popularity"
       [imageUrl]="value.poster_path ? value.poster_path : ''">
       value
-    </app-home-card>
+    </app-card>
   </div>
 </div>

@@ -7,33 +7,29 @@ import { Store } from '@ngrx/store';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AppState } from 'src/app/app.store';
-import { HomeModule } from '../../home.module';
-import { FetchPlayingNowStart } from '../../store/home/home.actions';
-import { selectHomePopular } from '../../store/home/home.selectors';
-import { mockMovies } from '../../test/mock-results';
-import { mockCarrouselResponse } from '../../test/mock-selector';
-import { CircleComponent } from '../home-card/components/circle/circle.component';
-import { HomeCardComponent } from '../home-card/home-card.component';
-import { HomeCarrouselComponent } from './home-carrousel.component';
+import { HomeModule } from '../../../home/home.module';
+import { FetchPlayingNowStart } from '../../../home/store/home/home.actions';
+import { selectHomePopular } from '../../../home/store/home/home.selectors';
+import { mockMovies } from '../../../home/test/mock-results';
+import { mockCarrouselResponse } from '../../../home/test/mock-selector';
+import { CircleComponent } from '../card/components/circle/circle.component';
+import { CardComponent } from '../card/card.component';
+import { CarrouselComponent } from './carrousel.component';
 
-describe('HomeCarrouselComponent', () => {
-  let component: HomeCarrouselComponent;
-  let fixture: ComponentFixture<HomeCarrouselComponent>;
+describe('CarrouselComponent', () => {
+  let component: CarrouselComponent;
+  let fixture: ComponentFixture<CarrouselComponent>;
   let el: DebugElement;
   let store: MockStore<AppState>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        HomeCarrouselComponent,
-        HomeCardComponent,
-        CircleComponent,
-      ],
+      declarations: [CarrouselComponent, CardComponent, CircleComponent],
       imports: [InfiniteScrollModule, MatIconModule, NgOptimizedImage],
       providers: [provideMockStore()],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(HomeCarrouselComponent);
+    fixture = TestBed.createComponent(CarrouselComponent);
     store = TestBed.inject(MockStore);
     store.overrideSelector(selectHomePopular, mockCarrouselResponse);
     component = fixture.componentInstance;
