@@ -1,6 +1,10 @@
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { IListDetails } from '../../interfaces/list-details-response.interface';
 
 import { ListPreviewComponent } from './list-preview.component';
@@ -41,27 +45,5 @@ describe('ListPreviewComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should open dialog', async () => {
-    component.openConfirmationDialog();
-    let dialog = await loader.getHarness(MatDialogHarness);
-    expect(dialog).toBeTruthy();
-  });
-
-  it('should dispatch delete list action when confirmation is true', () => {
-    const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
-    spyOn(component, 'openConfirmationDialog').and.returnValue(of(true));
-    component.deleteList();
-    expect(dispatchSpy).toHaveBeenCalledOnceWith(
-      ListsActions.deleteList({ listId: parseInt(mockList.id) })
-    );
-  });
-
-  it('should not dispatch delete list action when confirmation is false', () => {
-    const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
-    spyOn(component, 'openConfirmationDialog').and.returnValue(of(false));
-    component.deleteList();
-    expect(dispatchSpy).not.toHaveBeenCalled();
   });
 });
