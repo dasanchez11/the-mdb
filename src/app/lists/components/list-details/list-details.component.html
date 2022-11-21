@@ -12,12 +12,22 @@
   <div>
     <h1 class="bold text-4xl text-center">Elements:</h1>
     <div
-      class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 w-11/12 m-auto">
+      class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 w-11/12 m-auto"
+      *ngIf="movieList.items!.length > 0">
       <app-movie
         *ngFor="let movie of movieList.items; index as movieIndex"
         [movie]="movie"
         [position]="movieIndex"
         class="w-fit"></app-movie>
+    </div>
+    <div class="w-11/12 m-auto"
+    *ngIf="movieList.items!.length === 0">
+      You have no elements in this list.
+      <a
+        routerLink="/home"
+        class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
+        >Go to home.</a
+      >
     </div>
   </div>
 </div>
