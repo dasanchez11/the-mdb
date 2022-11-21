@@ -14,7 +14,6 @@ import {
 
 @Injectable()
 export class FavoriteEffects {
-
   upsertFavorites$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(FavoriteActions.loadFavorites),
@@ -23,7 +22,6 @@ export class FavoriteEffects {
     );
   });
 
-  
   loadFavorites$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(FavoriteActions.loadFavorites),

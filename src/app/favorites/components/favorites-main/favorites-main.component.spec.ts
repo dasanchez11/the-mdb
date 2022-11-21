@@ -1,14 +1,14 @@
+import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 import { selectCurrentUser } from 'src/app/auth/store/auth.selectors';
 import { Movie } from 'src/app/home/interfaces/movies.interface';
 import { User } from '../../../auth/interfaces/responses/get-account-response';
-import { selectFavoriteMovies } from '../../store/favorite.selectors';
+import { selectFavoriteMovies } from '../../store/favorites.selectors';
 import { MockFavoritesPreviewComponent } from '../../tests/mock-components/favorite-preview-mock.component';
 import { FavoritesMainComponent } from './favorites-main.component';
-import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
 
 const userMock: User = {
   avatar: {
@@ -59,10 +59,9 @@ const mockMovieList: Movie[] = [
   },
 ];
 
-fdescribe('FavoritesMainComponent', () => {
+describe('FavoritesMainComponent', () => {
   let component: FavoritesMainComponent;
   let fixture: ComponentFixture<FavoritesMainComponent>;
-  let store: MockStore;
   let element: DebugElement;
   let favoritePreviewComponent: MockFavoritesPreviewComponent;
 
@@ -88,7 +87,6 @@ fdescribe('FavoritesMainComponent', () => {
 
     fixture = TestBed.createComponent(FavoritesMainComponent);
     component = fixture.componentInstance;
-    store = TestBed.inject(MockStore);
     element = fixture.debugElement;
     fixture.detectChanges();
   });

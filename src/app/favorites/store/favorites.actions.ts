@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { FavoriteActionTypes } from './favorite.types';
+import { FavoriteActionTypes } from './favorites.types';
 
 export const loadFavorites = createAction(FavoriteActionTypes.LOAD_FAVORITES);
 

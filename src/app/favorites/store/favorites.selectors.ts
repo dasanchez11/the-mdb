@@ -15,7 +15,5 @@ export const selectFavoritesArray = createSelector(
 export const selectFavoriteMovies = createSelector(
   selectFavoritesArray,
   selectMovieEntities,
-  (favoritesIds, movies) => {
-    return favoritesIds.map(id => movies[id]);
-  }
+  (favoritesIds, movies) => favoritesIds.map(id => movies[id])
 );

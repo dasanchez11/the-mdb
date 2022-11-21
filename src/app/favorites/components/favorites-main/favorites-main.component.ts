@@ -13,7 +13,7 @@ import { AppState } from 'src/app/app.store';
 import { User } from 'src/app/auth/interfaces/responses/get-account-response';
 import { selectCurrentUser } from 'src/app/auth/store/auth.selectors';
 import { Movie } from 'src/app/home/interfaces/movies.interface';
-import { selectFavoriteMovies } from '../../store/favorite.selectors';
+import { selectFavoriteMovies } from '../../store/favorites.selectors';
 
 @Component({
   selector: 'app-favorites-main',
