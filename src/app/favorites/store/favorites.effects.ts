@@ -14,6 +14,16 @@ import {
 
 @Injectable()
 export class FavoriteEffects {
+
+  upsertFavorites$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(FavoriteActions.loadFavorites),
+      concatMap(() => this.favoriteService.getLoggedUserFavorites()),
+      map(favorites => UpsertManyMovies({ payload: favorites.results }))
+    );
+  });
+
+  
   loadFavorites$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(FavoriteActions.loadFavorites),
@@ -26,20 +36,15 @@ export class FavoriteEffects {
     );
   });
 
-  upsertFavorites$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(FavoriteActions.loadFavorites),
-      concatMap(() => this.favoriteService.getLoggedUserFavorites()),
-      map(favorites => UpsertManyMovies({payload : favorites.results}))
-    )
-  })
-
   deleteFavorite$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(FavoriteActions.deleteFavorite),
       switchMap(prop =>
         this.favoriteService.markFavorite(prop.favoriteMovieId, false).pipe(
-          map(response => deleteFavoriteSuccess({ favoriteMovieId: response })),
+          map(response => {
+            this.snackBarService.openSnackBar('Favorite deleted successfully!');
+            return deleteFavoriteSuccess({ favoriteMovieId: response });
+          }),
           catchError(error => {
             deleteFavoriteFailure({ error: error });
             return of(error);
@@ -52,6 +57,6 @@ export class FavoriteEffects {
   constructor(
     private actions$: Actions,
     private favoriteService: FavoriteService,
-    private snackBarService : SnackbarService
+    private snackBarService: SnackbarService
   ) {}
 }
