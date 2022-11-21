@@ -18,7 +18,6 @@ export class CardComponent {
   constructor(private router: Router) {}
 
   handleClick() {
-    console.log('click');
     this.router.navigate(['/movies', this.id]);
   }
 }

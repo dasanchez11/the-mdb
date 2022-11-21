@@ -10,6 +10,8 @@ import {
   FetchSimilarStart,
 } from '../../store/specific-movie.actions';
 import {
+  selectAreMovieReviews,
+  selectAreRecommendedMovies,
   selectMovieDetails,
   selectMovieDetailsLoading,
   selectRecommendedMovies,
@@ -27,12 +29,17 @@ export class MovieDetailsMainComponent implements OnInit {
   similarStart = FetchSimilarStart;
   recommendedStart = FetchRecommendedStart;
 
+  areRecommended$!: Observable<boolean>;
+  areReviews$!: Observable<boolean>;
+
   similarMovies = selectSimilarMovies;
   recommendedMovies = selectRecommendedMovies;
 
   constructor(private store: Store<AppState>, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.areReviews$ = this.store.select(selectAreMovieReviews);
+    this.areRecommended$ = this.store.select(selectAreRecommendedMovies);
     this.moviesLoading$ = this.store.select(selectMovieDetailsLoading);
     this.movie$ = this.store.select(selectMovieDetails);
     this.route.paramMap.subscribe(params => {

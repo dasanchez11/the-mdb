@@ -54,7 +54,7 @@ export class SpecificMovieEffects {
     },
     [SpecificMovieActionTypes.FETCH_SIMILAR_START]: {
       success: FetchSimilarSuccess,
-      function: this.specificHttp.getRecommended,
+      function: this.specificHttp.getSimilar,
       failure: FetchSimilarFailure,
     },
   };

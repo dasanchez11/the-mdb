@@ -1,7 +1,9 @@
 <div class="loading"></div>
 <div *ngIf="movie$ | async as movie" class="movie-details max-w-[82rem] m-auto">
   <app-movie-details-movie [movie]="movie"></app-movie-details-movie>
-  <app-movie-details-reviews></app-movie-details-reviews>
+  <app-movie-details-reviews
+    *ngIf="areReviews$ | async"
+    sectionTitle="Reviews"></app-movie-details-reviews>
   <app-carrousel
     [movieId]="movie.id"
     [actionToPerform]="null"
@@ -10,6 +12,7 @@
     sectionTitle="Similar Movies">
   </app-carrousel>
   <app-carrousel
+    *ngIf="areRecommended$ | async"
     [movieId]="movie.id"
     [actionToPerform]="null"
     [actionToPerformMovieId]="recommendedStart"

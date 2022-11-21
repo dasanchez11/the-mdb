@@ -10,6 +10,27 @@ export const selectMovieDetailsState = createSelector(
   state => state.details
 );
 
+export const selectReviewState = createSelector(
+  selectSpecificMovieState,
+  state => state.reviews
+);
+
+export const selectMovieReviews = createSelector(
+  selectReviewState,
+  state => state.result
+);
+
+export const selectAreMovieReviews = createSelector(
+  selectMovieReviews,
+  state => {
+    let hasResults = false;
+    if (state) {
+      hasResults = state.length > 0;
+    }
+    return hasResults;
+  }
+);
+
 export const selectMovieDetails = createSelector(
   selectMovieDetailsState,
   state => state.result
@@ -50,6 +71,17 @@ export const selectRecommendedMovies = createSelector(
       movies: specific.result?.ids.map(id => movies[id]),
     };
     return value;
+  }
+);
+
+export const selectAreRecommendedMovies = createSelector(
+  selectRecommendedMovies,
+  state => {
+    let hasResults = false;
+    if (state.movies) {
+      hasResults = state.movies.length > 0;
+    }
+    return hasResults;
   }
 );
 

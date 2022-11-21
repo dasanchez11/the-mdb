@@ -79,7 +79,7 @@ export const specificMoviesReducer = createReducer(
 
   on(SpecificMovieActions.FetchRecommendedStart, state => ({
     ...state,
-    recommended: { result: null, loading: true, errors: null },
+    recommended: { ...state.recommended, loading: true, errors: null },
   })),
   on(SpecificMovieActions.FetchRecommendedSuccess, (state, action) => ({
     ...state,
@@ -104,7 +104,7 @@ export const specificMoviesReducer = createReducer(
   // similar
   on(SpecificMovieActions.FetchSimilarStart, state => ({
     ...state,
-    similar: { result: null, loading: true, errors: null },
+    similar: { ...state.similar, loading: true, errors: null },
   })),
   on(SpecificMovieActions.FetchSimilarSuccess, (state, action) => ({
     ...state,

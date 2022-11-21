@@ -1,10 +1,10 @@
 export interface MovieReview {
   author: string;
-  auhor_detais: {
+  author_details: {
     name: string;
     username: string;
     avatar_path: string | null;
-    rating: string | null;
+    rating: number | null;
   };
   content: string;
   created_at: string;

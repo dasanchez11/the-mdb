@@ -31,9 +31,9 @@ export class SpecificMovieHttpService {
     return this.http.get<IMoviesReponse>(url);
   }
 
-  getPopular(page: number = 1, movieId: number): Observable<IMoviesReponse> {
+  getSimilar(page: number = 1, movieId: number): Observable<IMoviesReponse> {
     const queryParams = `&page=${page}`;
-    const restUrl = `${movieId}/recommendations?`;
+    const restUrl = `${movieId}/similar?`;
     const url =
       this.baseUrl + restUrl + queryParams + `&api_key=${this.apiKey}`;
     return this.http.get<IMoviesReponse>(url);

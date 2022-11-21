@@ -4,8 +4,6 @@ import { MovieDetailsMainComponent } from './components/movie-details-main/movie
 import { MovieDetailsRoutingModule } from './movie-details-routing.module';
 import { MovieDetailsMovieComponent } from './components/movie-details-movie/movie-details-movie.component';
 import { MovieDetailsReviewsComponent } from './components/movie-details-reviews/movie-details-reviews.component';
-import { MovieDetailsRecomendationsComponent } from './components/movie-details-recomendations/movie-details-recomendations.component';
-import { MovieDetailsSimilarComponent } from './components/movie-details-similar/movie-details-similar.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -15,24 +13,30 @@ import { StoreModule } from '@ngrx/store';
 import { specificMoviesReducer } from './store/specific-movie.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { SpecificMovieEffects } from './store/specific-movie.effects';
+import { ReviewCardComponent } from './components/movie-details-reviews/components/card/review-card.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { MatCardModule } from '@angular/material/card';
+import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 
 @NgModule({
   declarations: [
     MovieDetailsMainComponent,
     MovieDetailsMovieComponent,
     MovieDetailsReviewsComponent,
-    MovieDetailsRecomendationsComponent,
-    MovieDetailsSimilarComponent,
     MovieDetailsCircleComponent,
+    ReviewCardComponent,
+    SafeHtmlPipe,
   ],
   imports: [
     CommonModule,
     MovieDetailsRoutingModule,
     NgOptimizedImage,
     MatIconModule,
+    MatCardModule,
     MatButtonModule,
     MatTooltipModule,
     SharedModule,
+    InfiniteScrollModule,
     StoreModule.forFeature('specificMovie', specificMoviesReducer),
     EffectsModule.forFeature([SpecificMovieEffects]),
   ],
