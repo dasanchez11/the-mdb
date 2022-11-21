@@ -5,4 +5,7 @@ export enum FavoriteActionTypes {
   DELETE_FAVORITE = '[Favorites favorites-preview] DELETE_USER_FAVORITE',
   DELETE_FAVORITE_SUCCESS = '[FavoritesEffects deleteFavorite$] DELETE_FAVORITE_SUCCESS',
   DELETE_FAVORITE_FAILURE = '[FavoritesEffects deleteFavorite$] DELETE_FAVORITE_FAILURE',
+  ADD_FAVORITE = '[Favorites detail_page] ADD_FAVORITE',
+  ADD_FAVORITE_SUCCESS = '[FavoritesEffects addFavorite$] ADD_FAVORITE_SUCCESS',
+  ADD_FAVORITE_FAILURE = '[FavoritesEffects addFavorites$] ADD_FAVORITES_FAILURE'
 }

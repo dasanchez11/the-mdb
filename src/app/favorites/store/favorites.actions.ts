@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { FavoriteEffects } from './favorites.effects';
 import { FavoriteActionTypes } from './favorites.types';
 
 export const loadFavorites = createAction(FavoriteActionTypes.LOAD_FAVORITES);
@@ -26,3 +27,13 @@ export const deleteFavoriteFailure = createAction(
   FavoriteActionTypes.DELETE_FAVORITE_FAILURE,
   props<{ error: Error }>()
 );
+
+export const addMovieToFavorites = createAction(
+  FavoriteActionTypes.ADD_FAVORITE,
+  props<{ movieId : number}>()
+)
+
+export const addMovieToFavoriteSuccess = createAction(
+  FavoriteActionTypes.ADD_FAVORITE_SUCCESS,
+  props<{ movieId : number }>()
+)

@@ -7,6 +7,7 @@ import { UpsertManyMovies } from 'src/app/shared/store/movies.actions';
 import { FavoriteService } from '../services/favorite.service';
 import { FavoriteActions } from './favorites-actions';
 import {
+  addMovieToFavoriteSuccess,
   deleteFavoriteFailure,
   deleteFavoriteSuccess,
   loadFavoritesSuccess,
@@ -33,6 +34,22 @@ export class FavoriteEffects {
       )
     );
   });
+
+  addFavorite$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(FavoriteActions.addMovieToFavorites),
+      switchMap(prop => this.favoriteService.markFavorite(prop.movieId,true).pipe(
+        map(response => {
+          this.snackBarService.openSnackBar('Favorite added succesfully!')
+          return addMovieToFavoriteSuccess({ movieId : response})
+        }),
+        catchError(error => {
+          this.snackBarService.openSnackBar("An error ocurred when adding movie to favorites.")
+          return of(error)
+        })
+      ))
+    )
+  })
 
   deleteFavorite$ = createEffect(() => {
     return this.actions$.pipe(

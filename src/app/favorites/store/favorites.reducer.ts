@@ -26,5 +26,11 @@ export const favoritesReducer = createReducer(
       ...state,
       favorites: state.favorites.filter(id => id !== action.favoriteMovieId),
     };
+  }),
+  on(FavoriteActions.addMovieToFavoriteSuccess, (state, action): FavoriteState => {
+    return {
+      ...state,
+      favorites: [...state.favorites, action.movieId],
+    };
   })
 );
