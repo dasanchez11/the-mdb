@@ -24,7 +24,7 @@ describe('ListPreviewComponent', () => {
 
     fixture = TestBed.createComponent(ListPreviewComponent);
     component = fixture.componentInstance;
-    // component.list = mockList;
+    component.list = mockList;
     fixture.detectChanges();
   });
 

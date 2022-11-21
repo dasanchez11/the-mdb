@@ -49,7 +49,7 @@ describe('MovieslistsComponent', () => {
     fixture = TestBed.createComponent(MovieslistsComponent);
     component = fixture.componentInstance;
     element = fixture.debugElement;
-    // component.lists = mockMoviesList;
+    component.lists = mockMoviesList;
     fixture.detectChanges();
   });
 
