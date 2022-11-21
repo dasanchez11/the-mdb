@@ -1,16 +1,13 @@
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatDialogHarness } from '@angular/material/dialog/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { of } from 'rxjs';
-import { ListsActions } from '../../store/list-actions';
+import { IListDetails } from '../../interfaces/list-details-response.interface';
+
 import { ListPreviewComponent } from './list-preview.component';
 
-const mockList = {
+const mockList : IListDetails = {
+  created_by: "creator",
+  items: [],
   description: 'test',
   favorite_count: 1,
   id: '1',
