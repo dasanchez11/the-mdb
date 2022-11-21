@@ -1,6 +1,8 @@
 import { AppState } from 'src/app/app.store';
 import { authInitialState } from 'src/app/auth/store/auth.reducer';
+import { initialFavoriteState } from 'src/app/favorites/store/favorites.reducer';
 import { initialListsState } from 'src/app/lists/store/lists.reducer';
+import { specificMoviesInitialState } from 'src/app/movie-details/store/specific-movie.reducer';
 import { moviesInitialState } from 'src/app/shared/store/movies.reducer';
 import { mockMoviesEntities } from 'src/app/shared/test/mock-movies';
 import { mockMoviesState } from 'src/app/shared/test/mock-movies-state';
@@ -40,6 +42,8 @@ describe('Home selectors', () => {
       movie: mockMoviesState,
       home: mockHome,
       lists: initialListsState,
+      favorites: initialFavoriteState,
+      specificMovie: specificMoviesInitialState,
     };
   });
 

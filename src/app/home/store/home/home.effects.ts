@@ -37,7 +37,7 @@ export class HomeEffects {
     )
   );
 
-  private possibleActions = {
+  possibleActions = {
     [HomeActionTypes.FETCH_PLAYING_NOW_START]: {
       success: FetchPlayingNowSuccess,
       function: this.homeHttp.getNowPlaying,
