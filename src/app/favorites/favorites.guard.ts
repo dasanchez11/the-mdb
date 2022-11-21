@@ -17,7 +17,9 @@ export class FavoritesGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       return this.store.select(selectCurrentUser).pipe(
         map(user => {
-          this.snackBar.openSnackBar("You need to login to view this page.", true)
+          if(user === null){
+            this.snackBar.openSnackBar("You need to login to view this page.", true)
+          }
           return user !== null})
       )
   }
