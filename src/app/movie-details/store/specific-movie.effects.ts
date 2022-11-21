@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, of, switchMap } from 'rxjs';
+import { catchError, mergeMap, of, switchMap } from 'rxjs';
 import { IMoviesReponse } from 'src/app/home/interfaces/movies-response.interface';
 import { UpsertManyMovies } from 'src/app/shared/store/movies.actions';
 import { SpecificMovieHttpService } from '../services/specific-movie-http.service';
 import {
   ClearSpecificMovies,
+  FetchDetailsFailure,
   FetchDetailsSuccess,
   FetchRecommendedFailure,
   FetchRecommendedSuccess,
@@ -71,12 +72,20 @@ export class SpecificMovieEffects {
             mergeMap(movieResponse => {
               const { recommendations, similar, reviews, ...movieDetails } =
                 movieResponse;
+
               return [
                 FetchDetailsSuccess({ payload: movieDetails }),
                 FetchRecommendedSuccess({ payload: recommendations }),
                 FetchSimilarSuccess({ payload: similar }),
                 FetchReviewsSuccess({ payload: reviews }),
               ];
+            }),
+            catchError(errorResponse => {
+              return of(
+                FetchDetailsFailure({
+                  payload: errorResponse.error.status_message,
+                })
+              );
             })
           );
         }

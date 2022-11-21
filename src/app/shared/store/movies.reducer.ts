@@ -9,5 +9,8 @@ export const movieReducer = createReducer(
   moviesInitialState,
   on(MovieActions.UpsertManyMovies, (state, action) =>
     movieAdapter.upsertMany(action.payload, state)
+  ),
+  on(MovieActions.UpdateOneMovie, (state, action) =>
+    movieAdapter.updateOne(action.payload, state)
   )
 );

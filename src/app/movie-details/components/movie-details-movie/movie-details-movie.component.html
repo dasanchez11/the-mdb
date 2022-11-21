@@ -55,25 +55,34 @@
           <mat-icon class="text-base">format_list_bulleted</mat-icon>
         </button>
         <button
+          (click)="favoriteClick()"
           mat-mini-fab
           matTooltip="Mark as favorite"
           color="primary"
           aria-label="add-to-favorite">
-          <mat-icon class="text-base">favorite</mat-icon>
+          <mat-icon [class]="favorite ? 'text-base text-red-600' : 'text-base'"
+            >favorite</mat-icon
+          >
         </button>
         <button
+          (click)="watchlistClick()"
           mat-mini-fab
           matTooltip="Add to your watchlist "
           color="primary"
           aria-label="add-to-watchlist">
-          <mat-icon class="text-base">bookmark</mat-icon>
+          <mat-icon
+            [class]="watchlist ? 'text-base text-green-600' : 'text-base'"
+            >bookmark</mat-icon
+          >
         </button>
         <button
           mat-mini-fab
           matTooltip="Rate it!"
           color="primary"
           aria-label="rate">
-          <mat-icon class="text-base">star</mat-icon>
+          <mat-icon [class]="rated ? 'text-base text-yellow-500' : 'text-base'"
+            >star</mat-icon
+          >
         </button>
       </div>
       <div class="movie-content__tagline font-thin text-gray-400 italic">

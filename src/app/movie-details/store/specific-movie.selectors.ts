@@ -36,6 +36,11 @@ export const selectMovieDetails = createSelector(
   state => state.result
 );
 
+export const selectMovieAccountState = createSelector(
+  selectMovieDetails,
+  state => state?.account_states
+);
+
 export const selectMovieDetailsLoading = createSelector(
   selectMovieDetailsState,
   state => state.loading
