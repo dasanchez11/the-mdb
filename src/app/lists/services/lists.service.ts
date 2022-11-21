@@ -62,7 +62,7 @@ export class ListsService {
 
   clearList(listId: number): Observable<number> {
     return this.http
-      .post<Response>(`${this.url}list/${listId}/clear?confirm=true`,null)
+      .post<Response>(`${this.url}list/${listId}/clear?confirm=true`, null)
       .pipe(
         map(() => {
           return listId;

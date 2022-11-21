@@ -52,7 +52,8 @@ export class ListsEffects {
     return this.actions$.pipe(
       ofType(clearList),
       concatLatestFrom(() => this.store.select(selectSelectedListId)),
-      switchMap(([action, selectedListId]) => this.listsService.clearList(selectedListId!)
+      switchMap(([action, selectedListId]) =>
+        this.listsService.clearList(selectedListId!)
       ),
       map(response => {
         this.snackBarService.openSnackBar('List cleared successfully!');

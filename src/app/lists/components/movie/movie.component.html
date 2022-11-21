@@ -3,7 +3,8 @@
     class="rounded-t-lg h-[300px] w-[200px] bg-cover hover:cursor-pointer"
     [style.background-image]="
       'url(https://image.tmdb.org/t/p/w500' + movie.poster_path + ')'
-    "></div>
+    "
+    routerLink="/movies/{{movie.id}}"></div>
   <div
     class="flex flex-row text-white bg-primary h-[30px] justify-between items-center p-2">
     <p>{{ position + 1 }}</p>

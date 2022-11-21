@@ -12,6 +12,7 @@ import { ListsMainComponent } from './components/lists-main/lists-main.component
 import { MovieComponent } from './components/movie/movie.component';
 import { MovieslistsComponent } from './components/movieslists/movieslists.component';
 import { NewListComponent } from './components/new-list/new-list.component';
+import { ListGuard } from './list.guard';
 import { ListsRoutingModule } from './lists-routing.module';
 import { ListDetailsResolver } from './resolvers/list-details.resolver';
 import { ListsResolver } from './resolvers/lists.resolver';
@@ -39,6 +40,6 @@ import * as fromLists from './store/lists.reducer';
     EffectsModule.forFeature([ListsEffects]),
     StoreModule.forFeature(fromLists.listsFeatureKey, fromLists.listsReducer),
   ],
-  providers: [ListsService, ListsResolver, ListDetailsResolver],
+  providers: [ListsService, ListsResolver, ListDetailsResolver, ListGuard],
 })
 export class ListsModule {}

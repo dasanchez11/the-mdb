@@ -19,7 +19,7 @@ export class ListDetailsComponent implements OnInit {
     this.movieListDetails$ = this.store.select(selectListItems);
   }
 
-  clearList() : void {
-    this.store.dispatch(clearList())
+  clearList(): void {
+    this.store.dispatch(clearList());
   }
 }

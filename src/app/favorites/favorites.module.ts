@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { FavoritePreviewComponent } from './components/favorite-preview/favorite-preview.component';
 import { FavoritesMainComponent } from './components/favorites-main/favorites-main.component';
 import { FavoritesRoutingModule } from './favorites-router.module';
+import { FavoritesGuard } from './favorites.guard';
 import { FavoritesResolver } from './resolvers/favorites.resolver';
 import { FavoriteService } from './services/favorite.service';
 import { FavoriteEffects } from './store/favorites.effects';
@@ -23,6 +24,6 @@ import * as fromFavorites from './store/favorites.reducer';
     ),
     SharedModule,
   ],
-  providers: [FavoriteService, FavoritesResolver],
+  providers: [FavoriteService, FavoritesResolver, FavoritesGuard],
 })
 export class FavoritesModule {}
