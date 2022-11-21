@@ -41,7 +41,7 @@ import { SharedModule } from './shared/shared.module';
       autoPause: true,
     }),
     EffectsModule.forRoot([]),
-    SharedModule
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

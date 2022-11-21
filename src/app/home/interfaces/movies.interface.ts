@@ -13,4 +13,10 @@ export interface Movie {
   vote_count: number;
   video: boolean;
   vote_average: number;
+  account_states?: {
+    id: number;
+    favorite: boolean;
+    rated: { value: number } | boolean;
+    watchlist: boolean;
+  };
 }

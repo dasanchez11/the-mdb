@@ -18,9 +18,9 @@ import {
   selectHomeTopRated,
   selectHomeUpcoming,
 } from '../../store/home/home.selectors';
-import { CircleComponent } from '../home-card/components/circle/circle.component';
-import { HomeCardComponent } from '../home-card/home-card.component';
-import { HomeCarrouselComponent } from '../home-carrousel/home-carrousel.component';
+import { CircleComponent } from '../../../shared/components/card/components/circle/circle.component';
+import { HomeCardComponent } from '../../../shared/components/card/card.component';
+import { HomeCarrouselComponent } from '../../../shared/components/carrousel/carrousel.component';
 import { HomeDiscoverComponent } from '../home-discover/home-discover.component';
 
 import { HomeMainComponent } from './home-main.component';
