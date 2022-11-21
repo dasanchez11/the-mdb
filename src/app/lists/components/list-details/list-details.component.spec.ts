@@ -7,17 +7,19 @@ import { IListDetails } from '../../interfaces/list-details-response.interface';
 import { ListsService } from '../../services/lists.service';
 import { ListDetailsComponent } from './list-details.component';
 
-// const mockMovieList: IListDetails = {
-//   created_by: 'test',
-//   description: 'test',
-//   favorite_count: 1,
-//   id: '123',
-//   items: [],
-//   item_count: 1,
-//   iso_639_1: 'test',
-//   name: 'test',
-//   poster_path: null,
-// };
+const mockMovieList: IListDetails = {
+  created_by: 'test',
+  description: 'test',
+  favorite_count: 1,
+  id: '123',
+  items: [],
+  item_count: 1,
+  iso_639_1: 'test',
+  name: 'test',
+  poster_path: null,
+  list_type: 'movie'
+};
+
 describe('ListDetailsComponent', () => {
   let component: ListDetailsComponent;
   let fixture: ComponentFixture<ListDetailsComponent>;

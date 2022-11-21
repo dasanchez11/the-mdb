@@ -1,11 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { IListDetails } from '../../interfaces/list-details-response.interface';
 
 import { ListPreviewComponent } from './list-preview.component';
 
-const mockList = {
+const mockList : IListDetails = {
+  created_by: "creator",
+  items: [],
   description: 'test',
   favorite_count: 1,
-  id: 1,
+  id: '1',
   item_count: 1,
   iso_639_1: 'test',
   list_type: 'test',
