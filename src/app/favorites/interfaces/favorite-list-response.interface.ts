@@ -1,8 +1,8 @@
-import { IMovie } from 'src/app/lists/interfaces/movie.interface';
+import { Movie } from 'src/app/home/interfaces/movies.interface';
 
 export interface IFavoriteMoviesResponse {
   page: number;
-  results: IMovie[];
+  results: Movie[];
   total_pages: number;
   total_results: number;
 }
