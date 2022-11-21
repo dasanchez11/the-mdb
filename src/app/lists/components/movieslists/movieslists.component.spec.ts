@@ -1,30 +1,35 @@
 import { Component, DebugElement, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { IListDetails } from '../../interfaces/list-details-response.interface';
 import { IMovieList } from '../../interfaces/movie-list-response.interface';
 
 import { MovieslistsComponent } from './movieslists.component';
 
-const mockMoviesList = [
+const mockMoviesList: IListDetails[] = [
   {
+    created_by: "creator",
     description: 'test',
     favorite_count: 1,
-    id: 1,
+    id: '1',
     item_count: 1,
     iso_639_1: 'test',
     list_type: 'test',
     name: 'test',
     poster_path: 'path',
+    items: []
   },
   {
+    created_by: "creator2",
     description: 'test',
     favorite_count: 1,
-    id: 1,
+    id: '2',
     item_count: 1,
     iso_639_1: 'test',
     list_type: 'test',
     name: 'test',
     poster_path: 'path',
+    items: []
   },
 ];
 
