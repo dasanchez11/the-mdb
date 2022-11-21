@@ -27,7 +27,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     StoreModule.forFeature('movie', movieReducer),
     MatDialogModule
   ],
-  exports: [NavbarComponent],
+  exports: [NavbarComponent, MatIconModule],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ]
