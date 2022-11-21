@@ -51,7 +51,19 @@ export const listsReducer = createReducer(
       { id: updatedList.id!, changes: updatedList },
       state
     );
-  })
+  }),
+  on(ListsActions.clearListSuccess, (state, action) =>
+    listsAdapter.updateOne(
+      {
+        id: state.selectListId!,
+        changes: {
+          ...state.entities[state.selectListId!],
+          items: [],
+        },
+      },
+      state
+    )
+  )
 );
 
 export const selectListsState = (state: ListsState) => state;

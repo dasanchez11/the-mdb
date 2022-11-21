@@ -17,7 +17,7 @@ const mockMovieList: IListDetails = {
   iso_639_1: 'test',
   name: 'test',
   poster_path: null,
-  list_type: 'movie'
+  list_type: 'movie',
 };
 
 describe('ListDetailsComponent', () => {

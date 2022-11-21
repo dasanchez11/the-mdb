@@ -41,3 +41,9 @@ export const deleteMovieFromListSucess = createAction(
 export const deleteMovieFromListFailure = createAction(
   ListsActionsTypes.DELETE_MOVIE_FROM_LIST_FAILURE
 );
+
+export const clearList = createAction(ListsActionsTypes.CLEAR_LIST);
+
+export const clearListSuccess = createAction(
+  ListsActionsTypes.CLEAR_LIST_SUCCESS
+);

@@ -60,11 +60,13 @@ export class ListsService {
       );
   }
 
-  deleteList(listId: number): Observable<number> {
-    return this.http.delete(`${this.url}list/${listId}`).pipe(
-      map(response => {
-        return listId;
-      })
-    );
+  clearList(listId: number): Observable<number> {
+    return this.http
+      .post<Response>(`${this.url}list/${listId}/clear?confirm=true`,null)
+      .pipe(
+        map(() => {
+          return listId;
+        })
+      );
   }
 }

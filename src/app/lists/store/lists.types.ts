@@ -8,4 +8,6 @@ export enum ListsActionsTypes {
   LOAD_LIST_DETAILS_SUCCESS = '[ListsEffects loadListDetails] List Details Loaded',
   DELETE_MOVIE_FROM_LIST_SUCCESS = '[ListsEffects deleteListItem] Item Deleted Succesfully',
   DELETE_MOVIE_FROM_LIST_FAILURE = '[ListEffects deleteListItem] Item Not Deleted',
+  CLEAR_LIST = '[Lists lists-details] CLEAR_LIST',
+  CLEAR_LIST_SUCCESS = '[ListEffects clearList] CLEAR_LIST_SUCCESS',
 }

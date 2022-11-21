@@ -9,8 +9,8 @@ import { IListDetails } from '../../interfaces/list-details-response.interface';
 
 import { ListPreviewComponent } from './list-preview.component';
 
-const mockList : IListDetails = {
-  created_by: "creator",
+const mockList: IListDetails = {
+  created_by: 'creator',
   items: [],
   description: 'test',
   favorite_count: 1,

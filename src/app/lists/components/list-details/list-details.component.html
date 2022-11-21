@@ -5,11 +5,19 @@
         <h1 class="list-name text-white bold text-4xl mt-3">
           {{ movieList.name }}
         </h1>
-        <p class="list-description text-white">{{ movieList.description }}</p>
-        <button
-          class="bg-gradientBlue text-white font-bold py-2 px-4 rounded flex flex-row items-center justify-center">
-          <mat-icon>delete</mat-icon> Clear List
-        </button>
+        <p class="list-description text-white">
+          {{
+            movieList.description === ''
+              ? 'No description'
+              : movieList.description
+          }}
+        </p>
+        <div class="list__controls flex flex-row mt-auto">
+          <button
+            class="bg-gradientBlue text-white font-bold py-2 px-4 rounded flex flex-row items-center justify-center disabled:opacity-25" (click)="clearList()" [disabled]="movieList.items.length === 0">
+            <mat-icon>delete</mat-icon> Clear List
+          </button>
+        </div>
       </div>
     </div>
   </div>

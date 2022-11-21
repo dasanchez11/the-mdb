@@ -8,7 +8,7 @@ import { MovieslistsComponent } from './movieslists.component';
 
 const mockMoviesList: IListDetails[] = [
   {
-    created_by: "creator",
+    created_by: 'creator',
     description: 'test',
     favorite_count: 1,
     id: '1',
@@ -17,10 +17,10 @@ const mockMoviesList: IListDetails[] = [
     list_type: 'test',
     name: 'test',
     poster_path: 'path',
-    items: []
+    items: [],
   },
   {
-    created_by: "creator2",
+    created_by: 'creator2',
     description: 'test',
     favorite_count: 1,
     id: '2',
@@ -29,7 +29,7 @@ const mockMoviesList: IListDetails[] = [
     list_type: 'test',
     name: 'test',
     poster_path: 'path',
-    items: []
+    items: [],
   },
 ];
 
