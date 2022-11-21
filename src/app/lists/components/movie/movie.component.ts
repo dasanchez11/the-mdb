@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { IMovie } from '../../interfaces/movie.interface';
 import { deleteMovieFromList } from '../../store/lists.actions';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-movie',

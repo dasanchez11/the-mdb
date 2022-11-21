@@ -28,20 +28,6 @@ export const loadListDetailsSucess = createAction(
   props<{ listDetails: IListDetails }>()
 );
 
-export const deleteList = createAction(
-  ListsActionsTypes.DELETE_LIST,
-  props<{ listId: number }>()
-);
-
-export const deleteListSuccess = createAction(
-  ListsActionsTypes.DELETE_LIST_SUCCESS,
-  props<{ listId: number }>()
-);
-
-export const deleteListFailure = createAction(
-  ListsActionsTypes.DELETE_LIST_FAILURE
-);
-
 export const deleteMovieFromList = createAction(
   ListsActionsTypes.DELETE_MOVIE_FROM_LIST,
   props<{ movieId: number }>()

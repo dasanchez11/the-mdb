@@ -4,8 +4,6 @@ import { Store } from '@ngrx/store';
 import { concatMap, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { ListsService } from '../services/lists.service';
 import {
-  deleteList,
-  deleteListSuccess,
   deleteMovieFromList,
   deleteMovieFromListSucess,
   loadListDetails,
@@ -41,14 +39,6 @@ export class ListsEffects {
         this.listsService.deleteMovieFromList(action.movieId, selectedListId!)
       ),
       map(response => deleteMovieFromListSucess({ movieId: response }))
-    );
-  });
-
-  deleteList$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(deleteList),
-      concatMap(action => this.listsService.deleteList(action.listId)),
-      map(response => deleteListSuccess({ listId: response }))
     );
   });
 

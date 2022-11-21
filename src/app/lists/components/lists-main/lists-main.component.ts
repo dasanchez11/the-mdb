@@ -13,12 +13,12 @@ import { selectAllLists } from '../../store/lists.selector';
 })
 export class ListsMainComponent implements OnInit {
   moviesList$!: Observable<IListDetails[] | null>;
-  userLoggedIn$! : Observable<User | null>
+  userLoggedIn$!: Observable<User | null>;
 
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.moviesList$ = this.store.select(selectAllLists);
-    this.userLoggedIn$ = this.store.select(selectCurrentUser)
+    this.userLoggedIn$ = this.store.select(selectCurrentUser);
   }
 }

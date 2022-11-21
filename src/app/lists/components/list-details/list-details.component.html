@@ -6,6 +6,10 @@
           {{ movieList.name }}
         </h1>
         <p class="list-description text-white">{{ movieList.description }}</p>
+        <button
+          class="bg-gradientBlue text-white font-bold py-2 px-4 rounded flex flex-row items-center justify-center">
+          <mat-icon>delete</mat-icon> Clear List
+        </button>
       </div>
     </div>
   </div>
@@ -20,8 +24,7 @@
         [position]="movieIndex"
         class="w-fit"></app-movie>
     </div>
-    <div class="w-11/12 m-auto"
-    *ngIf="movieList.items!.length === 0">
+    <div class="w-11/12 m-auto" *ngIf="movieList.items!.length === 0">
       You have no elements in this list.
       <a
         routerLink="/home"

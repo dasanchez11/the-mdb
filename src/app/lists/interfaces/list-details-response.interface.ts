@@ -5,7 +5,7 @@ export interface IListDetails {
   description?: string;
   favorite_count?: number;
   id?: string;
-  items?: IMovie[];
+  items: IMovie[];
   item_count?: number;
   iso_639_1?: string;
   name?: string;
