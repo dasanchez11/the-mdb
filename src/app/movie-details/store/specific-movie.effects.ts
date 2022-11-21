@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, mergeMap, of, switchMap } from 'rxjs';
+import { FavoriteActionTypes } from 'src/app/favorites/store/favorites.types';
 import { IMoviesReponse } from 'src/app/home/interfaces/movies-response.interface';
 import { UpsertManyMovies } from 'src/app/shared/store/movies.actions';
 import { SpecificMovieHttpService } from '../services/specific-movie-http.service';
@@ -13,6 +14,7 @@ import {
   FetchReviewsSuccess,
   FetchSimilarFailure,
   FetchSimilarSuccess,
+  UpdateSpecificFavorite,
 } from './specific-movie.actions';
 import {
   SpecificMovieActionTypes,
@@ -25,6 +27,22 @@ export class SpecificMovieEffects {
     private actions$: Actions,
     private specificHttp: SpecificMovieHttpService
   ) {}
+
+  favoriteChange = createEffect(() =>
+    this.actions$.pipe(
+      ofType(
+        FavoriteActionTypes.ADD_FAVORITE_SUCCESS,
+        FavoriteActionTypes.DELETE_FAVORITE_SUCCESS
+      ),
+      switchMap((result: { type: any; payload: number }) => {
+        let returnValue = false;
+        if (result.type === FavoriteActionTypes.ADD_FAVORITE_SUCCESS) {
+          returnValue = true;
+        }
+        return of(UpdateSpecificFavorite({ payload: returnValue }));
+      })
+    )
+  );
 
   fetchSuccess = createEffect(() =>
     this.actions$.pipe(

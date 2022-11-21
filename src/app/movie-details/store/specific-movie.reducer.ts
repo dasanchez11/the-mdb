@@ -31,6 +31,26 @@ export const specificMoviesInitialState: SpecificMoviesState = {
 
 export const specificMoviesReducer = createReducer(
   specificMoviesInitialState,
+
+  on(SpecificMovieActions.UpdateSpecificFavorite, (state, action) => {
+    if (state.details.result && state.details.result.account_states) {
+      return {
+        ...state,
+        details: {
+          ...state.details,
+          result: {
+            ...state.details.result,
+            account_states: {
+              ...state.details.result?.account_states,
+              favorite: action.payload,
+            },
+          },
+        },
+      };
+    } else {
+      return { ...state };
+    }
+  }),
   //Details
   on(SpecificMovieActions.FetchDetailsStart, state => ({
     ...state,

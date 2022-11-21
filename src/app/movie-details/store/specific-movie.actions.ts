@@ -73,3 +73,18 @@ export const FetchSimilarFailure = createAction(
   SpecificMovieActionTypes.FETCH_SIMILAR_FAILURE,
   props<{ payload: IErrorResponse }>()
 );
+
+export const UpdateSpecificFavorite = createAction(
+  SpecificMovieActionTypes.UPDATE_SPECIFIC_MOVIE_FAVORITE,
+  props<{ payload: boolean }>()
+);
+
+export const UpdateSpecificRate = createAction(
+  SpecificMovieActionTypes.UPDATE_SPECIFIC_MOVIE_RATE,
+  props<{ payload: number }>()
+);
+
+export const UpdateSpecificWatchlist = createAction(
+  SpecificMovieActionTypes.UPDATE_SPECIFIC_MOVIE_WATCHLIST,
+  props<{ payload: number }>()
+);
