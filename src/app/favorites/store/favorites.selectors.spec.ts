@@ -12,6 +12,7 @@ import {
   selectFavoritesState,
 } from './favorites.selectors';
 import { FavoriteState } from './favorites.reducer';
+import { specificMoviesInitialState } from 'src/app/movie-details/store/specific-movie.reducer';
 
 describe('Favorite Selectors', () => {
   let mockFavorite: FavoriteState;
@@ -26,6 +27,7 @@ describe('Favorite Selectors', () => {
       movie: mockMovieState,
       lists: initialListsState,
       favorites: mockFavorite,
+      specificMovie: specificMoviesInitialState,
     };
   });
 

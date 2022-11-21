@@ -19,11 +19,12 @@ import {
   selectHomeUpcoming,
 } from '../../store/home/home.selectors';
 import { CircleComponent } from '../../../shared/components/card/components/circle/circle.component';
-import { HomeCardComponent } from '../../../shared/components/card/card.component';
-import { HomeCarrouselComponent } from '../../../shared/components/carrousel/carrousel.component';
+import { CardComponent } from '../../../shared/components/card/card.component';
+import { CarrouselComponent } from '../../../shared/components/carrousel/carrousel.component';
 import { HomeDiscoverComponent } from '../home-discover/home-discover.component';
 
 import { HomeMainComponent } from './home-main.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 describe('HomeMainComponent', () => {
   let component: HomeMainComponent;
@@ -35,12 +36,13 @@ describe('HomeMainComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [
         HomeMainComponent,
-        HomeCardComponent,
-        HomeCarrouselComponent,
+        CardComponent,
+        CarrouselComponent,
         CircleComponent,
         HomeDiscoverComponent,
       ],
       imports: [
+        SharedModule,
         NgOptimizedImage,
         MatIconModule,
         InfiniteScrollModule,

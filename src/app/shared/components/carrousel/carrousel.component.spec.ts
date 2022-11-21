@@ -13,27 +13,23 @@ import { selectHomePopular } from '../../../home/store/home/home.selectors';
 import { mockMovies } from '../../../home/test/mock-results';
 import { mockCarrouselResponse } from '../../../home/test/mock-selector';
 import { CircleComponent } from '../card/components/circle/circle.component';
-import { HomeCardComponent } from '../card/card.component';
-import { HomeCarrouselComponent } from './carrousel.component';
+import { CardComponent } from '../card/card.component';
+import { CarrouselComponent } from './carrousel.component';
 
-describe('HomeCarrouselComponent', () => {
-  let component: HomeCarrouselComponent;
-  let fixture: ComponentFixture<HomeCarrouselComponent>;
+describe('CarrouselComponent', () => {
+  let component: CarrouselComponent;
+  let fixture: ComponentFixture<CarrouselComponent>;
   let el: DebugElement;
   let store: MockStore<AppState>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        HomeCarrouselComponent,
-        HomeCardComponent,
-        CircleComponent,
-      ],
+      declarations: [CarrouselComponent, CardComponent, CircleComponent],
       imports: [InfiniteScrollModule, MatIconModule, NgOptimizedImage],
       providers: [provideMockStore()],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(HomeCarrouselComponent);
+    fixture = TestBed.createComponent(CarrouselComponent);
     store = TestBed.inject(MockStore);
     store.overrideSelector(selectHomePopular, mockCarrouselResponse);
     component = fixture.componentInstance;
