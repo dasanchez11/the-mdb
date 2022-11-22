@@ -1,6 +1,11 @@
 <div class="h-screen" *ngIf="movieListDetails$ | async as movieList">
-  <div class="h-40 bg-gradient-radial">
-    <div class="h-full bg-account-pipes">
+  <div class="h-40 bg-gradient-radial bg-cover" [style.background-image]="movieList.items.length > 0 ?
+  'linear-gradient(
+    rgba(0, 0, 0, 0.7), 
+    rgba(0, 0, 0, 0.7)
+  ),url(' + imagePath + movieList.items[0].backdrop_path + ')' : ''
+">
+    <div class="h-full">
       <div class="h-[95%] w-[95%] m-auto flex flex-col">
         <h1 class="list-name text-white bold text-4xl mt-3">
           {{ movieList.name }}
@@ -26,7 +31,7 @@
   <div>
     <h1 class="bold text-4xl text-center">Elements:</h1>
     <div
-      class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 w-11/12 m-auto"
+      class="flex flex-row justify-center items-center gap-4 flex-wrap w-11/12 m-auto"
       *ngIf="movieList.items!.length > 0">
       <app-movie
         *ngFor="let movie of movieList.items; index as movieIndex"
