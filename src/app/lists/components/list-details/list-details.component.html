@@ -1,4 +1,4 @@
-<div class="min-h-screen pb-10" *ngIf="movieListDetails$ | async as movieList">
+<div class="min-h-full pb-10" *ngIf="movieListDetails$ | async as movieList">
   <div class="h-60 bg-gradient-radial bg-cover" [style.background-image]="movieList.items.length > 0 ?
   'linear-gradient(
     rgba(0, 0, 0, 0.7), 
@@ -6,14 +6,15 @@
   ),url(' + imagePath + movieList.items[0].backdrop_path + ')' : ''
 ">
     <div class="h-full">
-      <div class="h-[95%] w-[95%] m-auto flex flex-col">
-        <h1 class="list-name text-white bold text-4xl mt-3">
+      <div class="h-[95%] w-[90%] max-w-[1200px] m-auto flex flex-col">
+        <h1 class="list-name text-white bold text-4xl mt-8 font-bold">
           {{ movieList.name }}
         </h1>
+        <p class="text-white font-bold">About this list</p>
         <p class="list-description text-white">
           {{
             movieList.description === ''
-              ? 'No description'
+              ? 'No description.'
               : movieList.description
           }}
         </p>
@@ -33,20 +34,16 @@
       <div class="h-full w-max flex flex-row items-center justify-between gap-10 pt-3 pb-3">
         <div class="text-gradientBlue flex flex-col items-center">
           <p class="text-4xl">{{movieList.items.length}}</p>
-          <p class="text-l bold">ELEMENTS</p>
+          <p class="text-l font-bold">ELEMENTS</p>
         </div>
         <div class="text-gradientBlue flex flex-col items-center flex-nowrap">
-          <p class="text-4xl bold">{{movieList.items | movieItemsAverageRating}}%</p>
-          <p class="text-l">AVERAGE RATING</p>
-        </div>
-        <div class="text-gradientBlue flex flex-col items-center">
-          <p class="text-4xl bold">{{movieList.favorite_count}}</p>
-          <p class="text-l">FAVORITES</p>
+          <p class="text-4xl">{{movieList.items | movieItemsAverageRating}}%</p>
+          <p class="text-l font-bold">AVERAGE RATING</p>
         </div>
       </div>
     </div>
     <div
-      class="flex flex-row justify-center md:justify-start items-center gap-4 flex-wrap w-11/12 m-auto"
+      class="w-[90%] max-w-[1200px] flex flex-row justify-center md:justify-start items-center gap-4 flex-wrap m-auto"
       *ngIf="movieList.items!.length > 0">
       <app-movie
         *ngFor="let movie of movieList.items; index as movieIndex"
@@ -54,7 +51,7 @@
         [position]="movieIndex"
         class="w-fit"></app-movie>
     </div>
-    <div class="w-11/12 m-auto" *ngIf="movieList.items!.length === 0">
+    <div class="w-[80%] m-auto" *ngIf="movieList.items!.length === 0">
       You have no elements in this list.
       <a
         routerLink="/home"
