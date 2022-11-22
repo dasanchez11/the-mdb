@@ -8,5 +8,6 @@ import { IListDetails } from '../../interfaces/list-details-response.interface';
 })
 export class ListPreviewComponent {
   @Input() list!: IListDetails;
+
   constructor() {}
 }

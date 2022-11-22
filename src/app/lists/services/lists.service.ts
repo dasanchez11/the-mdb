@@ -44,9 +44,29 @@ export class ListsService {
       .pipe(map(response => response.success));
   }
 
-  deleteMovieFromList(movieId: number, listId: number) {
-    return this.http.post(`${this.url}/${listId}/remove_item`, {
-      media_id: movieId,
-    });
+  deleteMovieFromList(movieId: number, listId: number): Observable<number> {
+    return this.http
+      .post(`${this.url}list/${listId}/remove_item`, {
+        media_id: movieId,
+      })
+      .pipe(
+        map(() => {
+          return movieId;
+        }),
+        catchError(error => {
+          this.snackBar.openSnackBar(error.error.status_message, true);
+          return throwError(() => 'new Error');
+        })
+      );
+  }
+
+  clearList(listId: number): Observable<number> {
+    return this.http
+      .post<Response>(`${this.url}list/${listId}/clear?confirm=true`, null)
+      .pipe(
+        map(() => {
+          return listId;
+        })
+      );
   }
 }

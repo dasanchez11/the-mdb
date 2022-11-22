@@ -13,11 +13,6 @@ export const loadListFailure = createAction(
   ListsActionsTypes.LOAD_LISTS_FAILURE
 );
 
-export const deleteMovieFromList = createAction(
-  ListsActionsTypes.DELETE_MOVIE_FROM_LIST,
-  props<{ listId: number; movieId: number }>()
-);
-
 export const updateLists = createAction(
   ListsActionsTypes.UPDATE_LIST,
   props<{ list: IListDetails }>()
@@ -25,11 +20,30 @@ export const updateLists = createAction(
 
 export const loadListDetails = createAction(
   ListsActionsTypes.LOAD_LIST_DETAILS,
-  props<{ listId : number}>()
-)
+  props<{ listId: number }>()
+);
 
 export const loadListDetailsSucess = createAction(
   ListsActionsTypes.LOAD_LIST_DETAILS_SUCCESS,
-  props<{listDetails : IListDetails}>()
-)
+  props<{ listDetails: IListDetails }>()
+);
 
+export const deleteMovieFromList = createAction(
+  ListsActionsTypes.DELETE_MOVIE_FROM_LIST,
+  props<{ movieId: number }>()
+);
+
+export const deleteMovieFromListSucess = createAction(
+  ListsActionsTypes.DELETE_MOVIE_FROM_LIST_SUCCESS,
+  props<{ movieId: number }>()
+);
+
+export const deleteMovieFromListFailure = createAction(
+  ListsActionsTypes.DELETE_MOVIE_FROM_LIST_FAILURE
+);
+
+export const clearList = createAction(ListsActionsTypes.CLEAR_LIST);
+
+export const clearListSuccess = createAction(
+  ListsActionsTypes.CLEAR_LIST_SUCCESS
+);

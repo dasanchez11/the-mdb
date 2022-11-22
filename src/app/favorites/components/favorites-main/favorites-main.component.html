@@ -2,7 +2,7 @@
   <div class="h-40 bg-gradient-radial">
     <div class="h-full bg-account-pipes">
       <div class="grid h-full place-items-center">
-        <div class="flex flex-row w-full w-11/12 h-5/6 gap-6">
+        <div class="flex flex-row w-full w-[90%] max-w-[1300px] h-5/6 gap-6">
           <ng-container *ngIf="userLoggedIn$ | async as loggedUser">
             <div class="flex flex-column h-full content-center items-center">
               <div
@@ -24,30 +24,27 @@
     </div>
   </div>
 
-  <div class="flex flex-row space-x-200 w-11/12 m-auto justify-between mt-3">
+  <div class="flex flex-row space-x-200 w-[90%] max-w-[1300px] m-auto justify-between mt-3">
     <h1 class="font-bold text-black text-3xl">My Favorites</h1>
   </div>
   <div
     *ngIf="favorites$ | async as favorites"
-    class="w-11/12 m-auto mt-5 pb-10">
+    class="w-[90%] max-w-[1300px] m-auto mt-5 pb-10">
     <div
       [@slide-left]="favorites!.length"
-      *ngIf="favorites.length > 0; else noFavorites"
       class="flex flex-col gap-2">
       <app-favorite-preview
         *ngFor="let favorite of favorites"
         [movie]="favorite!">
       </app-favorite-preview>
     </div>
-    <ng-template #noFavorites>
-      <div class="text-black text-xl">
-        You have no favorites.
-        <a
-          routerLink="/home"
-          class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
-          >Go to home.</a
-        >
-      </div>
-    </ng-template>
+    <div class="text-black text-xl" *ngIf="(favorites$ | async ) !== null && favorites!.length === 0">
+      You have no favorites.
+      <a
+        routerLink="/home"
+        class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
+        >Go to home.</a
+      >
+    </div>
   </div>
 </div>

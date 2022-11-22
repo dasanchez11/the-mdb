@@ -2,9 +2,12 @@ export enum ListsActionsTypes {
   LOAD_LISTS = '[Lists lists-main] Load User lists',
   LOAD_LISTS_FAILURE = '[ListsEffects loadLists] Failed Loading Lists',
   LOAD_LISTS_SUCCESS = '[ListsEfects loadLists] Lists Loaded',
-  DELETE_MOVIE_FROM_LIST = '[Lists lists-details] Delete Movie From List',
+  DELETE_MOVIE_FROM_LIST = '[Lists movie] Delete Movie From List',
   UPDATE_LIST = '[Lists list-details] Update List',
   LOAD_LIST_DETAILS = '[Lists list-details-resolver] Load List Details',
   LOAD_LIST_DETAILS_SUCCESS = '[ListsEffects loadListDetails] List Details Loaded',
-  SET_SELECTED_MOVIE_ID = '[Lists list-details-resolver] Set Selected Movie Id'
+  DELETE_MOVIE_FROM_LIST_SUCCESS = '[ListsEffects deleteListItem] Item Deleted Succesfully',
+  DELETE_MOVIE_FROM_LIST_FAILURE = '[ListEffects deleteListItem] Item Not Deleted',
+  CLEAR_LIST = '[Lists lists-details] CLEAR_LIST',
+  CLEAR_LIST_SUCCESS = '[ListEffects clearList] CLEAR_LIST_SUCCESS',
 }
