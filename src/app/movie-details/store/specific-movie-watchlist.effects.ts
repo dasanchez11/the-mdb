@@ -25,7 +25,7 @@ export class SpecificMovieWatchlistEffects {
           return this.specificHttp.postWatchlist(true, data.payload).pipe(
             switchMap(response => {
               this.snackBarService.openSnackBar(
-                'Added Successfuly to watchlist',
+                'Added Successfully to watchlist',
                 false
               );
               return of(UpdateSpecificWatchlistSuccess({ payload: true }));
@@ -54,7 +54,7 @@ export class SpecificMovieWatchlistEffects {
           return this.specificHttp.postWatchlist(false, data.payload).pipe(
             switchMap(response => {
               this.snackBarService.openSnackBar(
-                'Removed from watchlist successfuly',
+                'Removed from watchlist successfully',
                 false
               );
               return of(UpdateSpecificWatchlistSuccess({ payload: false }));

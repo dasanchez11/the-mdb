@@ -13,9 +13,10 @@ import {
   FetchSimilarFailure,
   FetchSimilarStart,
   FetchSimilarSuccess,
+  UpdateAddSpecificRate,
+  UpdateDeleteSpecificRate,
   UpdateSpecificFavorite,
-  UpdateSpecificRate,
-  UpdateSpecificWatchlist,
+  UpdateSpecificWatchlistSuccess,
 } from './specific-movie.actions';
 import { SpecificMovieActionTypes } from './specific-movie.types';
 
@@ -116,19 +117,26 @@ describe('Specific Movie Actions', () => {
     });
 
     it('should update watchList', () => {
-      const action = UpdateSpecificWatchlist({ payload: true });
+      const action = UpdateSpecificWatchlistSuccess({ payload: true });
       expect(action.type).toEqual(
-        SpecificMovieActionTypes.UPDATE_SPECIFIC_MOVIE_WATCHLIST
+        SpecificMovieActionTypes.UPDATE_SPECIFIC_MOVIE_WATCHLIST_SUCCESS
       );
       expect(action.payload).toEqual(true);
     });
 
-    it('should update rating', () => {
-      const action = UpdateSpecificRate({ payload: 10 });
+    it('should update add rating', () => {
+      const action = UpdateAddSpecificRate({ payload: 10 });
       expect(action.type).toEqual(
-        SpecificMovieActionTypes.UPDATE_SPECIFIC_MOVIE_RATE
+        SpecificMovieActionTypes.UPDATE_ADD_MOVIE_RATE_SUCCESS
       );
       expect(action.payload).toEqual(10);
+    });
+
+    it('should update remove rating', () => {
+      const action = UpdateDeleteSpecificRate();
+      expect(action.type).toEqual(
+        SpecificMovieActionTypes.UPDATE_DELETE_MOVIE_RATE_SUCCESS
+      );
     });
   });
 });

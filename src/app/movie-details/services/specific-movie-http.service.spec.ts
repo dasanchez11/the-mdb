@@ -4,12 +4,13 @@ import {
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { API_KEY } from 'src/app/auth/services/apiKey';
+import { mockUser } from 'src/app/auth/test/mock-user';
 import { mockMoviesResponse } from 'src/app/home/test/mock-response';
 import { mockMovieDetailsResponse } from '../test/mock-movie-details.response';
-
+import { AuthLocalStorageService } from 'src/app/auth/services/auth-local-storage.service';
 import { SpecificMovieHttpService } from './specific-movie-http.service';
 
-describe('SpecificMovieHttpService', () => {
+fdescribe('SpecificMovieHttpService', () => {
   let service: SpecificMovieHttpService;
   let httpController: HttpTestingController;
 
@@ -76,5 +77,32 @@ describe('SpecificMovieHttpService', () => {
     expect(request.request.method).toEqual('GET');
     expect(request.request.url).toEqual(url);
     request.flush(mockMoviesResponse);
+  });
+
+  it('should postWatchlis', () => {
+    spyOn(AuthLocalStorageService, 'getCurrentUser').and.returnValue(mockUser);
+    const userId = mockUser.id;
+    const baseUrl = 'https://api.themoviedb.org/3/';
+    const restUrl = `account/${userId}/watchlist`;
+    const url = baseUrl + restUrl;
+    const mockBody = {
+      media_type: 'movie',
+      media_id: 1234,
+      watchlist: true,
+    };
+    const mockResponse = {
+      status_code: 3,
+      status_message: 'message',
+    };
+
+    service.postWatchlist(true, 1234).subscribe(response => {
+      expect(response).toBe(mockResponse);
+    });
+
+    const request = httpController.expectOne(url);
+    expect(request.request.method).toEqual('POST');
+    expect(request.request.body).toEqual(mockBody);
+    expect(request.request.url).toEqual(url);
+    request.flush(mockResponse);
   });
 });

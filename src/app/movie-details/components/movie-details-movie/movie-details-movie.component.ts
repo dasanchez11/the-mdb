@@ -9,8 +9,10 @@ import {
 } from 'src/app/favorites/store/favorites.actions';
 import { MovieDetails } from '../../interfaces/responses/movie-details/movie-details.interface';
 import {
+  AddRating,
   AddToWatchlist,
   RemoveFromWatchList,
+  RemoveRating,
 } from '../../store/specific-movie.actions';
 import { selectMovieAccountState } from '../../store/specific-movie.selectors';
 
@@ -27,6 +29,8 @@ export class MovieDetailsMovieComponent implements OnInit {
   favorite: boolean = false;
   rated: boolean = false;
   watchlist: boolean = false;
+  rating = 0;
+  ratingOpen = false;
 
   constructor(private store: Store<AppState>) {}
 
@@ -35,8 +39,15 @@ export class MovieDetailsMovieComponent implements OnInit {
     this.store.select(selectMovieAccountState).subscribe(accountState => {
       if (accountState) {
         this.favorite = accountState.favorite;
-        this.rated = !!accountState.rated;
         this.watchlist = accountState.watchlist;
+        if (accountState.rated === false) {
+          this.rated = false;
+          this.rating = 0;
+        } else {
+          this.rated = true;
+          const val = accountState.rated.valueOf() as { value: number };
+          this.rating = val.value;
+        }
       }
     });
   }
@@ -70,7 +81,7 @@ export class MovieDetailsMovieComponent implements OnInit {
   ratedClick() {
     this.logged$.pipe(take(1)).subscribe(loggedIn => {
       if (loggedIn) {
-        this.rated = !this.rated;
+        this.ratingOpen = !this.ratingOpen;
       }
     });
   }

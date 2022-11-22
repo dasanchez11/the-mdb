@@ -67,15 +67,30 @@ export const RemoveFromWatchList = createAction(
   props<{ payload: number }>()
 );
 
+// Rating
+export const AddRating = createAction(
+  SpecificMovieActionTypes.ADD_RATING_START,
+  props<{ payload: { movieId: number; rate: number } }>()
+);
+
+export const RemoveRating = createAction(
+  SpecificMovieActionTypes.REMOVE_RATING_START,
+  props<{ payload: number }>()
+);
+
 //Updates
 export const UpdateSpecificFavorite = createAction(
   SpecificMovieActionTypes.UPDATE_SPECIFIC_MOVIE_FAVORITE,
   props<{ payload: boolean }>()
 );
 
-export const UpdateSpecificRate = createAction(
-  SpecificMovieActionTypes.UPDATE_SPECIFIC_MOVIE_RATE,
+export const UpdateAddSpecificRate = createAction(
+  SpecificMovieActionTypes.UPDATE_ADD_MOVIE_RATE_SUCCESS,
   props<{ payload: number }>()
+);
+
+export const UpdateDeleteSpecificRate = createAction(
+  SpecificMovieActionTypes.UPDATE_DELETE_MOVIE_RATE_SUCCESS
 );
 
 export const UpdateSpecificWatchlistSuccess = createAction(

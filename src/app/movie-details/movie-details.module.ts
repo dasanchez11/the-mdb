@@ -19,6 +19,8 @@ import { MatCardModule } from '@angular/material/card';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { SpecificMovieWatchlistEffects } from './store/specific-movie-watchlist.effects';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SpecificMovieRateEffects } from './store/specific-movie-rating.effects';
+import { MovieDetailsRatingComponent } from './components/movie-details-rating/movie-details-rating.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MovieDetailsCircleComponent,
     ReviewCardComponent,
     SafeHtmlPipe,
+    MovieDetailsRatingComponent,
   ],
   imports: [
     CommonModule,
@@ -44,6 +47,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     EffectsModule.forFeature([
       SpecificMovieEffects,
       SpecificMovieWatchlistEffects,
+      SpecificMovieRateEffects,
     ]),
   ],
 })

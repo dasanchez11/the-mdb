@@ -32,6 +32,48 @@ export const specificMoviesInitialState: SpecificMoviesState = {
 export const specificMoviesReducer = createReducer(
   specificMoviesInitialState,
 
+  //Update Add Rating
+  on(SpecificMovieActions.UpdateAddSpecificRate, (state, action) => {
+    if (state.details.result && state.details.result.account_states) {
+      return {
+        ...state,
+        details: {
+          ...state.details,
+          result: {
+            ...state.details.result,
+            account_states: {
+              ...state.details.result?.account_states,
+              watchlist: false,
+              rated: { value: action.payload },
+            },
+          },
+        },
+      };
+    } else {
+      return { ...state };
+    }
+  }),
+
+  //Update Delete Rating
+  on(SpecificMovieActions.UpdateDeleteSpecificRate, state => {
+    if (state.details.result && state.details.result.account_states) {
+      return {
+        ...state,
+        details: {
+          ...state.details,
+          result: {
+            ...state.details.result,
+            account_states: {
+              ...state.details.result?.account_states,
+              rated: false,
+            },
+          },
+        },
+      };
+    } else {
+      return { ...state };
+    }
+  }),
   //Update Watchlist
   on(SpecificMovieActions.UpdateSpecificWatchlistSuccess, (state, action) => {
     if (state.details.result && state.details.result.account_states) {

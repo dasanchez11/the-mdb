@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { API_KEY } from 'src/app/auth/services/apiKey';
 import { AuthLocalStorageService } from 'src/app/auth/services/auth-local-storage.service';
 import { IMoviesReponse } from 'src/app/home/interfaces/movies-response.interface';
+import { IMovieDetailsActionResponse } from '../interfaces/responses/movie-actions/movie-actions.response';
 import { IMovieDetailsResponse } from '../interfaces/responses/movie-details/movie-details-response.interface';
 
 @Injectable({
@@ -40,7 +41,10 @@ export class SpecificMovieHttpService {
     return this.http.get<IMoviesReponse>(url);
   }
 
-  postWatchlist(action: boolean, movieId: number) {
+  postWatchlist(
+    action: boolean,
+    movieId: number
+  ): Observable<IMovieDetailsActionResponse> {
     const baseUrl = 'https://api.themoviedb.org/3/';
     let currentUser = AuthLocalStorageService.getCurrentUser();
     let restUrl;
@@ -56,6 +60,22 @@ export class SpecificMovieHttpService {
     };
     const url = baseUrl + restUrl;
 
-    return this.http.post(url, body);
+    return this.http.post<IMovieDetailsActionResponse>(url, body);
+  }
+
+  postRateMovie(
+    movieId: number,
+    rating: number
+  ): Observable<IMovieDetailsActionResponse> {
+    const url = `https://api.themoviedb.org/3/movie/${movieId}/rating`;
+    const body = {
+      value: rating,
+    };
+    return this.http.post<IMovieDetailsActionResponse>(url, body);
+  }
+
+  deleteRateMovie(movieId: number): Observable<IMovieDetailsActionResponse> {
+    const url = `https://api.themoviedb.org/3/movie/${movieId}/rating`;
+    return this.http.delete<IMovieDetailsActionResponse>(url);
   }
 }
