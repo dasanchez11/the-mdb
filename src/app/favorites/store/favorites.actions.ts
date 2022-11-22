@@ -2,7 +2,10 @@ import { createAction, props } from '@ngrx/store';
 import { Meta } from '../interfaces/meta.interface';
 import { FavoriteActionTypes } from './favorites.types';
 
-export const loadFavorites = createAction(FavoriteActionTypes.LOAD_FAVORITES);
+export const loadFavorites = createAction(
+  FavoriteActionTypes.LOAD_FAVORITES,
+  props<{ page: number }>()
+);
 
 export const loadFavoritesSuccess = createAction(
   FavoriteActionTypes.LOAD_FAVORITES_SUCESS,

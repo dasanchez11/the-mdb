@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { concatMap, of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { catchError, map, switchMap, take } from 'rxjs/operators';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { UpsertManyMovies } from 'src/app/shared/store/movies.actions';
 import { FavoriteService } from '../services/favorite.service';
@@ -18,7 +18,9 @@ export class FavoriteEffects {
   upsertFavorites$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(FavoriteActions.loadFavorites),
-      concatMap(() => this.favoriteService.getLoggedUserFavorites()),
+      switchMap(action =>
+        this.favoriteService.getLoggedUserFavorites(action.page)
+      ),
       map(favorites => UpsertManyMovies({ payload: favorites.results }))
     );
   });
@@ -26,7 +28,9 @@ export class FavoriteEffects {
   loadFavorites$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(FavoriteActions.loadFavorites),
-      concatMap(() => this.favoriteService.getLoggedUserFavorites()),
+      switchMap(action =>
+        this.favoriteService.getLoggedUserFavorites(action.page)
+      ),
       map(favorites =>
         loadFavoritesSuccess({
           favoriteMovieIds: favorites.results.map(result => result.id),

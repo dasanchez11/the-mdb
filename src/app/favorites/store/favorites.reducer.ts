@@ -19,7 +19,6 @@ export const initialFavoriteState: FavoriteState = {
 export const favoritesReducer = createReducer(
   initialFavoriteState,
   on(FavoriteActions.loadFavoritesSuccess, (state, action): FavoriteState => {
-    console.log(action.meta);
     return {
       meta: action.meta,
       loaded: true,

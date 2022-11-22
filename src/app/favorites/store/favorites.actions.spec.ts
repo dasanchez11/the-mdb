@@ -17,8 +17,11 @@ describe('FavoriteActions', () => {
 
   it('should fetch load favorites success', () => {
     const favoritesArray = [1, 2];
-    const meta = {page: 1, total_pages: 1, total_results: 1}
-    const action = loadFavoritesSuccess({ favoriteMovieIds: favoritesArray, meta : meta});
+    const meta = { page: 1, total_pages: 1, total_results: 1 };
+    const action = loadFavoritesSuccess({
+      favoriteMovieIds: favoritesArray,
+      meta: meta,
+    });
     expect(action.type).toEqual(
       '[FavoritesEffects loadFavorites$] LOAD_USER_FAVORITES_SUCCESS'
     );

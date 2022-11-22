@@ -18,12 +18,12 @@ export class FavoriteService {
     private store: Store<AppState>
   ) {}
 
-  getLoggedUserFavorites(): Observable<IFavoriteMoviesResponse> {
+  getLoggedUserFavorites(page = 1): Observable<IFavoriteMoviesResponse> {
     return this.store.select(selectCurrentUser).pipe(
       map(user => user?.id),
       switchMap(val =>
         this.http.get<IFavoriteMoviesResponse>(
-          `${this.url}account/${val}/favorite/movies`
+          `${this.url}account/${val}/favorite/movies?page=${page}`
         )
       )
     );
