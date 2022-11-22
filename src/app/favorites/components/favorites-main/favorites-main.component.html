@@ -24,21 +24,22 @@
     </div>
   </div>
 
-  <div class="flex flex-row space-x-200 w-[90%] max-w-[1300px] m-auto justify-between mt-3">
+  <div
+    class="flex flex-row space-x-200 w-[90%] max-w-[1300px] m-auto justify-between mt-3">
     <h1 class="font-bold text-black text-3xl">My Favorites</h1>
   </div>
   <div
     *ngIf="favorites$ | async as favorites"
     class="w-[90%] max-w-[1300px] m-auto mt-5 pb-10">
-    <div
-      [@slide-left]="favorites!.length"
-      class="flex flex-col gap-2">
+    <div [@slide-left]="favorites!.length" class="flex flex-col gap-2">
       <app-favorite-preview
         *ngFor="let favorite of favorites"
         [movie]="favorite!">
       </app-favorite-preview>
     </div>
-    <div class="text-black text-xl" *ngIf="(favorites$ | async ) !== null && favorites!.length === 0">
+    <div
+      class="text-black text-xl"
+      *ngIf="(favorites$ | async) !== null && favorites!.length === 0">
       You have no favorites.
       <a
         routerLink="/home"

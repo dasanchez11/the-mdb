@@ -1,14 +1,17 @@
 import { createReducer, on } from '@ngrx/store';
+import { Meta } from '../interfaces/meta.interface';
 import { FavoriteActions } from './favorites-actions';
 
 export const favoriteFeatureKey = 'favorites';
 
 export interface FavoriteState {
+  meta: Meta;
   favorites: number[];
   loaded: boolean;
 }
 
 export const initialFavoriteState: FavoriteState = {
+  meta: { page: 0, total_pages: 0, total_results: 0 },
   favorites: [],
   loaded: false,
 };
@@ -16,7 +19,9 @@ export const initialFavoriteState: FavoriteState = {
 export const favoritesReducer = createReducer(
   initialFavoriteState,
   on(FavoriteActions.loadFavoritesSuccess, (state, action): FavoriteState => {
+    console.log(action.meta);
     return {
+      meta: action.meta,
       loaded: true,
       favorites: action.favoriteMovieIds,
     };
@@ -27,10 +32,13 @@ export const favoritesReducer = createReducer(
       favorites: state.favorites.filter(id => id !== action.favoriteMovieId),
     };
   }),
-  on(FavoriteActions.addMovieToFavoriteSuccess, (state, action): FavoriteState => {
-    return {
-      ...state,
-      favorites: [...state.favorites, action.movieId],
-    };
-  })
+  on(
+    FavoriteActions.addMovieToFavoriteSuccess,
+    (state, action): FavoriteState => {
+      return {
+        ...state,
+        favorites: [...state.favorites, action.movieId],
+      };
+    }
+  )
 );

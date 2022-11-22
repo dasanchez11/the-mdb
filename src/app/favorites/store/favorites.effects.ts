@@ -30,6 +30,11 @@ export class FavoriteEffects {
       map(favorites =>
         loadFavoritesSuccess({
           favoriteMovieIds: favorites.results.map(result => result.id),
+          meta: {
+            page: favorites.page,
+            total_pages: favorites.total_pages,
+            total_results: favorites.total_results,
+          },
         })
       )
     );
@@ -38,18 +43,22 @@ export class FavoriteEffects {
   addFavorite$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(FavoriteActions.addMovieToFavorites),
-      switchMap(prop => this.favoriteService.markFavorite(prop.movieId,true).pipe(
-        map(response => {
-          this.snackBarService.openSnackBar('Favorite added succesfully!')
-          return addMovieToFavoriteSuccess({ movieId : response})
-        }),
-        catchError(error => {
-          this.snackBarService.openSnackBar("An error ocurred when adding movie to favorites.")
-          return of(error)
-        })
-      ))
-    )
-  })
+      switchMap(prop =>
+        this.favoriteService.markFavorite(prop.movieId, true).pipe(
+          map(response => {
+            this.snackBarService.openSnackBar('Favorite added succesfully!');
+            return addMovieToFavoriteSuccess({ movieId: response });
+          }),
+          catchError(error => {
+            this.snackBarService.openSnackBar(
+              'An error ocurred when adding movie to favorites.'
+            );
+            return of(error);
+          })
+        )
+      )
+    );
+  });
 
   deleteFavorite$ = createEffect(() => {
     return this.actions$.pipe(
