@@ -1,5 +1,5 @@
-<div class="h-screen" *ngIf="movieListDetails$ | async as movieList">
-  <div class="h-40 bg-gradient-radial bg-cover" [style.background-image]="movieList.items.length > 0 ?
+<div class="min-h-screen pb-10" *ngIf="movieListDetails$ | async as movieList">
+  <div class="h-60 bg-gradient-radial bg-cover" [style.background-image]="movieList.items.length > 0 ?
   'linear-gradient(
     rgba(0, 0, 0, 0.7), 
     rgba(0, 0, 0, 0.7)
@@ -29,9 +29,24 @@
     </div>
   </div>
   <div>
-    <h1 class="bold text-4xl text-center">Elements:</h1>
+    <div class="bg-gray-100 h-30 mb-5 flex flex-col items-center" *ngIf="movieList.items.length > 0">
+      <div class="h-full w-max flex flex-row items-center justify-between gap-10 pt-3 pb-3">
+        <div class="text-gradientBlue flex flex-col items-center">
+          <p class="text-4xl">{{movieList.items.length}}</p>
+          <p class="text-l bold">ELEMENTS</p>
+        </div>
+        <div class="text-gradientBlue flex flex-col items-center flex-nowrap">
+          <p class="text-4xl bold">{{movieList.items | movieItemsAverageRating}}%</p>
+          <p class="text-l">AVERAGE RATING</p>
+        </div>
+        <div class="text-gradientBlue flex flex-col items-center">
+          <p class="text-4xl bold">{{movieList.favorite_count}}</p>
+          <p class="text-l">FAVORITES</p>
+        </div>
+      </div>
+    </div>
     <div
-      class="flex flex-row justify-center items-center gap-4 flex-wrap w-11/12 m-auto"
+      class="flex flex-row justify-center md:justify-start items-center gap-4 flex-wrap w-11/12 m-auto"
       *ngIf="movieList.items!.length > 0">
       <app-movie
         *ngFor="let movie of movieList.items; index as movieIndex"

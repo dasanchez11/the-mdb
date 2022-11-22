@@ -14,6 +14,7 @@ import { MovieslistsComponent } from './components/movieslists/movieslists.compo
 import { NewListComponent } from './components/new-list/new-list.component';
 import { ListGuard } from './list.guard';
 import { ListsRoutingModule } from './lists-routing.module';
+import { MovieItemsAverageRatingPipe } from './pipes/movie-items-average-rating.pipe';
 import { ListDetailsResolver } from './resolvers/list-details.resolver';
 import { ListsResolver } from './resolvers/lists.resolver';
 import { ListsService } from './services/lists.service';
@@ -28,6 +29,7 @@ import * as fromLists from './store/lists.reducer';
     ListDetailsComponent,
     MovieComponent,
     NewListComponent,
+    MovieItemsAverageRatingPipe,
   ],
   imports: [
     CommonModule,
