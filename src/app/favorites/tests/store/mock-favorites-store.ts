@@ -42,6 +42,7 @@ export const mockMovieState: MovieState = {
 };
 
 export const mockFavoriteState: FavoriteState = {
+  meta: { page: 1, total_pages: 1, total_results: 2 },
   loaded: true,
   favorites: [1, 2],
 };
