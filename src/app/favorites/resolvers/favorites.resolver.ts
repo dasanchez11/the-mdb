@@ -22,7 +22,6 @@ export class FavoritesResolver implements Resolve<boolean> {
     return this.store.select(selectCurrentUser).pipe(
       map(user => {
         if (user) {
-          console.log('hola que tal');
           this.store.dispatch(loadFavorites({ page: 1 }));
         }
         return true;

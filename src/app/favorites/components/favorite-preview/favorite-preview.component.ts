@@ -9,7 +9,6 @@ import { FavoriteActions } from '../../store/favorites-actions';
 @Component({
   selector: 'app-favorite-preview',
   templateUrl: './favorite-preview.component.html',
-  styleUrls: ['./favorite-preview.component.scss'],
 })
 export class FavoritePreviewComponent {
   @Input() movie!: Movie;
