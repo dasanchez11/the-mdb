@@ -6,7 +6,11 @@ describe('FavoritesResolver', () => {
   let resolver: FavoritesResolver;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [
+        FavoritesResolver
+      ]
+    });
     resolver = TestBed.inject(FavoritesResolver);
   });
 

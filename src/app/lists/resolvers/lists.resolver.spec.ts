@@ -6,7 +6,11 @@ describe('ListsResolver', () => {
   let resolver: ListsResolver;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [
+        ListsResolver
+      ]
+    });
     resolver = TestBed.inject(ListsResolver);
   });
 

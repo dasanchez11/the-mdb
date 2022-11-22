@@ -9,7 +9,7 @@ import {
 
 describe('FavoriteActions', () => {
   it('should fetch load favorites', () => {
-    const action = loadFavorites();
+    const action = loadFavorites({ page: 1 });
     expect(action.type).toEqual(
       '[Favorites FavoritesResolver] LOAD_USER_FAVORITES'
     );

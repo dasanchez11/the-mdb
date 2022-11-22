@@ -43,9 +43,14 @@ describe('Favorite Selectors', () => {
 
   it('should select the movies which ids equals the array of favorites', () => {
     const result = selectFavoriteMovies(mockAppState);
-    expect(result).toEqual([
-      mockAppState.movie.entities[1],
-      mockAppState.movie.entities[2],
-    ]);
+    expect(result).toEqual({
+      page: mockAppState.favorites.meta.page,
+      results: [
+        mockAppState.movie.entities[1]!,
+        mockAppState.movie.entities[2]!,
+      ],
+      total_pages: mockAppState.favorites.meta.total_pages,
+      total_results: mockAppState.favorites.meta.total_results,
+    });
   });
 });

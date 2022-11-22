@@ -1,5 +1,6 @@
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule } from '@angular/material/dialog';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -27,6 +28,7 @@ describe('ListDetailsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [MatDialogModule],
       declarations: [ListDetailsComponent],
       providers: [
         {
