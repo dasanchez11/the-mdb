@@ -18,6 +18,4 @@ export class MovieDetailsReviewsComponent implements OnInit {
   ngOnInit(): void {
     this.reviews$ = this.store.select(selectMovieReviews);
   }
-
-  onScroll() {}
 }

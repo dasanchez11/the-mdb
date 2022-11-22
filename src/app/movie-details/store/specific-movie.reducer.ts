@@ -32,6 +32,28 @@ export const specificMoviesInitialState: SpecificMoviesState = {
 export const specificMoviesReducer = createReducer(
   specificMoviesInitialState,
 
+  //Update Watchlist
+  on(SpecificMovieActions.UpdateSpecificWatchlistSuccess, (state, action) => {
+    if (state.details.result && state.details.result.account_states) {
+      return {
+        ...state,
+        details: {
+          ...state.details,
+          result: {
+            ...state.details.result,
+            account_states: {
+              ...state.details.result?.account_states,
+              watchlist: action.payload,
+            },
+          },
+        },
+      };
+    } else {
+      return { ...state };
+    }
+  }),
+
+  //Update Favorite
   on(SpecificMovieActions.UpdateSpecificFavorite, (state, action) => {
     if (state.details.result && state.details.result.account_states) {
       return {
@@ -56,42 +78,47 @@ export const specificMoviesReducer = createReducer(
     ...state,
     details: { result: null, loading: true, errors: null },
   })),
-  on(SpecificMovieActions.FetchDetailsSuccess, (state, action) => ({
-    ...state,
-    details: {
-      ...state.details,
-      loading: false,
-      result: action.payload,
-    },
-  })),
+  on(SpecificMovieActions.FetchDetailsSuccess, (state, action) => {
+    const { recommendations, similar, reviews, ...movieDetails } =
+      action.payload;
+
+    return {
+      ...state,
+      details: {
+        ...state.details,
+        loading: false,
+        result: { ...movieDetails },
+      },
+      reviews: {
+        ...state.reviews,
+        loading: false,
+        result: reviews.results,
+      },
+      recommended: {
+        ...state.recommended,
+        loading: false,
+        result: SpecificMovieUtils.handleResult(
+          recommendations,
+          state.recommended.result?.ids || []
+        ),
+      },
+      similar: {
+        ...state.similar,
+        loading: false,
+        result: SpecificMovieUtils.handleResult(
+          similar,
+          state.similar.result?.ids || []
+        ),
+      },
+    };
+  }),
+
   on(SpecificMovieActions.FetchDetailsFailure, (state, action) => ({
     ...state,
     details: {
       ...state.details,
       loading: false,
-      errors: action.payload.status_message,
-    },
-  })),
-
-  // Reviews
-  on(SpecificMovieActions.FetchReviewsStart, state => ({
-    ...state,
-    reviews: { result: null, loading: true, errors: null },
-  })),
-  on(SpecificMovieActions.FetchReviewsSuccess, (state, action) => ({
-    ...state,
-    reviews: {
-      ...state.reviews,
-      loading: false,
-      result: action.payload.results,
-    },
-  })),
-  on(SpecificMovieActions.FetchReviewsFailure, (state, action) => ({
-    ...state,
-    reviews: {
-      ...state.reviews,
-      loading: false,
-      errors: action.payload.status_message,
+      errors: action.payload,
     },
   })),
 
@@ -117,7 +144,7 @@ export const specificMoviesReducer = createReducer(
     recommended: {
       ...state.recommended,
       loading: false,
-      errors: action.payload.status_message,
+      errors: action.payload,
     },
   })),
 
@@ -142,7 +169,7 @@ export const specificMoviesReducer = createReducer(
     similar: {
       ...state.similar,
       loading: false,
-      errors: action.payload.status_message,
+      errors: action.payload,
     },
   })),
 

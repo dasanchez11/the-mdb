@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { User } from '../interfaces/responses/get-account-response';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,7 @@ export class AuthLocalStorageService {
     }
   }
 
-  static getCurrentUser() {
+  static getCurrentUser(): User | null {
     const value = localStorage.getItem('currentUser');
     if (value) {
       return JSON.parse(value);

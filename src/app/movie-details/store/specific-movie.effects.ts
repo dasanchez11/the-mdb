@@ -4,6 +4,8 @@ import { catchError, mergeMap, of, switchMap } from 'rxjs';
 import { FavoriteActionTypes } from 'src/app/favorites/store/favorites.types';
 import { IMoviesReponse } from 'src/app/home/interfaces/movies-response.interface';
 import { UpsertManyMovies } from 'src/app/shared/store/movies.actions';
+import { IMovieDetailsResponse } from '../interfaces/responses/movie-details/movie-details-response.interface';
+import { IMovieReviewResponse } from '../interfaces/responses/movie-reviews/movie-review-response.interface';
 import { SpecificMovieHttpService } from '../services/specific-movie-http.service';
 import {
   ClearSpecificMovies,
@@ -11,7 +13,6 @@ import {
   FetchDetailsSuccess,
   FetchRecommendedFailure,
   FetchRecommendedSuccess,
-  FetchReviewsSuccess,
   FetchSimilarFailure,
   FetchSimilarSuccess,
   UpdateSpecificFavorite,
@@ -44,7 +45,19 @@ export class SpecificMovieEffects {
     )
   );
 
-  fetchSuccess = createEffect(() =>
+  fetchDetailsSuccess = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SpecificMovieActionTypes.FETCH_DETAILS_SUCCESS),
+      mergeMap((data: { type: any; payload: IMovieDetailsResponse }) => {
+        const { recommendations, similar } = data.payload;
+
+        const values = [...recommendations.results, ...similar.results];
+        return of(UpsertManyMovies({ payload: values }));
+      })
+    )
+  );
+
+  recommendedOrSimilarSuccess = createEffect(() =>
     this.actions$.pipe(
       ofType(
         SpecificMovieActionTypes.FETCH_RECOMMENDED_SUCCESS,
@@ -65,7 +78,7 @@ export class SpecificMovieEffects {
     )
   );
 
-  private possibleActions = {
+  possibleActions = {
     [SpecificMovieActionTypes.FETCH_RECOMMENDED_START]: {
       success: FetchRecommendedSuccess,
       function: this.specificHttp.getRecommended,
@@ -87,16 +100,8 @@ export class SpecificMovieEffects {
           payload: number;
         }) => {
           return this.specificHttp.getMovieDetails(data.payload).pipe(
-            mergeMap(movieResponse => {
-              const { recommendations, similar, reviews, ...movieDetails } =
-                movieResponse;
-
-              return [
-                FetchDetailsSuccess({ payload: movieDetails }),
-                FetchRecommendedSuccess({ payload: recommendations }),
-                FetchSimilarSuccess({ payload: similar }),
-                FetchReviewsSuccess({ payload: reviews }),
-              ];
+            switchMap(movieResponse => {
+              return of(FetchDetailsSuccess({ payload: movieResponse }));
             }),
             catchError(errorResponse => {
               return of(

@@ -17,6 +17,8 @@ import { ReviewCardComponent } from './components/movie-details-reviews/componen
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MatCardModule } from '@angular/material/card';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+import { SpecificMovieWatchlistEffects } from './store/specific-movie-watchlist.effects';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -33,12 +35,16 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
     NgOptimizedImage,
     MatIconModule,
     MatCardModule,
+    MatProgressSpinnerModule,
     MatButtonModule,
     MatTooltipModule,
     SharedModule,
     InfiniteScrollModule,
     StoreModule.forFeature('specificMovie', specificMoviesReducer),
-    EffectsModule.forFeature([SpecificMovieEffects]),
+    EffectsModule.forFeature([
+      SpecificMovieEffects,
+      SpecificMovieWatchlistEffects,
+    ]),
   ],
 })
 export class MovieDetailsModule {}

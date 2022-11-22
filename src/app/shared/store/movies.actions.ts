@@ -6,13 +6,3 @@ export const UpsertManyMovies = createAction(
   MoviesActionTypes.UPSERT_MANY,
   props<{ payload: Movie[] }>()
 );
-
-export const DeleteOneMovie = createAction(
-  MoviesActionTypes.DELETE_ONE,
-  props<{ payload: string }>()
-);
-
-export const UpdateOneMovie = createAction(
-  MoviesActionTypes.UPDATE_ONE,
-  props<{ payload: { id: number; changes: Movie } }>()
-);

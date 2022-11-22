@@ -28,7 +28,7 @@
           >
         </div>
         <div class="movie-content__title-other flex flex-row gap-1 font-thin">
-          <span>{{ movie.release_date | date: 'mm/dd/yyyy' }} •</span>
+          <span>{{ movie.release_date | date: 'dd/MM/yyyy' }} •</span>
           <span class="movie-content__genders">
             <span class=" " *ngFor="let gender of movie.genres"
               >{{ gender.name }}

@@ -7,11 +7,12 @@ import {
   addMovieToFavorites,
   deleteFavorite,
 } from 'src/app/favorites/store/favorites.actions';
-import { Movie } from 'src/app/home/interfaces/movies.interface';
-import { UpdateOneMovie } from 'src/app/shared/store/movies.actions';
 import { MovieDetails } from '../../interfaces/responses/movie-details/movie-details.interface';
+import {
+  AddToWatchlist,
+  RemoveFromWatchList,
+} from '../../store/specific-movie.actions';
 import { selectMovieAccountState } from '../../store/specific-movie.selectors';
-import { IMovieDetails } from '../../test/mock-movie-details';
 
 @Component({
   selector: 'app-movie-details-movie',
@@ -43,7 +44,11 @@ export class MovieDetailsMovieComponent implements OnInit {
   watchlistClick() {
     this.logged$.pipe(take(1)).subscribe(loggedIn => {
       if (loggedIn) {
-        this.watchlist = !this.watchlist;
+        if (!this.watchlist) {
+          this.store.dispatch(AddToWatchlist({ payload: this.movie.id }));
+        } else {
+          this.store.dispatch(RemoveFromWatchList({ payload: this.movie.id }));
+        }
       }
     });
   }

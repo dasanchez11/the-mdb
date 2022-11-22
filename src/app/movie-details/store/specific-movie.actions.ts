@@ -1,9 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { IErrorResponse } from 'src/app/auth/interfaces/responses/error.response';
 import { IMoviesReponse } from 'src/app/home/interfaces/movies-response.interface';
 import { IMovieDetailsResponse } from '../interfaces/responses/movie-details/movie-details-response.interface';
-import { MovieDetails } from '../interfaces/responses/movie-details/movie-details.interface';
-import { IMovieReviewResponse } from '../interfaces/responses/movie-reviews/movie-review-response.interface';
 import { SpecificMovieActionTypes } from './specific-movie.types';
 
 export const ClearSpecificMovies = createAction(
@@ -18,28 +15,12 @@ export const FetchDetailsStart = createAction(
 
 export const FetchDetailsSuccess = createAction(
   SpecificMovieActionTypes.FETCH_DETAILS_SUCCESS,
-  props<{ payload: MovieDetails }>()
+  props<{ payload: IMovieDetailsResponse }>()
 );
 
 export const FetchDetailsFailure = createAction(
   SpecificMovieActionTypes.FETCH_DETAILS_FAILURE,
-  props<{ payload: IErrorResponse }>()
-);
-
-//Reviews
-export const FetchReviewsStart = createAction(
-  SpecificMovieActionTypes.FETCH_REVIEWS_START,
-  props<{ payload: number }>()
-);
-
-export const FetchReviewsSuccess = createAction(
-  SpecificMovieActionTypes.FETCH_REVIEWS_SUCCESS,
-  props<{ payload: IMovieReviewResponse }>()
-);
-
-export const FetchReviewsFailure = createAction(
-  SpecificMovieActionTypes.FETCH_REVIEWS_FAILURE,
-  props<{ payload: IErrorResponse }>()
+  props<{ payload: string }>()
 );
 
 //Recommended
@@ -55,7 +36,7 @@ export const FetchRecommendedSuccess = createAction(
 
 export const FetchRecommendedFailure = createAction(
   SpecificMovieActionTypes.FETCH_RECOMMENDED_FAILURE,
-  props<{ payload: IErrorResponse }>()
+  props<{ payload: string }>()
 );
 
 //Similar
@@ -71,9 +52,22 @@ export const FetchSimilarSuccess = createAction(
 
 export const FetchSimilarFailure = createAction(
   SpecificMovieActionTypes.FETCH_SIMILAR_FAILURE,
-  props<{ payload: IErrorResponse }>()
+  props<{ payload: string }>()
 );
 
+// WatchList
+
+export const AddToWatchlist = createAction(
+  SpecificMovieActionTypes.ADD_TO_WATCHLIST_START,
+  props<{ payload: number }>()
+);
+
+export const RemoveFromWatchList = createAction(
+  SpecificMovieActionTypes.REMOVE_FROM_WATCHLIST_START,
+  props<{ payload: number }>()
+);
+
+//Updates
 export const UpdateSpecificFavorite = createAction(
   SpecificMovieActionTypes.UPDATE_SPECIFIC_MOVIE_FAVORITE,
   props<{ payload: boolean }>()
@@ -84,7 +78,7 @@ export const UpdateSpecificRate = createAction(
   props<{ payload: number }>()
 );
 
-export const UpdateSpecificWatchlist = createAction(
-  SpecificMovieActionTypes.UPDATE_SPECIFIC_MOVIE_WATCHLIST,
-  props<{ payload: number }>()
+export const UpdateSpecificWatchlistSuccess = createAction(
+  SpecificMovieActionTypes.UPDATE_SPECIFIC_MOVIE_WATCHLIST_SUCCESS,
+  props<{ payload: boolean }>()
 );

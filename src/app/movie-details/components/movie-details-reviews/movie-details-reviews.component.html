@@ -3,13 +3,7 @@
     {{ sectionTitle }}
   </h1>
   <div
-    class="review-carrousel overflow-x-auto flex flex-row gap-10 pb-10 last:pr-10"
-    [horizontal]="true"
-    infinite-scroll
-    [scrollWindow]="false"
-    [infiniteScrollDistance]="0"
-    [infiniteScrollThrottle]="1000"
-    (scrolled)="onScroll()">
+    class="review-carrousel overflow-x-auto flex flex-row gap-10 pb-10 last:pr-10">
     <app-card-reviews
       class="review-carrousel__card first:pl-10"
       *ngFor="let review of reviews$ | async"

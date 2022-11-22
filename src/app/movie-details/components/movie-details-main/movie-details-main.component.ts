@@ -38,15 +38,15 @@ export class MovieDetailsMainComponent implements OnInit {
   constructor(private store: Store<AppState>, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.areReviews$ = this.store.select(selectAreMovieReviews);
-    this.areRecommended$ = this.store.select(selectAreRecommendedMovies);
-    this.moviesLoading$ = this.store.select(selectMovieDetailsLoading);
-    this.movie$ = this.store.select(selectMovieDetails);
     this.route.paramMap.subscribe(params => {
       const movieId = params.get('id');
       if (movieId) {
         this.store.dispatch(FetchDetailsStart({ payload: +movieId }));
       }
     });
+    this.areReviews$ = this.store.select(selectAreMovieReviews);
+    this.areRecommended$ = this.store.select(selectAreRecommendedMovies);
+    this.moviesLoading$ = this.store.select(selectMovieDetailsLoading);
+    this.movie$ = this.store.select(selectMovieDetails);
   }
 }
