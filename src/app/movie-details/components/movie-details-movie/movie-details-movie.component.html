@@ -27,8 +27,9 @@
             >({{ movie.release_date | date: 'yyyy' }})</span
           >
         </div>
-        <div class="movie-content__title-other flex flex-row gap-1 font-thin">
-          <span>{{ movie.release_date | date: 'mm/dd/yyyy' }} •</span>
+        <div
+          class="movie-content__title-other flex flex-wrap items-center justify-center sm:justify-start gap-1 font-thin">
+          <span>{{ movie.release_date | date: 'dd/MM/yyyy' }} •</span>
           <span class="movie-content__genders">
             <span class=" " *ngFor="let gender of movie.genres"
               >{{ gender.name }}
@@ -39,7 +40,8 @@
           >
         </div>
       </div>
-      <div class="movie-content__reactions items-center flex flex-wrap gap-4">
+      <div
+        class="movie-content__reactions items-center flex flex-col sm:flex-row gap-4">
         <app-movie-details-circle
           class="hover:scale-[1.1] pl-3 hover:cursor-pointer transition ease-in-out"
           [percent]="movie.vote_average"></app-movie-details-circle>
@@ -50,6 +52,7 @@
         <button
           mat-mini-fab
           matTooltip="Add to list"
+          matTooltipClass="bg-primary"
           color="primary"
           aria-label="add-to-list">
           <mat-icon class="text-base">format_list_bulleted</mat-icon>
@@ -58,6 +61,7 @@
           (click)="favoriteClick()"
           mat-mini-fab
           matTooltip="Mark as favorite"
+          matTooltipClass="bg-primary"
           color="primary"
           aria-label="add-to-favorite">
           <mat-icon [class]="favorite ? 'text-base text-red-600' : 'text-base'"
@@ -68,6 +72,7 @@
           (click)="watchlistClick()"
           mat-mini-fab
           matTooltip="Add to your watchlist "
+          matTooltipClass="bg-primary"
           color="primary"
           aria-label="add-to-watchlist">
           <mat-icon
@@ -75,15 +80,26 @@
             >bookmark</mat-icon
           >
         </button>
-        <button
-          mat-mini-fab
-          matTooltip="Rate it!"
-          color="primary"
-          aria-label="rate">
-          <mat-icon [class]="rated ? 'text-base text-yellow-500' : 'text-base'"
-            >star</mat-icon
-          >
-        </button>
+        <div class="relative">
+          <button
+            (click)="ratedClick()"
+            mat-mini-fab
+            matTooltip="Rate it!"
+            matTooltipClass="bg-primary"
+            color="primary"
+            aria-label="rate">
+            <mat-icon
+              [class]="rated ? 'text-base text-yellow-500' : 'text-base'"
+              >star</mat-icon
+            >
+          </button>
+          <app-movie-details-rating
+            class="absolute top-16 -left-[7rem] sm:-left-[15rem]"
+            *ngIf="ratingOpen"
+            [movieId]="movie.id"
+            [logged$]="logged$"
+            [rating]="rating"></app-movie-details-rating>
+        </div>
       </div>
       <div class="movie-content__tagline font-thin text-gray-400 italic">
         {{ movie.tagline }}

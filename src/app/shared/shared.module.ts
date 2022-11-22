@@ -17,7 +17,7 @@ import { CarrouselComponent } from './components/carrousel/carrousel.component';
 import { movieReducer } from './store/movies.reducer';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CircleComponent } from './components/card/components/circle/circle.component';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -29,6 +29,7 @@ import { CircleComponent } from './components/card/components/circle/circle.comp
   ],
   imports: [
     CommonModule,
+    MatProgressSpinnerModule,
     MatButtonModule,
     MatIconModule,
     RouterModule,

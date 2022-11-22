@@ -1,4 +1,6 @@
-export const mockMovieDetails: IMovieDetails = {
+import { MovieDetails } from '../interfaces/responses/movie-details/movie-details.interface';
+
+export const mockMovieDetails: MovieDetails = {
   adult: false,
   backdrop_path: '/yYrvN5WFeGYjJnRzhY0QXuo4Isw.jpg',
   belongs_to_collection: {

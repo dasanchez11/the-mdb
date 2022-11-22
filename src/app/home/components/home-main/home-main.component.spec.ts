@@ -42,7 +42,6 @@ describe('HomeMainComponent', () => {
         HomeDiscoverComponent,
       ],
       imports: [
-        SharedModule,
         NgOptimizedImage,
         MatIconModule,
         InfiniteScrollModule,
@@ -53,7 +52,6 @@ describe('HomeMainComponent', () => {
 
     fixture = TestBed.createComponent(HomeMainComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
     store = TestBed.inject(MockStore);
     el = fixture.debugElement;
   });
@@ -73,17 +71,20 @@ describe('HomeMainComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render explore section', () => {
-    const explore = el.queryAll(By.css('.home__discover'));
-    expect(explore.length).toBe(1);
+  it('should dispatch all actions', () => {
+    spyOn(store, 'dispatch');
+    fixture.detectChanges();
+    expect(store.dispatch).toHaveBeenCalledTimes(4);
   });
 
   it('should render explore section', () => {
+    fixture.detectChanges();
     const explore = el.queryAll(By.css('.home__discover'));
     expect(explore.length).toBe(1);
   });
 
   it('should render the four carrousels ', () => {
+    fixture.detectChanges();
     const carrousels = el.queryAll(By.css('.carrousels__container'));
     expect(carrousels[0].nativeNode.childNodes.length).toBe(4);
   });

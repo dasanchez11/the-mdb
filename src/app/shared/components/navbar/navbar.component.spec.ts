@@ -10,6 +10,10 @@ import { NavbarComponent } from './navbar.component';
 import { Viewport } from 'karma-viewport/dist/adapter/viewport';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { AppState } from 'src/app/app.store';
+import { of } from 'rxjs';
+import { selectCurrentUserLogged } from 'src/app/auth/store/auth.selectors';
 declare const viewport: Viewport;
 
 describe('NavbarComponent', () => {
@@ -17,6 +21,8 @@ describe('NavbarComponent', () => {
   let fixture: ComponentFixture<NavbarComponent>;
   let el: DebugElement;
   let loader: HarnessLoader;
+  let store: MockStore<AppState>;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [NavbarComponent],
@@ -27,10 +33,12 @@ describe('NavbarComponent', () => {
         MatIconModule,
         MatButtonModule,
       ],
+      providers: [provideMockStore()],
     }).compileComponents();
-
+    store = TestBed.inject(MockStore);
     fixture = TestBed.createComponent(NavbarComponent);
     component = fixture.componentInstance;
+    store.overrideSelector(selectCurrentUserLogged, false);
     fixture.detectChanges();
     loader = TestbedHarnessEnvironment.loader(fixture);
     el = fixture.debugElement;
@@ -48,12 +56,13 @@ describe('NavbarComponent', () => {
   it('should have the Available routes', () => {
     const routes = el.queryAll(By.css('#header-routes'))[0];
     const singleRoutes = routes.queryAll(By.css('#header-route'));
-    expect(singleRoutes.length).toBe(3);
+    expect(singleRoutes.length).toBe(4);
   });
 
   describe('Check Mobile UI', () => {
     beforeEach(() => {
       viewport.set('mobile');
+      component.loggedIn$ = of(false);
     });
 
     afterAll(() => {
@@ -88,7 +97,14 @@ describe('NavbarComponent', () => {
       expect(newOptions.length).toBe(1);
       const routes = newOptions[0].queryAll(By.css('#header-routes'))[0]
         .nativeElement;
-      expect(routes.childNodes.length).toBe(3);
+      expect(routes.childNodes.length).toBe(6);
+    });
+
+    it('should close options when route click', async () => {
+      component.optionsOpen = true;
+      component.routeClick();
+      fixture.detectChanges();
+      expect(component.optionsOpen).toBeFalse();
     });
   });
 });

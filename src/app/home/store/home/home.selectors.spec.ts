@@ -113,7 +113,7 @@ describe('Home selectors', () => {
   });
 
   it('should select home upcoming', () => {
-    const popular = {
+    const upcoming = {
       loading: mockLoadingState.upcoming,
       errors: mockErrorsState.upcoming,
       meta: mockMetaState.upcoming,
@@ -124,6 +124,6 @@ describe('Home selectors', () => {
       ],
     };
     const result = selectHomeUpcoming(mockAppState);
-    expect(result).toEqual(popular);
+    expect(result).toEqual(upcoming);
   });
 });

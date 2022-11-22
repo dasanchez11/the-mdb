@@ -3,10 +3,18 @@ import { Store } from '@ngrx/store';
 import { Observable, take } from 'rxjs';
 import { AppState } from 'src/app/app.store';
 import { selectCurrentUserLogged } from 'src/app/auth/store/auth.selectors';
-import { Movie } from 'src/app/home/interfaces/movies.interface';
-import { UpdateOneMovie } from 'src/app/shared/store/movies.actions';
+import {
+  addMovieToFavorites,
+  deleteFavorite,
+} from 'src/app/favorites/store/favorites.actions';
 import { MovieDetails } from '../../interfaces/responses/movie-details/movie-details.interface';
-import { IMovieDetails } from '../../test/mock-movie-details';
+import {
+  AddRating,
+  AddToWatchlist,
+  RemoveFromWatchList,
+  RemoveRating,
+} from '../../store/specific-movie.actions';
+import { selectMovieAccountState } from '../../store/specific-movie.selectors';
 
 @Component({
   selector: 'app-movie-details-movie',
@@ -21,22 +29,37 @@ export class MovieDetailsMovieComponent implements OnInit {
   favorite: boolean = false;
   rated: boolean = false;
   watchlist: boolean = false;
+  rating = 0;
+  ratingOpen = false;
 
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.logged$ = this.store.select(selectCurrentUserLogged);
-    if (this.movie.account_states) {
-      this.favorite = this.movie.account_states.favorite;
-      this.rated = !!this.movie.account_states.rated;
-      this.watchlist = this.movie.account_states.watchlist;
-    }
+    this.store.select(selectMovieAccountState).subscribe(accountState => {
+      if (accountState) {
+        this.favorite = accountState.favorite;
+        this.watchlist = accountState.watchlist;
+        if (accountState.rated === false) {
+          this.rated = false;
+          this.rating = 0;
+        } else {
+          this.rated = true;
+          const val = accountState.rated.valueOf() as { value: number };
+          this.rating = val.value;
+        }
+      }
+    });
   }
 
   watchlistClick() {
     this.logged$.pipe(take(1)).subscribe(loggedIn => {
       if (loggedIn) {
-        this.watchlist = !this.watchlist;
+        if (!this.watchlist) {
+          this.store.dispatch(AddToWatchlist({ payload: this.movie.id }));
+        } else {
+          this.store.dispatch(RemoveFromWatchList({ payload: this.movie.id }));
+        }
       }
     });
   }
@@ -44,7 +67,13 @@ export class MovieDetailsMovieComponent implements OnInit {
   favoriteClick() {
     this.logged$.pipe(take(1)).subscribe(loggedIn => {
       if (loggedIn) {
-        this.favorite = !this.favorite;
+        if (!this.favorite) {
+          this.store.dispatch(addMovieToFavorites({ movieId: this.movie.id }));
+        } else {
+          this.store.dispatch(
+            deleteFavorite({ favoriteMovieId: this.movie.id })
+          );
+        }
       }
     });
   }
@@ -52,7 +81,7 @@ export class MovieDetailsMovieComponent implements OnInit {
   ratedClick() {
     this.logged$.pipe(take(1)).subscribe(loggedIn => {
       if (loggedIn) {
-        this.rated = !this.rated;
+        this.ratingOpen = !this.ratingOpen;
       }
     });
   }
