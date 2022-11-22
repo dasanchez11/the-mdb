@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { concatMap, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { catchError, concatMap, map, switchMap } from 'rxjs/operators';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { ListsService } from '../services/lists.service';
 import {
+  addMovieToList,
+  addMovieToListSuccess,
   clearList,
   clearListSuccess,
   deleteMovieFromList,
@@ -13,8 +16,9 @@ import {
   loadListDetailsSucess,
   loadLists,
   loadListSuccess,
+  upsertList
 } from './lists.actions';
-import { selectListItems, selectSelectedListId } from './lists.selector';
+import { selectSelectedListId } from './lists.selector';
 
 @Injectable()
 export class ListsEffects {
@@ -61,6 +65,33 @@ export class ListsEffects {
       })
     );
   });
+
+  addMovieToList$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(addMovieToList),
+      switchMap((action) => this.listsService.addMovieToList(action.movieId, action.listId).pipe(
+        catchError((error)=> {
+          this.snackBarService.openSnackBar("An error ocurred when adding movie to list. Try again later.",true)
+          return throwError(() => new Error(error))
+        })
+      )),
+      map(response => {
+        return addMovieToListSuccess({listId : response!})
+      })
+    )
+  }
+  )
+
+  upsertList$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(addMovieToListSuccess),
+      switchMap((action) => this.listsService.getListDetails(action.listId)),
+      map(response => {
+        this.snackBarService.openSnackBar("Movie added succesfully!")
+        return upsertList({list: response})
+      })
+    )
+  })
 
   constructor(
     private listsService: ListsService,

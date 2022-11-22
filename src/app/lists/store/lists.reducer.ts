@@ -27,7 +27,7 @@ export const listsReducer = createReducer(
       loaded: true,
     };
   }),
-  on(ListsActions.updateLists, (state, action) =>
+  on(ListsActions.upsertList, (state, action) =>
     listsAdapter.upsertOne(action.list, state)
   ),
   on(ListsActions.loadListDetails, (state, action): ListsState => {

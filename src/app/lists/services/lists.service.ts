@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { Response } from 'src/app/favorites/interfaces/response.interface';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { ICreateListResponse } from '../interfaces/create-list-response.interface';
 import { IListDetails } from '../interfaces/list-details-response.interface';
@@ -68,5 +69,15 @@ export class ListsService {
           return listId;
         })
       );
+  }
+
+  addMovieToList(movieId : number, listId: number): Observable<number> {
+    return this.http.post<Response>(`${this.url}list/${listId}/add_item`,{
+      media_id : movieId
+    }).pipe(
+      map(()=> {
+          return listId
+      })
+    )
   }
 }

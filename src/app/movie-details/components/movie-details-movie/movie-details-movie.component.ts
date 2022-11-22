@@ -31,6 +31,7 @@ export class MovieDetailsMovieComponent implements OnInit {
   watchlist: boolean = false;
   rating = 0;
   ratingOpen = false;
+  addListOpen = false;
 
   constructor(private store: Store<AppState>) {}
 
@@ -85,4 +86,14 @@ export class MovieDetailsMovieComponent implements OnInit {
       }
     });
   }
+
+  listClicked() {
+    this.logged$.pipe(take(1)).subscribe(loggedIn => {
+      if (loggedIn) {
+        this.addListOpen = !this.addListOpen;
+      }
+    });
+  }
+
+
 }

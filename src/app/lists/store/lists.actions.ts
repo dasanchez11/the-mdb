@@ -13,7 +13,7 @@ export const loadListFailure = createAction(
   ListsActionsTypes.LOAD_LISTS_FAILURE
 );
 
-export const updateLists = createAction(
+export const upsertList = createAction(
   ListsActionsTypes.UPDATE_LIST,
   props<{ list: IListDetails }>()
 );
@@ -47,3 +47,13 @@ export const clearList = createAction(ListsActionsTypes.CLEAR_LIST);
 export const clearListSuccess = createAction(
   ListsActionsTypes.CLEAR_LIST_SUCCESS
 );
+
+export const addMovieToList = createAction(
+  ListsActionsTypes.ADD_MOVIE_TO_LIST,
+  props<{ movieId : number, listId : number}>()
+)
+
+export const addMovieToListSuccess = createAction(
+  ListsActionsTypes.ADD_MOVIE_TO_LIST_SUCCESS,
+  props<{ listId : number }>()
+)
