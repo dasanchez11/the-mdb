@@ -19,10 +19,15 @@ describe('FavoritesReducers', () => {
 
   it('should add favorites ids array on load favorite success', () => {
     const favoritesIds = [1, 2];
-    const action = loadFavoritesSuccess({ favoriteMovieIds: favoritesIds });
+    const meta = { page: 1, total_pages: 1, total_results: 1 };
+    const action = loadFavoritesSuccess({
+      favoriteMovieIds: favoritesIds,
+      meta: meta,
+    });
     const state = favoritesReducer(initialFavoriteState, action);
 
     const expectedNewState: FavoriteState = {
+      meta: meta,
       loaded: true,
       favorites: favoritesIds,
     };

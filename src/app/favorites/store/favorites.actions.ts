@@ -1,12 +1,15 @@
 import { createAction, props } from '@ngrx/store';
-import { FavoriteEffects } from './favorites.effects';
+import { Meta } from '../interfaces/meta.interface';
 import { FavoriteActionTypes } from './favorites.types';
 
-export const loadFavorites = createAction(FavoriteActionTypes.LOAD_FAVORITES);
+export const loadFavorites = createAction(
+  FavoriteActionTypes.LOAD_FAVORITES,
+  props<{ page: number }>()
+);
 
 export const loadFavoritesSuccess = createAction(
   FavoriteActionTypes.LOAD_FAVORITES_SUCESS,
-  props<{ favoriteMovieIds: number[] }>()
+  props<{ favoriteMovieIds: number[]; meta: Meta }>()
 );
 
 export const loadFavoriteFailure = createAction(
@@ -30,10 +33,10 @@ export const deleteFavoriteFailure = createAction(
 
 export const addMovieToFavorites = createAction(
   FavoriteActionTypes.ADD_FAVORITE,
-  props<{ movieId : number}>()
-)
+  props<{ movieId: number }>()
+);
 
 export const addMovieToFavoriteSuccess = createAction(
   FavoriteActionTypes.ADD_FAVORITE_SUCCESS,
-  props<{ movieId : number }>()
-)
+  props<{ movieId: number }>()
+);

@@ -22,7 +22,7 @@ export class FavoritesResolver implements Resolve<boolean> {
     return this.store.select(selectCurrentUser).pipe(
       map(user => {
         if (user) {
-          this.store.dispatch(loadFavorites());
+          this.store.dispatch(loadFavorites({ page: 1 }));
         }
         return true;
       })

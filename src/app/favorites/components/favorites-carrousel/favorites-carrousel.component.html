@@ -1,0 +1,11 @@
+<div class="carrousel__container min-h-wrap w-full">
+  <div
+    class="carrousel flex flex-col gap-2 pb-10"
+    infinite-scroll
+    [infiniteScrollDistance]="0"
+    [infiniteScrollThrottle]="1000"
+    (scrolled)="onScroll()">
+    <app-favorite-preview *ngFor="let movie of movies" [movie]="movie">
+    </app-favorite-preview>
+  </div>
+</div>

@@ -13,7 +13,11 @@ import { AppState } from 'src/app/app.store';
 import { User } from 'src/app/auth/interfaces/responses/get-account-response';
 import { selectCurrentUser } from 'src/app/auth/store/auth.selectors';
 import { Movie } from 'src/app/home/interfaces/movies.interface';
-import { selectFavoriteMovies } from '../../store/favorites.selectors';
+import { Meta } from '../../interfaces/meta.interface';
+import {
+  selectFavoriteMovies,
+  selectFavoritesPaginationMeta,
+} from './../../store/favorites.selectors';
 
 @Component({
   selector: 'app-favorites-main',
@@ -36,6 +40,7 @@ import { selectFavoriteMovies } from '../../store/favorites.selectors';
   ],
 })
 export class FavoritesMainComponent implements OnInit {
+  meta!: Meta;
   userLoggedIn$!: Observable<User | null>;
   favorites$!: Observable<(Movie | undefined)[]>;
 
@@ -43,6 +48,9 @@ export class FavoritesMainComponent implements OnInit {
 
   ngOnInit(): void {
     this.userLoggedIn$ = this.store.select(selectCurrentUser);
-    this.favorites$ = this.store.select(selectFavoriteMovies);
+    // this.favorites$ = this.store.select(selectFavoriteMovies);
+    this.store.select(selectFavoritesPaginationMeta).subscribe(meta => {
+      this.meta = meta;
+    });
   }
 }
