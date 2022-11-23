@@ -51,6 +51,7 @@ import { ScrollDirective } from './directives/scroll.directive';
     MatIconModule,
     InfiniteScrollModule,
     AddToListComponent,
+    ScrollDirective,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

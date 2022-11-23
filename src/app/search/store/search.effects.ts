@@ -1,7 +1,7 @@
 import { SearchHttpService } from '../services/search-http.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { SearchActionTypes } from './search.types';
-import { catchError, EMPTY, of, switchMap } from 'rxjs';
+import { catchError, of, switchMap } from 'rxjs';
 import { SearchFailure, SearchSuccess } from './search.actions';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { UpsertManyMovies } from 'src/app/shared/store/movies.actions';
