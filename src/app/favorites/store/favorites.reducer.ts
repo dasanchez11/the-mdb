@@ -22,7 +22,7 @@ export const favoritesReducer = createReducer(
     return {
       meta: action.meta,
       loaded: true,
-      favorites: state.favorites.concat(action.favoriteMovieIds),
+      favorites: [...new Set([...state.favorites,...action.favoriteMovieIds])]
     };
   }),
   on(FavoriteActions.deleteFavoriteSuccess, (state, action) => {

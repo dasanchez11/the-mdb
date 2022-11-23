@@ -40,7 +40,7 @@ const mockLists: IListResponse = {
   total_results: 1,
 };
 
-fdescribe('ListsService', () => {
+describe('ListsService', () => {
   let service: ListsService;
   let httpTestingController: HttpTestingController;
 
