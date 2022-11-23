@@ -50,10 +50,10 @@ export const clearListSuccess = createAction(
 
 export const addMovieToList = createAction(
   ListsActionsTypes.ADD_MOVIE_TO_LIST,
-  props<{ movieId : number, listId : number}>()
-)
+  props<{ movieId: number; listId: number }>()
+);
 
 export const addMovieToListSuccess = createAction(
   ListsActionsTypes.ADD_MOVIE_TO_LIST_SUCCESS,
-  props<{ listId : number }>()
-)
+  props<{ listId: number }>()
+);

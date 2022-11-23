@@ -7,6 +7,7 @@ import {
   addMovieToFavorites,
   deleteFavorite,
 } from 'src/app/favorites/store/favorites.actions';
+import { loadLists } from 'src/app/lists/store/lists.actions';
 import { MovieDetails } from '../../interfaces/responses/movie-details/movie-details.interface';
 import {
   AddRating,
@@ -49,6 +50,15 @@ export class MovieDetailsMovieComponent implements OnInit {
           const val = accountState.rated.valueOf() as { value: number };
           this.rating = val.value;
         }
+      }
+    });
+    this.loadUserLists()
+  }
+
+  loadUserLists() {
+    this.logged$.pipe(take(1)).subscribe(loggedIn => {
+      if (loggedIn) {
+        this.store.dispatch(loadLists())
       }
     });
   }

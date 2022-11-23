@@ -1,10 +1,17 @@
 <div class="min-h-full pb-10" *ngIf="movieListDetails$ | async as movieList">
-  <div class="h-60 bg-gradient-radial bg-cover" [style.background-image]="movieList.items.length > 0 ?
-  'linear-gradient(
+  <div
+    class="h-60 bg-gradient-radial bg-cover"
+    [style.background-image]="
+      movieList.items.length > 0
+        ? 'linear-gradient(
     rgba(0, 0, 0, 0.7), 
     rgba(0, 0, 0, 0.7)
-  ),url(' + imagePath + movieList.items[0].backdrop_path + ')' : ''
-">
+  ),url(' +
+          imagePath +
+          movieList.items[0].backdrop_path +
+          ')'
+        : ''
+    ">
     <div class="h-full">
       <div class="h-[95%] w-[90%] max-w-[1200px] m-auto flex flex-col">
         <h1 class="list-name text-white bold text-4xl mt-8 font-bold">
@@ -30,14 +37,19 @@
     </div>
   </div>
   <div>
-    <div class="bg-gray-100 h-30 mb-5 flex flex-col items-center" *ngIf="movieList.items.length > 0">
-      <div class="h-full w-max flex flex-row items-center justify-between gap-10 pt-3 pb-3">
+    <div
+      class="bg-gray-100 h-30 mb-5 flex flex-col items-center"
+      *ngIf="movieList.items.length > 0">
+      <div
+        class="h-full w-max flex flex-row items-center justify-between gap-10 pt-3 pb-3">
         <div class="text-gradientBlue flex flex-col items-center">
-          <p class="text-4xl">{{movieList.items.length}}</p>
+          <p class="text-4xl">{{ movieList.items.length }}</p>
           <p class="text-l font-bold">ELEMENTS</p>
         </div>
         <div class="text-gradientBlue flex flex-col items-center flex-nowrap">
-          <p class="text-4xl">{{movieList.items | movieItemsAverageRating}}%</p>
+          <p class="text-4xl">
+            {{ movieList.items | movieItemsAverageRating }}%
+          </p>
           <p class="text-l font-bold">AVERAGE RATING</p>
         </div>
       </div>

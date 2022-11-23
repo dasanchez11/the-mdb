@@ -14,8 +14,8 @@ import { selectListItems } from '../../store/lists.selector';
 })
 export class ListDetailsComponent implements OnInit {
   movieListDetails$!: Observable<IListDetails>;
-  confirmDialog!: MatDialogRef<ConfirmationDialogComponent>
-  imagePath = "https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/"
+  confirmDialog!: MatDialogRef<ConfirmationDialogComponent>;
+  imagePath = 'https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/';
 
   constructor(private store: Store, private dialog: MatDialog) {}
 
@@ -34,9 +34,9 @@ export class ListDetailsComponent implements OnInit {
 
   clearList(): void {
     this.openConfirmationDialog().subscribe(result => {
-      if(result){
+      if (result) {
         this.store.dispatch(clearList());
       }
-    })
+    });
   }
 }

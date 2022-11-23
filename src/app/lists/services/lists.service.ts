@@ -71,13 +71,15 @@ export class ListsService {
       );
   }
 
-  addMovieToList(movieId : number, listId: number): Observable<number> {
-    return this.http.post<Response>(`${this.url}list/${listId}/add_item`,{
-      media_id : movieId
-    }).pipe(
-      map(()=> {
-          return listId
+  addMovieToList(movieId: number, listId: number): Observable<number> {
+    return this.http
+      .post<Response>(`${this.url}list/${listId}/add_item`, {
+        media_id: movieId,
       })
-    )
+      .pipe(
+        map(() => {
+          return listId;
+        })
+      );
   }
 }
