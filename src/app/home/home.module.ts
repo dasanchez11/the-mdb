@@ -11,10 +11,12 @@ import { HomeMainComponent } from './components/home-main/home-main.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeEffects } from './store/home/home.effects';
 import { homeReducer } from './store/home/home.reducer';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [HomeMainComponent, HomeDiscoverComponent],
   imports: [
+    ReactiveFormsModule,
     NgOptimizedImage,
     MatCardModule,
     CommonModule,

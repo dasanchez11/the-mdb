@@ -7,6 +7,7 @@ import {
   specificMoviesReducer,
   SpecificMoviesState,
 } from './movie-details/store/specific-movie.reducer';
+import { searchReducer, SearchState } from './search/store/search.reducer';
 import { MovieState } from './shared/store/movies.entity';
 import { movieReducer } from './shared/store/movies.reducer';
 
@@ -17,6 +18,7 @@ export interface AppState {
   lists: ListsState;
   specificMovie: SpecificMoviesState;
   favorites: FavoriteState;
+  search:SearchState
 }
 
 export const storeReducer: ActionReducerMap<AppState> = {
@@ -25,5 +27,6 @@ export const storeReducer: ActionReducerMap<AppState> = {
   movie: movieReducer,
   lists: listsReducer,
   specificMovie: specificMoviesReducer,
-  favorites: favoritesReducer
+  favorites: favoritesReducer,
+  search:searchReducer
 };
