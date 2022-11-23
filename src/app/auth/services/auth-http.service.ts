@@ -69,7 +69,7 @@ export class AuthHttpService {
   deleteSession(): Observable<{ success: boolean }> {
     const sessionId = this.localStorageService.getElement('sessionId');
     if (sessionId) {
-      const restUrl = '/authentication/session';
+      const restUrl = 'authentication/session';
       const sessionUrl = '?session_id=';
       const url = this.baseUrl + restUrl + sessionUrl + sessionId;
       return this.http

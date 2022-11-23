@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, take } from 'rxjs/operators';
 import { AppState } from 'src/app/app.store';
 import { selectCurrentUser } from 'src/app/auth/store/auth.selectors';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
@@ -20,6 +20,7 @@ export class FavoriteService {
 
   getLoggedUserFavorites(page = 1): Observable<IFavoriteMoviesResponse> {
     return this.store.select(selectCurrentUser).pipe(
+      take(1),
       map(user => user?.id),
       switchMap(val =>
         this.http.get<IFavoriteMoviesResponse>(
@@ -31,6 +32,7 @@ export class FavoriteService {
 
   markFavorite(movieId: number, favorite: boolean): Observable<number> {
     return this.store.select(selectCurrentUser).pipe(
+      take(1),
       map(user => user?.id),
       switchMap(val =>
         this.http
