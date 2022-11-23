@@ -17,13 +17,20 @@
       Millions of movies, TV shows and people to discover. Explore now.
     </div>
     <div class="discover__input-container relative mt-6 w-full">
-      <input
-        class="discover__input p-3 rounded-full w-full outline-none text-gray-500 pr-[6.5rem]"
-        placeholder="Search for a movie" />
-      <button
-        class="discover__search bg-gradient-to-r from-gradientGreen to-gradientBlue absolute py-3 px-7 right-0 rounded-full font-bold text-white hover:text-primary">
-        Search
-      </button>
+      <form
+        [formGroup]="searchForm"
+        (ngSubmit)="handleSubmit()"
+        class="specific__input-container">
+        <input
+          formControlName="search"
+          class="discover__input p-3 rounded-full w-full outline-none text-gray-500 pr-[6.5rem]"
+          placeholder="Search for a movie" />
+        <button
+          type="submit"
+          class="discover__search bg-gradient-to-r from-gradientGreen to-gradientBlue absolute py-3 px-7 right-0 rounded-full font-bold text-white hover:text-primary">
+          Search
+        </button>
+      </form>
     </div>
   </div>
 </section>

@@ -60,7 +60,7 @@ const mockFavoriteMovies: IFavoriteMoviesResponse = {
   total_results: 1,
 };
 
-describe('FavoriteEffects', () => {
+xdescribe('FavoriteEffects', () => {
   let actions$: Actions;
   let effects: FavoriteEffects;
   let favoriteService: FavoriteService;
