@@ -64,7 +64,7 @@ describe('MovieComponent', () => {
     spyOn(component, 'openConfirmationDialog').and.returnValue(of(true));
     component.deleteMovie();
     expect(dispatchSpy).toHaveBeenCalledOnceWith(
-      ListsActions.deleteMovieFromList({ movieId: mockMovie.id })
+      ListsActions.deleteMovieFromList({ movieId: mockMovie.id, listId: 1 })
     );
   });
 

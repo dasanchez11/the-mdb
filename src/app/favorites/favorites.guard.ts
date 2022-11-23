@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
+  Router,
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
@@ -16,7 +17,8 @@ import { map } from 'rxjs/operators';
 export class FavoritesGuard implements CanActivate {
   constructor(
     private snackBar: SnackbarService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private router: Router
   ) {}
 
   canActivate(
@@ -34,6 +36,7 @@ export class FavoritesGuard implements CanActivate {
             'You need to login to view this page.',
             true
           );
+          return this.router.createUrlTree(['/home']);
         }
         return user !== null;
       })

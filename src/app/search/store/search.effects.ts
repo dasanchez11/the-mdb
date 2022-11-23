@@ -1,7 +1,7 @@
 import { SearchHttpService } from '../services/search-http.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { SearchActionTypes } from './search.types';
-import { catchError, EMPTY, of, switchMap } from 'rxjs';
+import { catchError, of, switchMap } from 'rxjs';
 import { SearchFailure, SearchSuccess } from './search.actions';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { UpsertManyMovies } from 'src/app/shared/store/movies.actions';
@@ -43,7 +43,14 @@ export class SearchEffects {
                 return of(SearchSuccess({ payload: response }));
               }),
               catchError(error => {
-                this.snackBar.openSnackBar(error.error.status_message, true);
+                let errorMessage = 'Error loading results';
+                if (error.error.errors) {
+                  errorMessage = error.error.errors[0];
+                }
+                if (error.error.status_message) {
+                  errorMessage = error.error.status_message;
+                }
+                this.snackBar.openSnackBar(errorMessage, true);
                 return of(SearchFailure());
               })
             );
