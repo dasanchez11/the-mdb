@@ -1,5 +1,5 @@
 <div
-  class="bg-primary inline-block w-[250px] flex flex-col justify-center pl-5 pr-5 pb-2 pt-3 rounded">
+  class="bg-primary inline-block w-[250px] max-h-[200px] overflow-y-auto flex flex-col justify-center pl-5 pr-5 pb-2 pt-3 rounded">
   <button
   routerLink="/lists/create/{{movieId}}"
     class="bg-primary text-white font-bold flex flex-row justify-center whitespace-nowrap w-full mb-2">
@@ -9,7 +9,8 @@
     <div *ngIf="userLists.length > 0">
       <button
         (click)="dropdownHidden = !dropdownHidden"
-        class="w-full text-white bg-primary focus:ring-4 focus:outline-none focus:ring-gradientBlue font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex justify-between"
+        class="w-full text-white bg-primary font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex justify-between"
+        [ngClass]="{'ring-4': !dropdownHidden, 'ring-gradientBlue': !dropdownHidden}"
         type="button">
         Add to list<svg
           class="ml-2 w-4 h-4"
