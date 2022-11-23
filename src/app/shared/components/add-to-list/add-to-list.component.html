@@ -1,11 +1,12 @@
-<div class="bg-primary inline-block w-[200px] flex flex-col justify-center pl-5 pr-5 pb-2 pt-3">
+<div class="bg-primary inline-block w-[250px] flex flex-col justify-center pl-5 pr-5 pb-2 pt-3">
     <button class="bg-primary text-white font-bold flex flex-row justify-center whitespace-nowrap items-center w-full"><mat-icon>add</mat-icon>New List</button>
     <ng-container *ngIf="lists$ | async as userLists">
         <div *ngIf="userLists.length > 0">
             <div class="italic font-semibold  text-center">Add to existing list...</div>
             <ul>
-                <li class="truncate block hover:underline hover:cursor-pointer" *ngFor="let list of userLists" (click)="addMovieToList(list.id!)">
+                <li class="truncate block hover:underline hover:cursor-pointer whitespace-nowrap" *ngFor="let list of userLists" (click)="!isMovieInList(list) && addMovieToList(list.id!)" [class.font-bold]="isMovieInList(list)">
                     {{list.name}}
+                    <span class="italic text-s">{{isMovieInList(list) ? '(Added)' : ''}}</span>
                 </li>
             </ul>
         </div>
