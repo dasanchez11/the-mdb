@@ -11,15 +11,17 @@ import { API_KEY } from 'src/app/auth/services/apiKey';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private localStorage : AuthLocalStorageService) {}
+  constructor(private localStorage: AuthLocalStorageService) {}
 
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     request = request.clone({
-      params : request.params.append('session_id', this.localStorage.getElement('sessionId')).append('api_key', API_KEY)
-    })
+      params: request.params
+        .append('session_id', this.localStorage.getElement('sessionId'))
+        .append('api_key', API_KEY),
+    });
     return next.handle(request);
   }
 }

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from 'src/app/app.store';
+import { loadLists } from 'src/app/lists/store/lists.actions';
 import { MovieDetails } from '../../interfaces/responses/movie-details/movie-details.interface';
 import {
   FetchDetailsStart,

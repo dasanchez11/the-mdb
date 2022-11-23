@@ -27,7 +27,7 @@ export const listsReducer = createReducer(
       loaded: true,
     };
   }),
-  on(ListsActions.updateLists, (state, action) =>
+  on(ListsActions.upsertList, (state, action) =>
     listsAdapter.upsertOne(action.list, state)
   ),
   on(ListsActions.loadListDetails, (state, action): ListsState => {
@@ -41,11 +41,11 @@ export const listsReducer = createReducer(
   ),
   on(ListsActions.deleteMovieFromListSucess, (state, action): ListsState => {
     const updatedList: IListDetails = {
-      ...state.entities[state.selectListId!],
-      items: state.entities[state.selectListId!]!.items.filter(
+      ...state.entities[action.listId],
+      items: state.entities[action.listId]!.items.filter(
         items => items.id !== action.movieId
       ),
-      item_count: state.entities[state.selectListId!]?.item_count! - 1,
+      item_count: state.entities[action.listId]?.item_count! - 1,
     };
     return listsAdapter.updateOne(
       { id: updatedList.id!, changes: updatedList },

@@ -7,6 +7,7 @@ import {
   addMovieToFavorites,
   deleteFavorite,
 } from 'src/app/favorites/store/favorites.actions';
+import { loadLists } from 'src/app/lists/store/lists.actions';
 import { MovieDetails } from '../../interfaces/responses/movie-details/movie-details.interface';
 import {
   AddRating,
@@ -32,6 +33,7 @@ export class MovieDetailsMovieComponent implements OnInit, OnDestroy {
   watchlist: boolean = false;
   rating = 0;
   ratingOpen = false;
+  addListOpen = false;
 
   constructor(private store: Store<AppState>) {}
 
@@ -52,7 +54,18 @@ export class MovieDetailsMovieComponent implements OnInit, OnDestroy {
             this.rating = val.value;
           }
         }
+
       });
+        this.loadUserLists()
+      }
+  
+
+  loadUserLists() {
+    this.logged$.pipe(take(1)).subscribe(loggedIn => {
+      if (loggedIn) {
+        this.store.dispatch(loadLists())
+      }
+    });
   }
 
   watchlistClick() {
@@ -89,7 +102,17 @@ export class MovieDetailsMovieComponent implements OnInit, OnDestroy {
     });
   }
 
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+
+  listClicked() {
+    this.logged$.pipe(take(1)).subscribe(loggedIn => {
+      if (loggedIn) {
+        this.addListOpen = !this.addListOpen;
+      }
+    });
+  }
+  
 }
