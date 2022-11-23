@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AppState } from 'src/app/app.store';
 import { Movie } from '../../../home/interfaces/movies.interface';
 import {
@@ -12,7 +12,8 @@ import {
   selector: 'app-carrousel',
   templateUrl: './carrousel.component.html',
 })
-export class CarrouselComponent implements OnInit {
+export class CarrouselComponent implements OnInit, OnDestroy {
+  storeSubscription!: Subscription;
   cards!: Movie[];
   page!: number;
   totalPages!: number;
@@ -27,13 +28,15 @@ export class CarrouselComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.store.select(this.carrouselSelector).subscribe(value => {
-      this.page = value.meta.page;
-      this.totalPages = value.meta.total_pages;
-      this.loading = value.loading;
-      this.errors = value.errors;
-      this.cards = value.movies;
-    });
+    this.storeSubscription = this.store
+      .select(this.carrouselSelector)
+      .subscribe(value => {
+        this.page = value.meta.page;
+        this.totalPages = value.meta.total_pages;
+        this.loading = value.loading;
+        this.errors = value.errors;
+        this.cards = value.movies;
+      });
   }
 
   onScroll() {
@@ -48,5 +51,9 @@ export class CarrouselComponent implements OnInit {
         );
       }
     }
+  }
+
+  ngOnDestroy(): void {
+    this.storeSubscription.unsubscribe();
   }
 }

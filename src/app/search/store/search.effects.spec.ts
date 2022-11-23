@@ -3,8 +3,8 @@ import { Actions } from '@ngrx/effects';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { SearchEffects } from './search.effects';
 import { SearchHttpService } from './../services/search-http.service';
-import { SearchStart, SearchSuccess } from './search.actions';
-import { EMPTY, of, take, throwError } from 'rxjs';
+import { SearchFailure, SearchStart, SearchSuccess } from './search.actions';
+import { of, take, throwError } from 'rxjs';
 import { mockMoviesResponse } from 'src/app/home/test/mock-response';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { mockErrorResponse } from 'src/app/auth/test/mock-error-response';
@@ -70,7 +70,7 @@ describe('Search Effects', () => {
     effects.searchAction.pipe(take(1)).subscribe((action: any) => {
       expect(mockHttp.getSearch).toHaveBeenCalledTimes(1);
       expect(mockSnackbar.openSnackBar).toHaveBeenCalledTimes(1);
-      expect(action).toEqual(EMPTY);
+      expect(action).toEqual(SearchFailure());
     });
   });
 

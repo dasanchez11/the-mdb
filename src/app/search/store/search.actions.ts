@@ -12,4 +12,6 @@ export const SearchSuccess = createAction(
   props<{ payload: IMoviesReponse }>()
 );
 
+export const SearchFailure = createAction(SearchActionTypes.SEARCH_FAILURE);
+
 export const ClearSearch = createAction(SearchActionTypes.CLEAR_SEARCH);
