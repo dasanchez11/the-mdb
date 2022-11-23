@@ -42,7 +42,14 @@ import { AddToListComponent } from './components/add-to-list/add-to-list.compone
     InfiniteScrollModule,
     NgOptimizedImage,
   ],
-  exports: [NavbarComponent, CardComponent, CarrouselComponent, MatIconModule, InfiniteScrollModule, AddToListComponent],
+  exports: [
+    NavbarComponent,
+    CardComponent,
+    CarrouselComponent,
+    MatIconModule,
+    InfiniteScrollModule,
+    AddToListComponent,
+  ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],

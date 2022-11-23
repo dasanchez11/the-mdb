@@ -11,26 +11,27 @@ import { selectAllLists } from 'src/app/lists/store/lists.selector';
   templateUrl: './add-to-list.component.html',
 })
 export class AddToListComponent implements OnInit {
+  @Input() movieId!: number;
+  lists$!: Observable<IListDetails[]>;
+  dropdownHidden = true;
 
-  @Input() movieId! : number
-  lists$! : Observable<IListDetails[]>
-
-  constructor(private store : Store<AppState>) { }
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.lists$ = this.store.select(selectAllLists)
+    this.lists$ = this.store.select(selectAllLists);
   }
 
-  addMovieToList(listId : string) {
-    this.store.dispatch(addMovieToList({movieId: this.movieId, listId: parseInt(listId)}))
+  addMovieToList(listId: string) {
+    this.store.dispatch(
+      addMovieToList({ movieId: this.movieId, listId: parseInt(listId) })
+    );
   }
 
-  isMovieInList(list : IListDetails) : boolean {
-    if(list){
-      const movie = list.items.find(movie => movie.id === this.movieId)
-      return movie !== undefined
+  isMovieInList(list: IListDetails): boolean {
+    if (list) {
+      const movie = list.items.find(movie => movie.id === this.movieId);
+      return movie !== undefined;
     }
     return false;
   }
-
 }

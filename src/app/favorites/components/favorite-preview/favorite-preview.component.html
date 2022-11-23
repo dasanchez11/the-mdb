@@ -25,12 +25,22 @@
           >favorite</mat-icon
         >
       </div>
-      <div
-        class="group w-8 h-8 rounded-full flex justify-center items-center border border-gray-400 hover:bg-gray-400 hover:cursor-pointer">
-        <mat-icon
-          class="text-gray-400 scale-75 hover:cursor-pointer group-hover:text-white"
-          >list</mat-icon
-        >
+      <div class="relative">
+        <div
+          (click)="addListOpen = !addListOpen"
+          class="group w-8 h-8 rounded-full flex justify-center items-center border border-gray-400 hover:bg-gray-400 hover:cursor-pointer"
+          [class.bg-gray-400]="addListOpen">
+          <mat-icon
+            class="text-gray-400 scale-75 hover:cursor-pointer group-hover:text-white"
+            [style.color]="addListOpen ? 'white' : ''"
+            >list</mat-icon
+          >
+        </div>
+        <app-add-to-list
+          [movieId]="movie.id"
+          *ngIf="addListOpen"
+          class="absolute top-12 sm:-left-[5rem] w-[200px] z-10">
+        </app-add-to-list>
       </div>
     </div>
   </div>

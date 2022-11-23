@@ -1,17 +1,49 @@
-<div class="bg-primary inline-block w-[250px] flex flex-col justify-center pl-5 pr-5 pb-2 pt-3">
-    <button class="bg-primary text-white font-bold flex flex-row justify-center whitespace-nowrap items-center w-full"><mat-icon>add</mat-icon>New List</button>
-    <ng-container *ngIf="lists$ | async as userLists">
-        <div *ngIf="userLists.length > 0">
-            <div class="italic font-semibold  text-center">Add to existing list...</div>
-            <ul>
-                <li class="truncate block hover:underline hover:cursor-pointer whitespace-nowrap" *ngFor="let list of userLists" (click)="!isMovieInList(list) && addMovieToList(list.id!)" [class.font-bold]="isMovieInList(list)">
-                    {{list.name}}
-                    <span class="italic text-s">{{isMovieInList(list) ? '(Added)' : ''}}</span>
-                </li>
-            </ul>
-        </div>
-        <div *ngIf="userLists.length === 0">
-            <div class="italic font-semibold text-center">No existing lists...</div>
-        </div>
-    </ng-container>
+<div
+  class="bg-primary inline-block w-[250px] flex flex-col justify-center pl-5 pr-5 pb-2 pt-3 rounded">
+  <button
+    class="bg-primary text-white font-bold flex flex-row justify-center whitespace-nowrap w-full mb-2">
+    <mat-icon>add</mat-icon>Create New List
+  </button>
+  <ng-container *ngIf="lists$ | async as userLists">
+    <div *ngIf="userLists.length > 0">
+      <button
+        (click)="dropdownHidden = !dropdownHidden"
+        class="w-full text-white bg-primary focus:ring-4 focus:outline-none focus:ring-gradientBlue font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex justify-between"
+        type="button">
+        Add to list<svg
+          class="ml-2 w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </button>
+      <div
+        class="z-10 w-full bg-primary divide-y divide-white-100"
+        [class.hidden]="dropdownHidden">
+        <ul class="py-1 text-sm text-gray-700 dark:text-gray-200">
+          <li
+            *ngFor="let list of userLists"
+            (click)="!isMovieInList(list) && addMovieToList(list.id!)"
+            [class.font-bold]="isMovieInList(list)">
+            <div
+              class="block py-2 px-4 hover:bg-gradientBlue">
+              {{ list.name
+              }}<span class="italic text-sm hover:cursor-pointer">{{
+                isMovieInList(list) ? '(Added)' : ''
+              }}</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div *ngIf="userLists.length === 0">
+      <div class="italic font-semibold text-center text-white">No existing lists...</div>
+    </div>
+  </ng-container>
 </div>

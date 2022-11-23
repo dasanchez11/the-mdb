@@ -2,7 +2,14 @@ import { Injectable } from '@angular/core';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { merge, Observable, throwError } from 'rxjs';
-import { catchError, concatMap, exhaustMap, map, mergeMap, switchMap } from 'rxjs/operators';
+import {
+  catchError,
+  concatMap,
+  exhaustMap,
+  map,
+  mergeMap,
+  switchMap,
+} from 'rxjs/operators';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { IListDetails } from '../interfaces/list-details-response.interface';
 import { ListsService } from '../services/lists.service';
@@ -17,7 +24,7 @@ import {
   loadListDetailsSucess,
   loadLists,
   loadListSuccess,
-  upsertList
+  upsertList,
 } from './lists.actions';
 import { selectSelectedListId } from './lists.selector';
 
@@ -34,17 +41,17 @@ export class ListsEffects {
   loadListSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loadListSuccess),
-      exhaustMap(action => { 
+      exhaustMap(action => {
         const lists = action.lists;
-        const requestsArray : Observable<IListDetails>[] = []
-        lists.forEach((list) => {
-          const request = this.listsService.getListDetails(parseInt(list.id!))
-          requestsArray.push(request)
-        })
-        return merge(requestsArray)
+        const requestsArray: Observable<IListDetails>[] = [];
+        lists.forEach(list => {
+          const request = this.listsService.getListDetails(parseInt(list.id!));
+          requestsArray.push(request);
+        });
+        return merge(requestsArray);
       }),
       mergeMap(obs => obs),
-      map(listDetails =>  upsertList({list : listDetails}))
+      map(listDetails => upsertList({ list: listDetails }))
     );
   });
 
