@@ -109,6 +109,7 @@ export class MovieDetailsMovieComponent implements OnInit, OnDestroy {
     this.logged$.pipe(take(1)).subscribe(loggedIn => {
       if (loggedIn) {
         this.ratingOpen = !this.ratingOpen;
+        this.addListOpen = false;
       }
     });
   }
@@ -122,6 +123,7 @@ export class MovieDetailsMovieComponent implements OnInit, OnDestroy {
     this.logged$.pipe(take(1)).subscribe(loggedIn => {
       if (loggedIn) {
         this.addListOpen = !this.addListOpen;
+        this.ratingOpen = false
       }
     });
   }
