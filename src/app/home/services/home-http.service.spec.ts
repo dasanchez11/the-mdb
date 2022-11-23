@@ -4,7 +4,6 @@ import {
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { mockMoviesResponse } from '../test/mock-response';
-import { API_KEY } from './apiKey';
 
 import { HomeHttpService } from './home-http.service';
 
@@ -26,10 +25,9 @@ describe('HomeHttpService', () => {
 
   it('should get now playing movies', () => {
     const baseUrl = 'https://api.themoviedb.org/3/movie/';
-    const apiKey = API_KEY;
     const queryParams = `&page=${1}`;
     const restUrl = 'now_playing?';
-    const url = baseUrl + restUrl + queryParams + `&api_key=${apiKey}`;
+    const url = baseUrl + restUrl + queryParams;
 
     service.getNowPlaying().subscribe(response => {
       expect(response).toBe(mockMoviesResponse);
@@ -43,10 +41,9 @@ describe('HomeHttpService', () => {
 
   it('should get popular movies', () => {
     const baseUrl = 'https://api.themoviedb.org/3/movie/';
-    const apiKey = API_KEY;
     const queryParams = `&page=${1}`;
     const restUrl = 'popular?';
-    const url = baseUrl + restUrl + queryParams + `&api_key=${apiKey}`;
+    const url = baseUrl + restUrl + queryParams;
 
     service.getPopular().subscribe(response => {
       expect(response).toBe(mockMoviesResponse);
@@ -60,10 +57,9 @@ describe('HomeHttpService', () => {
 
   it('should get top rated movies', () => {
     const baseUrl = 'https://api.themoviedb.org/3/movie/';
-    const apiKey = API_KEY;
     const queryParams = `&page=${1}`;
     const restUrl = 'top_rated?';
-    const url = baseUrl + restUrl + queryParams + `&api_key=${apiKey}`;
+    const url = baseUrl + restUrl + queryParams;
 
     service.getTopRated().subscribe(response => {
       expect(response).toBe(mockMoviesResponse);
@@ -77,10 +73,9 @@ describe('HomeHttpService', () => {
 
   it('should get upcoming movies', () => {
     const baseUrl = 'https://api.themoviedb.org/3/movie/';
-    const apiKey = API_KEY;
     const queryParams = `&page=${1}`;
     const restUrl = 'upcoming?';
-    const url = baseUrl + restUrl + queryParams + `&api_key=${apiKey}`;
+    const url = baseUrl + restUrl + queryParams;
 
     service.getUpcoming().subscribe(response => {
       expect(response).toBe(mockMoviesResponse);

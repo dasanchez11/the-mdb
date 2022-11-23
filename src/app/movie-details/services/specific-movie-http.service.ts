@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { API_KEY } from 'src/app/auth/services/apiKey';
 import { AuthLocalStorageService } from 'src/app/auth/services/auth-local-storage.service';
 import { IMoviesReponse } from 'src/app/home/interfaces/movies-response.interface';
 import { IMovieDetailsActionResponse } from '../interfaces/responses/movie-actions/movie-actions.response';
@@ -13,7 +12,6 @@ import { IMovieDetailsResponse } from '../interfaces/responses/movie-details/mov
 export class SpecificMovieHttpService {
   constructor(private http: HttpClient) {}
   private baseUrl = 'https://api.themoviedb.org/3/movie/';
-  private apiKey = API_KEY;
 
   getMovieDetails(movieId: number): Observable<IMovieDetailsResponse> {
     const queryParams = `append_to_response=similar,recommendations,account_states,reviews`;
@@ -28,16 +26,14 @@ export class SpecificMovieHttpService {
   ): Observable<IMoviesReponse> {
     const queryParams = `&page=${page}`;
     const restUrl = `${movieId}/recommendations?`;
-    const url =
-      this.baseUrl + restUrl + queryParams + `&api_key=${this.apiKey}`;
+    const url = this.baseUrl + restUrl + queryParams;
     return this.http.get<IMoviesReponse>(url);
   }
 
   getSimilar(page: number = 1, movieId: number): Observable<IMoviesReponse> {
     const queryParams = `&page=${page}`;
     const restUrl = `${movieId}/similar?`;
-    const url =
-      this.baseUrl + restUrl + queryParams + `&api_key=${this.apiKey}`;
+    const url = this.baseUrl + restUrl + queryParams;
     return this.http.get<IMoviesReponse>(url);
   }
 

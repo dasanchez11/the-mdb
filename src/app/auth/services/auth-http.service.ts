@@ -5,7 +5,6 @@ import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { IGetTokenResponse } from '../interfaces/get-token-reponse.interface';
 import { User } from '../interfaces/responses/get-account-response';
 import { IGetSessionId } from '../interfaces/responses/get-sessionId-response.interface';
-import { API_KEY } from './apiKey';
 import { AuthLocalStorageService } from './auth-local-storage.service';
 import { RedirectService } from './redirect.service';
 import { map } from 'rxjs/operators';
@@ -15,7 +14,6 @@ import { map } from 'rxjs/operators';
 })
 export class AuthHttpService {
   private baseUrl = 'https://api.themoviedb.org/3/';
-  private apiKey = API_KEY;
 
   constructor(
     private http: HttpClient,
@@ -25,8 +23,8 @@ export class AuthHttpService {
   ) {}
 
   getToken() {
-    const restUrl = 'authentication/token/new?api_key=';
-    const url = this.baseUrl + restUrl + this.apiKey;
+    const restUrl = 'authentication/token/new';
+    const url = this.baseUrl + restUrl;
     return this.http.get<IGetTokenResponse>(url).pipe(
       catchError(error => {
         this.snackBar.openSnackBar(error.error.status_message, true);
@@ -42,8 +40,8 @@ export class AuthHttpService {
 
   postSessionId(requestToken: string): Observable<IGetSessionId> {
     const request_token = requestToken;
-    const restUrl = 'authentication/session/new?api_key=';
-    const url = this.baseUrl + restUrl + this.apiKey;
+    const restUrl = 'authentication/session/new';
+    const url = this.baseUrl + restUrl;
     return this.http.post<IGetSessionId>(url, { request_token }).pipe(
       map(response => {
         this.localStorageService.setElement('sessionId', response.session_id);
@@ -57,9 +55,9 @@ export class AuthHttpService {
   }
 
   getuserInfo(sessionId: string): Observable<User> {
-    const restUrl = '/account?api_key=';
-    const sessionUrl = '&session_id=';
-    const url = this.baseUrl + restUrl + this.apiKey + sessionUrl + sessionId;
+    const restUrl = '/account';
+    const sessionUrl = '?session_id=';
+    const url = this.baseUrl + restUrl + sessionUrl + sessionId;
     return this.http.get<User>(url).pipe(
       catchError(error => {
         this.snackBar.openSnackBar(error.error.status_message, true);
@@ -71,9 +69,9 @@ export class AuthHttpService {
   deleteSession(): Observable<{ success: boolean }> {
     const sessionId = this.localStorageService.getElement('sessionId');
     if (sessionId) {
-      const restUrl = '/authentication/session?api_key=';
-      const sessionUrl = '&session_id=';
-      const url = this.baseUrl + restUrl + this.apiKey + sessionUrl + sessionId;
+      const restUrl = '/authentication/session';
+      const sessionUrl = '?session_id=';
+      const url = this.baseUrl + restUrl + sessionUrl + sessionId;
       return this.http
         .delete<{ success: boolean }>(url, { body: { session_id: sessionId } })
         .pipe(

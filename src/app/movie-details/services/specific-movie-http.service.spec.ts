@@ -3,7 +3,6 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { API_KEY } from 'src/app/auth/services/apiKey';
 import { mockUser } from 'src/app/auth/test/mock-user';
 import { mockMoviesResponse } from 'src/app/home/test/mock-response';
 import { mockMovieDetailsResponse } from '../test/mock-movie-details.response';
@@ -45,11 +44,10 @@ describe('SpecificMovieHttpService', () => {
 
   it('should getRecommended', () => {
     const movieId = 1234;
-    const apiKey = API_KEY;
     const baseUrl = 'https://api.themoviedb.org/3/movie/';
     const queryParams = `&page=${1}`;
     const restUrl = `${movieId}/recommendations?`;
-    const url = baseUrl + restUrl + queryParams + `&api_key=${apiKey}`;
+    const url = baseUrl + restUrl + queryParams;
 
     service.getRecommended(1, 1234).subscribe(response => {
       expect(response).toBe(mockMoviesResponse);
@@ -63,11 +61,10 @@ describe('SpecificMovieHttpService', () => {
 
   it('should get Similar', () => {
     const movieId = 1234;
-    const apiKey = API_KEY;
     const baseUrl = 'https://api.themoviedb.org/3/movie/';
     const queryParams = `&page=${1}`;
     const restUrl = `${movieId}/similar?`;
-    const url = baseUrl + restUrl + queryParams + `&api_key=${apiKey}`;
+    const url = baseUrl + restUrl + queryParams;
 
     service.getSimilar(1, 1234).subscribe(response => {
       expect(response).toBe(mockMoviesResponse);

@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { AppState } from 'src/app/app.store';
 import { MovieReview } from '../../interfaces/responses/movie-reviews/movie-review.interface';
 import { selectMovieReviews } from '../../store/specific-movie.selectors';
-import { mockReviews } from '../../test/mock-movie-reviews';
 
 @Component({
   selector: 'app-movie-details-reviews',

@@ -9,7 +9,7 @@ import { CircleComponent } from './components/circle/circle.component';
 
 import { CardComponent } from './card.component';
 
-describe('HomeCardComponent', () => {
+describe('CardComponent', () => {
   let component: CardComponent;
   let fixture: ComponentFixture<CardComponent>;
   let router: Router;
@@ -47,6 +47,7 @@ describe('HomeCardComponent', () => {
     component.voteAvg = 10;
     component.voteCount = 10;
     component.released = '2022-10-10';
+    fixture.detectChanges();
 
     const votesAvg = el.queryAll(By.css('.card__voteAvg'));
     const title = el.queryAll(By.css('.card__title'));
