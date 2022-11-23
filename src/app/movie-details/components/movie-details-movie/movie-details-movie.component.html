@@ -45,83 +45,81 @@
         <app-movie-details-circle
           class="hover:scale-[1.1] pl-3 hover:cursor-pointer transition ease-in-out"
           [percent]="movie.vote_average"></app-movie-details-circle>
-          <div class="circle">
-            User <br />
-            Score
-          </div>
-          <div class="flex flex-row gap-4">
-            <div class="relative">
-              <button
-              (click)="listClicked()"
-              mat-mini-fab
-              [matTooltip]="
-                (logged$ | async) ? 'Add to list' : 'Login to add movie to list'
-              "
-              matTooltipClass="bg-primary"
-              color="primary"
-              aria-label="add-to-list">
-              <mat-icon class="text-base">format_list_bulleted</mat-icon>
-              </button>
-              <app-add-to-list 
-              [movieId]="movie.id"
-              class="absolute w-[200px] top-16 -left-3 " 
-              *ngIf="addListOpen">
-              </app-add-to-list>
-            </div>
-            <button
-              (click)="favoriteClick()"
-              mat-mini-fab
-              [matTooltip]="
-                (logged$ | async)
-                  ? 'Mark as favorite'
-                  : 'Login to mark movie as favorite'
-              "
-              matTooltipClass="bg-primary"
-              color="primary"
-              aria-label="add-to-favorite">
-              <mat-icon [class]="favorite ? 'text-base text-red-600' : 'text-base'"
-                >favorite</mat-icon
-              >
-            </button>
-            <button
-              (click)="watchlistClick()"
-              mat-mini-fab
-              [matTooltip]="
-                (logged$ | async)
-                  ? 'Add to your watchlist'
-                  : 'Login to add the movie to your watchlist'
-              "
-              matTooltipClass="bg-primary"
-              color="primary"
-              aria-label="add-to-watchlist">
-              <mat-icon
-                [class]="watchlist ? 'text-base text-green-600' : 'text-base'"
-                >bookmark</mat-icon
-              >
-            </button>
-            <div class="relative">
-              <button
-                (click)="ratedClick()"
-                mat-mini-fab
-                [matTooltip]="
-                  (logged$ | async) ? 'Rate it!' : 'Login to rate this movie'
-                "
-                matTooltipClass="bg-primary"
-                color="primary"
-                aria-label="rate">
-                <mat-icon
-                  [class]="rated ? 'text-base text-yellow-500' : 'text-base'"
-                  >star</mat-icon
-                >
-              </button>
-              <app-movie-details-rating
-                class="absolute top-16 -left-[12.8rem] md:-left-[13.5rem]"
-                *ngIf="ratingOpen"
-                [movieId]="movie.id"
-                [logged$]="logged$"
-                [rating]="rating"></app-movie-details-rating>
-            </div>
-          </div>
+        <div class="circle">
+          User <br />
+          Score
+        </div>
+        <div class="relative">
+          <button
+          (click)="listClicked()"
+          mat-mini-fab
+          [matTooltip]="
+            (logged$ | async) ? 'Add to list' : 'Login to add movie to list'
+          "
+          matTooltipClass="bg-primary"
+          color="primary"
+          aria-label="add-to-list">
+          <mat-icon class="text-base">format_list_bulleted</mat-icon>
+          </button>
+          <app-add-to-list 
+          [movieId]="movie.id"
+          class="absolute top-12 sm:-left-[5rem] w-[200px]" 
+          *ngIf="addListOpen">
+          </app-add-to-list>
+        </div>
+        <button
+          (click)="favoriteClick()"
+          mat-mini-fab
+          [matTooltip]="
+            (logged$ | async)
+              ? 'Mark as favorite'
+              : 'Login to mark movie as favorite'
+          "
+          matTooltipClass="bg-primary"
+          color="primary"
+          aria-label="add-to-favorite">
+          <mat-icon [class]="favorite ? 'text-base text-red-600' : 'text-base'"
+            >favorite</mat-icon
+          >
+        </button>
+        <button
+          (click)="watchlistClick()"
+          mat-mini-fab
+          [matTooltip]="
+            (logged$ | async)
+              ? 'Add to your watchlist'
+              : 'Login to add the movie to your watchlist'
+          "
+          matTooltipClass="bg-primary"
+          color="primary"
+          aria-label="add-to-watchlist">
+          <mat-icon
+            [class]="watchlist ? 'text-base text-green-600' : 'text-base'"
+            >bookmark</mat-icon
+          >
+        </button>
+        <div class="relative">
+          <button
+            (click)="ratedClick()"
+            mat-mini-fab
+            [matTooltip]="
+              (logged$ | async) ? 'Rate it!' : 'Login to rate this movie'
+            "
+            matTooltipClass="bg-primary"
+            color="primary"
+            aria-label="rate">
+            <mat-icon
+              [class]="rated ? 'text-base text-yellow-500' : 'text-base'"
+              >star</mat-icon
+            >
+          </button>
+          <app-movie-details-rating
+            class="absolute top-16 -left-[7rem] sm:-left-[15rem]"
+            *ngIf="ratingOpen"
+            [movieId]="movie.id"
+            [logged$]="logged$"
+            [rating]="rating"></app-movie-details-rating>
+        </div>
       </div>
       <div class="movie-content__tagline font-thin text-gray-400 italic">
         {{ movie.tagline }}
