@@ -1,4 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription, take } from 'rxjs';
 import { AppState } from 'src/app/app.store';
@@ -8,6 +9,7 @@ import {
   deleteFavorite,
 } from 'src/app/favorites/store/favorites.actions';
 import { loadLists } from 'src/app/lists/store/lists.actions';
+import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { MovieDetails } from '../../interfaces/responses/movie-details/movie-details.interface';
 import {
   AddRating,
@@ -34,8 +36,9 @@ export class MovieDetailsMovieComponent implements OnInit, OnDestroy {
   rating = 0;
   ratingOpen = false;
   addListOpen = false;
+  confirmDialog!: MatDialogRef<ConfirmationDialogComponent>;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.logged$ = this.store.select(selectCurrentUserLogged);
@@ -74,7 +77,11 @@ export class MovieDetailsMovieComponent implements OnInit, OnDestroy {
         if (!this.watchlist) {
           this.store.dispatch(AddToWatchlist({ payload: this.movie.id }));
         } else {
-          this.store.dispatch(RemoveFromWatchList({ payload: this.movie.id }));
+          this.openConfirmationDialog("Are you sure you want to remove movie from your watchlist?").subscribe(result => {
+            if(result){
+              this.store.dispatch(RemoveFromWatchList({ payload: this.movie.id }));
+            }
+          })
         }
       }
     });
@@ -86,9 +93,13 @@ export class MovieDetailsMovieComponent implements OnInit, OnDestroy {
         if (!this.favorite) {
           this.store.dispatch(addMovieToFavorites({ movieId: this.movie.id }));
         } else {
-          this.store.dispatch(
-            deleteFavorite({ favoriteMovieId: this.movie.id })
-          );
+          this.openConfirmationDialog("Are you sure you want to remove movie from favorites?").subscribe(result => {
+            if(result){
+              this.store.dispatch(
+                deleteFavorite({ favoriteMovieId: this.movie.id })
+              );
+            }
+          })
         }
       }
     });
@@ -113,6 +124,15 @@ export class MovieDetailsMovieComponent implements OnInit, OnDestroy {
         this.addListOpen = !this.addListOpen;
       }
     });
+  }
+
+  openConfirmationDialog(question: string): Observable<boolean> {
+    this.confirmDialog = this.dialog.open(ConfirmationDialogComponent, {
+      disableClose: true,
+    });
+    this.confirmDialog.componentInstance.dialogMessage =
+      question;
+    return this.confirmDialog.afterClosed();
   }
   
 }
