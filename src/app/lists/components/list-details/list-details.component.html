@@ -61,7 +61,7 @@
         *ngFor="let movie of movieList.items; index as movieIndex"
         [movie]="movie"
         [position]="movieIndex"
-        [listId]="movieList.items[movieIndex].id"
+        [listId]="movieList.id!"
         class="w-fit"></app-movie>
     </div>
     <div class="w-[80%] m-auto" *ngIf="movieList.items!.length === 0">

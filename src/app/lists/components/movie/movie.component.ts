@@ -14,7 +14,7 @@ import { deleteMovieFromList } from '../../store/lists.actions';
 export class MovieComponent {
   @Input() movie!: IMovie;
   @Input() position!: number;
-  @Input() listId!: number;
+  @Input() listId!: string;
   confirmDialog!: MatDialogRef<ConfirmationDialogComponent>;
 
   constructor(private store: Store, private dialog: MatDialog) {}
@@ -32,7 +32,7 @@ export class MovieComponent {
     this.openConfirmationDialog().pipe(take(1)).subscribe(result => {
       if (result) {
         this.store.dispatch(
-          deleteMovieFromList({ movieId: this.movie.id, listId: this.listId })
+          deleteMovieFromList({ movieId: this.movie.id, listId: parseInt(this.listId) })
         );
       }
     });
