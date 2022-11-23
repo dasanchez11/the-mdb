@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from 'src/app/app.store';
 import { IListDetails } from 'src/app/lists/interfaces/list-details-response.interface';
-import { addMovieToList } from 'src/app/lists/store/lists.actions';
+import { addMovieToList, deleteMovieFromList } from 'src/app/lists/store/lists.actions';
 import { selectAllLists } from 'src/app/lists/store/lists.selector';
 
 @Component({
@@ -27,6 +27,12 @@ export class AddToListComponent implements OnInit {
     );
   }
 
+  removeMovieFromList(listId: string){
+    this.store.dispatch(
+      deleteMovieFromList({movieId : this.movieId, listId: parseInt(listId)})
+    )
+  }
+
   isMovieInList(list: IListDetails): boolean {
     if (list) {
       const movie = list.items.find(movie => movie.id === this.movieId);
@@ -34,4 +40,5 @@ export class AddToListComponent implements OnInit {
     }
     return false;
   }
+
 }

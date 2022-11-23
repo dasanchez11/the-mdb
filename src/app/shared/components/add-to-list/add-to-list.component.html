@@ -1,6 +1,7 @@
 <div
   class="bg-primary inline-block w-[250px] flex flex-col justify-center pl-5 pr-5 pb-2 pt-3 rounded">
   <button
+  routerLink="/lists/create"
     class="bg-primary text-white font-bold flex flex-row justify-center whitespace-nowrap w-full mb-2">
     <mat-icon>add</mat-icon>Create New List
   </button>
@@ -24,17 +25,19 @@
         </svg>
       </button>
       <div
-        class="z-10 w-full bg-primary divide-y divide-white-100"
+        class="z-10 w-full bg-primary"
         [class.hidden]="dropdownHidden">
         <ul class="py-1 text-sm text-gray-700 dark:text-gray-200">
           <li
             *ngFor="let list of userLists"
-            (click)="!isMovieInList(list) && addMovieToList(list.id!)"
+            (click)="!isMovieInList(list) ? addMovieToList(list.id!) : removeMovieFromList(list.id!)"
             [class.font-bold]="isMovieInList(list)">
             <div
-              class="block py-2 px-4 hover:bg-gradientBlue">
+              class="block py-2 px-4 hover:bg-gradientBlue rounded hover:cursor-pointer">
               {{ list.name
-              }}<span class="italic text-sm hover:cursor-pointer">{{
+              }}
+              <!-- <mat-icon class="hover:cursor-pointer scale-75" *ngIf="isMovieInList(list)">cancel</mat-icon> -->
+              <span class="italic text-sm hover:cursor-pointer">{{
                 isMovieInList(list) ? '(Added)' : ''
               }}</span>
             </div>

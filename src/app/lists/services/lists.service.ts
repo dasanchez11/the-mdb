@@ -45,14 +45,14 @@ export class ListsService {
       .pipe(map(response => response.success));
   }
 
-  deleteMovieFromList(movieId: number, listId: number): Observable<number> {
+    deleteMovieFromList(movieId: number, listId: number): Observable<{movieId : number, listId: number}> {
     return this.http
       .post(`${this.url}list/${listId}/remove_item`, {
         media_id: movieId,
       })
       .pipe(
         map(() => {
-          return movieId;
+          return {movieId: movieId, listId:listId};
         }),
         catchError(error => {
           this.snackBar.openSnackBar(error.error.status_message, true);

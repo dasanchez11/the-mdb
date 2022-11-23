@@ -66,13 +66,12 @@ export class ListsEffects {
   deleteMovieFromList$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(deleteMovieFromList),
-      concatLatestFrom(() => this.store.select(selectSelectedListId)),
-      switchMap(([action, selectedListId]) =>
-        this.listsService.deleteMovieFromList(action.movieId, selectedListId!)
+      switchMap((action) =>
+        this.listsService.deleteMovieFromList(action.movieId, action.listId)
       ),
       map(response => {
-        this.snackBarService.openSnackBar('Item deleted succesfully');
-        return deleteMovieFromListSucess({ movieId: response });
+        this.snackBarService.openSnackBar('Item removed from list succesfully!');
+        return deleteMovieFromListSucess({ movieId: response.movieId, listId: response.listId  });
       })
     );
   });

@@ -7,7 +7,6 @@ import { ListsService } from '../../services/lists.service';
 @Component({
   selector: 'app-new-list',
   templateUrl: './new-list.component.html',
-  styleUrls: ['./new-list.component.scss'],
 })
 export class NewListComponent {
   form = new FormGroup({

@@ -30,12 +30,12 @@ export const loadListDetailsSucess = createAction(
 
 export const deleteMovieFromList = createAction(
   ListsActionsTypes.DELETE_MOVIE_FROM_LIST,
-  props<{ movieId: number }>()
+  props<{ movieId: number, listId : number }>()
 );
 
 export const deleteMovieFromListSucess = createAction(
   ListsActionsTypes.DELETE_MOVIE_FROM_LIST_SUCCESS,
-  props<{ movieId: number }>()
+  props<{ movieId: number, listId: number }>()
 );
 
 export const deleteMovieFromListFailure = createAction(
