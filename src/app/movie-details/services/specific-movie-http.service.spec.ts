@@ -10,7 +10,7 @@ import { mockMovieDetailsResponse } from '../test/mock-movie-details.response';
 import { AuthLocalStorageService } from 'src/app/auth/services/auth-local-storage.service';
 import { SpecificMovieHttpService } from './specific-movie-http.service';
 
-fdescribe('SpecificMovieHttpService', () => {
+describe('SpecificMovieHttpService', () => {
   let service: SpecificMovieHttpService;
   let httpController: HttpTestingController;
 

@@ -27,6 +27,10 @@ const routes: Routes = [
     path: 'create',
     component: NewListComponent,
   },
+  {
+    path: 'create/:movieId',
+    component: NewListComponent,
+  },
 ];
 
 @NgModule({

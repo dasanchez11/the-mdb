@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { Response } from 'src/app/favorites/interfaces/response.interface';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { ICreateListResponse } from '../interfaces/create-list-response.interface';
 import { IListDetails } from '../interfaces/list-details-response.interface';
@@ -35,23 +36,27 @@ export class ListsService {
     );
   }
 
-  createList(name: string, description: string): Observable<boolean> {
-    return this.http
-      .post<ICreateListResponse>(`${this.url}list`, {
-        name: name,
-        description: description,
-      })
-      .pipe(map(response => response.success));
+  createList(
+    name: string,
+    description: string
+  ): Observable<ICreateListResponse> {
+    return this.http.post<ICreateListResponse>(`${this.url}list`, {
+      name: name,
+      description: description,
+    });
   }
 
-  deleteMovieFromList(movieId: number, listId: number): Observable<number> {
+  deleteMovieFromList(
+    movieId: number,
+    listId: number
+  ): Observable<{ movieId: number; listId: number }> {
     return this.http
       .post(`${this.url}list/${listId}/remove_item`, {
         media_id: movieId,
       })
       .pipe(
         map(() => {
-          return movieId;
+          return { movieId: movieId, listId: listId };
         }),
         catchError(error => {
           this.snackBar.openSnackBar(error.error.status_message, true);
@@ -63,6 +68,18 @@ export class ListsService {
   clearList(listId: number): Observable<number> {
     return this.http
       .post<Response>(`${this.url}list/${listId}/clear?confirm=true`, null)
+      .pipe(
+        map(() => {
+          return listId;
+        })
+      );
+  }
+
+  addMovieToList(movieId: number, listId: number): Observable<number> {
+    return this.http
+      .post<Response>(`${this.url}list/${listId}/add_item`, {
+        media_id: movieId,
+      })
       .pipe(
         map(() => {
           return listId;

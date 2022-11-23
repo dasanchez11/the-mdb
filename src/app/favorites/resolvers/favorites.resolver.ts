@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
 import { map, Observable, of } from 'rxjs';
 import { AppState } from 'src/app/app.store';
 import { selectCurrentUser } from 'src/app/auth/store/auth.selectors';
+import { loadLists } from 'src/app/lists/store/lists.actions';
 import { loadFavorites } from '../store/favorites.actions';
 
 @Injectable()
@@ -23,6 +24,7 @@ export class FavoritesResolver implements Resolve<boolean> {
       map(user => {
         if (user) {
           this.store.dispatch(loadFavorites({ page: 1 }));
+          this.store.dispatch(loadLists())
         }
         return true;
       })

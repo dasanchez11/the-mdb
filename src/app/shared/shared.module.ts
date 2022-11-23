@@ -18,6 +18,7 @@ import { movieReducer } from './store/movies.reducer';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CircleComponent } from './components/card/components/circle/circle.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AddToListComponent } from './components/add-to-list/add-to-list.component';
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -26,6 +27,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     CardComponent,
     CarrouselComponent,
     CircleComponent,
+    AddToListComponent,
   ],
   imports: [
     CommonModule,
@@ -40,7 +42,14 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     InfiniteScrollModule,
     NgOptimizedImage,
   ],
-  exports: [NavbarComponent, CardComponent, CarrouselComponent, MatIconModule, InfiniteScrollModule],
+  exports: [
+    NavbarComponent,
+    CardComponent,
+    CarrouselComponent,
+    MatIconModule,
+    InfiniteScrollModule,
+    AddToListComponent,
+  ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],

@@ -13,6 +13,7 @@ import { FavoriteActions } from '../../store/favorites-actions';
 export class FavoritePreviewComponent {
   @Input() movie!: Movie;
   confirmDialog!: MatDialogRef<ConfirmationDialogComponent>;
+  addListOpen = false;
 
   constructor(private store: Store, private dialog: MatDialog) {}
 

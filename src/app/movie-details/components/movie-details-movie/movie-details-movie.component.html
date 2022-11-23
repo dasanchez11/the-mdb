@@ -49,14 +49,22 @@
           User <br />
           Score
         </div>
-        <button
+        <div class="relative">
+          <button
+          (click)="listClicked()"
           mat-mini-fab
           matTooltip="Add to list"
           matTooltipClass="bg-primary"
           color="primary"
           aria-label="add-to-list">
           <mat-icon class="text-base">format_list_bulleted</mat-icon>
-        </button>
+          </button>
+          <app-add-to-list 
+          [movieId]="movie.id"
+          class="absolute top-12 sm:-left-[5rem] w-[200px]" 
+          *ngIf="addListOpen">
+          </app-add-to-list>
+        </div>
         <button
           (click)="favoriteClick()"
           mat-mini-fab

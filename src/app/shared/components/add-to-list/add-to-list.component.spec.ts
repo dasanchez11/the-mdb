@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CircleComponent } from './circle.component';
+import { AddToListComponent } from './add-to-list.component';
 
-describe('CircleComponent', () => {
-  let component: CircleComponent;
-  let fixture: ComponentFixture<CircleComponent>;
+describe('AddToListComponent', () => {
+  let component: AddToListComponent;
+  let fixture: ComponentFixture<AddToListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CircleComponent],
+      declarations: [AddToListComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CircleComponent);
+    fixture = TestBed.createComponent(AddToListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
