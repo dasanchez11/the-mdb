@@ -19,6 +19,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CircleComponent } from './components/card/components/circle/circle.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AddToListComponent } from './components/add-to-list/add-to-list.component';
+import { ScrollDirective } from './directives/scroll.directive';
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -28,6 +29,7 @@ import { AddToListComponent } from './components/add-to-list/add-to-list.compone
     CarrouselComponent,
     CircleComponent,
     AddToListComponent,
+    ScrollDirective,
   ],
   imports: [
     CommonModule,

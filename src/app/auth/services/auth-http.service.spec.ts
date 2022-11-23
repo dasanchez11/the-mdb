@@ -105,7 +105,7 @@ describe('AuthHttpService', () => {
   describe('should delete session', () => {
     it('should delete session if sessionId', () => {
       mockStorage.getElement.withArgs('sessionId').and.returnValue('session');
-      const restUrl = '/authentication/session';
+      const restUrl = 'authentication/session';
       const sessionUrl = '?session_id=';
       const url = baseUrl + restUrl + sessionUrl + 'session';
 
@@ -183,7 +183,7 @@ describe('AuthHttpService', () => {
 
     it('should catch errors delete session', () => {
       mockStorage.getElement.withArgs('sessionId').and.returnValue('session');
-      const restUrl = '/authentication/session';
+      const restUrl = 'authentication/session';
       const sessionUrl = '?session_id=';
       const url = baseUrl + restUrl + sessionUrl + 'session';
 

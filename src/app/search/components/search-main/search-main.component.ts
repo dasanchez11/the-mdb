@@ -77,5 +77,6 @@ export class SearchMainComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.store.dispatch(ClearSearch());
   }
 }

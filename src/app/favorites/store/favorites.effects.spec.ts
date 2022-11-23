@@ -60,7 +60,7 @@ const mockFavoriteMovies: IFavoriteMoviesResponse = {
   total_results: 1,
 };
 
-xdescribe('FavoriteEffects', () => {
+describe('FavoriteEffects', () => {
   let actions$: Actions;
   let effects: FavoriteEffects;
   let favoriteService: FavoriteService;
@@ -91,7 +91,7 @@ xdescribe('FavoriteEffects', () => {
   });
 
   it('should dispatch upsert movies action on load favorites', () => {
-    actions$ = of(loadFavorites({ page: 1}));
+    actions$ = of(loadFavorites({ page: 1 }));
 
     spyOn(favoriteService, 'getLoggedUserFavorites').and.returnValue(
       of(mockFavoriteMovies)
@@ -106,7 +106,7 @@ xdescribe('FavoriteEffects', () => {
   });
 
   it('should dispatch load favorite success action', () => {
-    actions$ = of(loadFavorites({page: 1}));
+    actions$ = of(loadFavorites({ page: 1 }));
 
     spyOn(favoriteService, 'getLoggedUserFavorites').and.returnValue(
       of(mockFavoriteMovies)
@@ -116,7 +116,11 @@ xdescribe('FavoriteEffects', () => {
       expect(favoriteService.getLoggedUserFavorites).toHaveBeenCalledTimes(1);
       expect(action).toEqual(
         loadFavoritesSuccess({
-          meta: {page: mockFavoriteMovies.page, total_pages: mockFavoriteMovies.total_pages, total_results: mockFavoriteMovies.total_results},
+          meta: {
+            page: mockFavoriteMovies.page,
+            total_pages: mockFavoriteMovies.total_pages,
+            total_results: mockFavoriteMovies.total_results,
+          },
           favoriteMovieIds: mockFavoriteMovies.results.map(result => result.id),
         })
       );

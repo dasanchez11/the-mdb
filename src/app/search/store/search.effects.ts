@@ -43,7 +43,14 @@ export class SearchEffects {
                 return of(SearchSuccess({ payload: response }));
               }),
               catchError(error => {
-                this.snackBar.openSnackBar(error.error.status_message, true);
+                let errorMessage = 'Error loading results';
+                if (error.error.errors) {
+                  errorMessage = error.error.errors[0];
+                }
+                if (error.error.status_message) {
+                  errorMessage = error.error.status_message;
+                }
+                this.snackBar.openSnackBar(errorMessage, true);
                 return of(SearchFailure());
               })
             );
