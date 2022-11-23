@@ -12,4 +12,7 @@ export enum ListsActionsTypes {
   CLEAR_LIST_SUCCESS = '[ListEffects clearList] CLEAR_LIST_SUCCESS',
   ADD_MOVIE_TO_LIST = '[Shared add-to-list] ADD_MOVIE_TO_LIST',
   ADD_MOVIE_TO_LIST_SUCCESS = '[ListEffects addMovieToList] ADD_MOVIE_TO_LIST_SUCCESS',
+  CREATE_LIST = '[Lists new-list] CREATE_LIST',
+  CREATE_LIST_SUCCESS = '[ListEffects createList] CREATE_LIST_SUCCESS',
+  CREATE_LIST_WITH_MOVIE = '[Lists createList] CREATE_LIST_WITH_MOVIE',
 }

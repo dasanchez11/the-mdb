@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
-import { ListsService } from '../../services/lists.service';
+import { createList, createListWithMovie } from '../../store/lists.actions';
 
 @Component({
   selector: 'app-new-list',
   templateUrl: './new-list.component.html',
 })
-export class NewListComponent {
+export class NewListComponent implements OnInit {
+  movieId!: number;
+
   form = new FormGroup({
     name: new FormControl(null, [Validators.required]),
     description: new FormControl(null),
@@ -16,9 +19,12 @@ export class NewListComponent {
 
   constructor(
     private snackBar: SnackbarService,
-    private listService: ListsService,
-    private router: Router
+    private store: Store,
+    private route: ActivatedRoute
   ) {}
+  ngOnInit(): void {
+    this.movieId = this.route.snapshot.params['movieId'];
+  }
 
   get name(): FormControl {
     return this.form.get('name') as FormControl;
@@ -32,19 +38,22 @@ export class NewListComponent {
     if (this.form.invalid) {
       this.snackBar.openSnackBar('Please fill the fields as required', true);
     } else {
-      this.listService
-        .createList(this.name.value, this.description.value)
-        .subscribe(response => {
-          if (response) {
-            this.snackBar.openSnackBar('List created succesfully');
-            this.router.navigate(['/lists']);
-          } else {
-            this.snackBar.openSnackBar(
-              'There was a problem creating the list.',
-              true
-            );
-          }
-        });
+      if (this.movieId) {
+        this.store.dispatch(
+          createListWithMovie({
+            name: this.name.value,
+            description: this.description.value,
+            movieId: this.movieId,
+          })
+        );
+      } else {
+        this.store.dispatch(
+          createList({
+            name: this.name.value,
+            description: this.description.value,
+          })
+        );
+      }
     }
   }
 }

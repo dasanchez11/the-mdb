@@ -1,7 +1,7 @@
 <div
   class="bg-primary inline-block w-[250px] flex flex-col justify-center pl-5 pr-5 pb-2 pt-3 rounded">
   <button
-  routerLink="/lists/create"
+  routerLink="/lists/create/{{movieId}}"
     class="bg-primary text-white font-bold flex flex-row justify-center whitespace-nowrap w-full mb-2">
     <mat-icon>add</mat-icon>Create New List
   </button>
@@ -36,7 +36,6 @@
               class="block py-2 px-4 hover:bg-gradientBlue rounded hover:cursor-pointer">
               {{ list.name
               }}
-              <!-- <mat-icon class="hover:cursor-pointer scale-75" *ngIf="isMovieInList(list)">cancel</mat-icon> -->
               <span class="italic text-sm hover:cursor-pointer">{{
                 isMovieInList(list) ? '(Added)' : ''
               }}</span>

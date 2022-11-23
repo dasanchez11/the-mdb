@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { merge, Observable, throwError } from 'rxjs';
@@ -9,6 +10,7 @@ import {
   map,
   mergeMap,
   switchMap,
+  tap,
 } from 'rxjs/operators';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { IListDetails } from '../interfaces/list-details-response.interface';
@@ -18,6 +20,9 @@ import {
   addMovieToListSuccess,
   clearList,
   clearListSuccess,
+  createList,
+  createListSuccess,
+  createListWithMovie,
   deleteMovieFromList,
   deleteMovieFromListSucess,
   loadListDetails,
@@ -63,15 +68,63 @@ export class ListsEffects {
     );
   });
 
+  createList$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(createList),
+      switchMap(action =>
+        this.listsService.createList(action.name, action.description)
+      ),
+      map(response => {
+        if (response.success) {
+          this.snackBarService.openSnackBar('List created successfully!');
+        }
+        return createListSuccess({ listId: response.list_id });
+      }),
+      tap(action => this.router.navigate(['/lists', action.listId])),
+      catchError(error => {
+        this.snackBarService.openSnackBar(
+          'An unexpected error ocurred when creating the list.',
+          true
+        );
+        return throwError(() => new Error(error));
+      })
+    );
+  });
+
+  createListWithMovie$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(createListWithMovie),
+      switchMap(action =>
+        this.listsService.createList(action.name, action.description).pipe(
+          map(response =>
+            addMovieToList({
+              movieId: action.movieId,
+              listId: response.list_id,
+            })
+          ),
+          tap(response => {
+            this.snackBarService.openSnackBar('List created successfully!');
+            this.router.navigate(['/lists', response.listId]);
+          })
+        )
+      )
+    );
+  });
+
   deleteMovieFromList$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(deleteMovieFromList),
-      switchMap((action) =>
+      switchMap(action =>
         this.listsService.deleteMovieFromList(action.movieId, action.listId)
       ),
       map(response => {
-        this.snackBarService.openSnackBar('Item removed from list succesfully!');
-        return deleteMovieFromListSucess({ movieId: response.movieId, listId: response.listId  });
+        this.snackBarService.openSnackBar(
+          'Item removed from list succesfully!'
+        );
+        return deleteMovieFromListSucess({
+          movieId: response.movieId,
+          listId: response.listId,
+        });
       })
     );
   });
@@ -112,10 +165,10 @@ export class ListsEffects {
 
   upsertList$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(addMovieToListSuccess),
+      ofType(addMovieToListSuccess, createListSuccess),
       switchMap(action => this.listsService.getListDetails(action.listId)),
       map(response => {
-        this.snackBarService.openSnackBar('Movie added succesfully!');
+        this.snackBarService.openSnackBar('List updated succesfully!');
         return upsertList({ list: response });
       })
     );
@@ -125,6 +178,7 @@ export class ListsEffects {
     private listsService: ListsService,
     private actions$: Actions,
     private store: Store,
-    private snackBarService: SnackbarService
+    private snackBarService: SnackbarService,
+    private router: Router
   ) {}
 }

@@ -36,23 +36,27 @@ export class ListsService {
     );
   }
 
-  createList(name: string, description: string): Observable<boolean> {
-    return this.http
-      .post<ICreateListResponse>(`${this.url}list`, {
-        name: name,
-        description: description,
-      })
-      .pipe(map(response => response.success));
+  createList(
+    name: string,
+    description: string
+  ): Observable<ICreateListResponse> {
+    return this.http.post<ICreateListResponse>(`${this.url}list`, {
+      name: name,
+      description: description,
+    });
   }
 
-    deleteMovieFromList(movieId: number, listId: number): Observable<{movieId : number, listId: number}> {
+  deleteMovieFromList(
+    movieId: number,
+    listId: number
+  ): Observable<{ movieId: number; listId: number }> {
     return this.http
       .post(`${this.url}list/${listId}/remove_item`, {
         media_id: movieId,
       })
       .pipe(
         map(() => {
-          return {movieId: movieId, listId:listId};
+          return { movieId: movieId, listId: listId };
         }),
         catchError(error => {
           this.snackBar.openSnackBar(error.error.status_message, true);
