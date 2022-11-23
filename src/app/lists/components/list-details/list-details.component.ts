@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { IListDetails } from '../../interfaces/list-details-response.interface';
-import { clearList } from '../../store/lists.actions';
+import { clearList, loadListDetails } from '../../store/lists.actions';
 import { selectListItems } from '../../store/lists.selector';
 
 @Component({
@@ -17,10 +18,12 @@ export class ListDetailsComponent implements OnInit {
   confirmDialog!: MatDialogRef<ConfirmationDialogComponent>;
   imagePath = 'https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/';
 
-  constructor(private store: Store, private dialog: MatDialog) {}
+  constructor(private store: Store, private dialog: MatDialog, private route : ActivatedRoute) {}
 
   ngOnInit(): void {
     this.movieListDetails$ = this.store.select(selectListItems);
+    const idList : number = this.route.snapshot.params['listId'];
+    this.store.dispatch(loadListDetails({ listId : idList}))
   }
 
   openConfirmationDialog(): Observable<boolean> {
@@ -33,7 +36,7 @@ export class ListDetailsComponent implements OnInit {
   }
 
   clearList(): void {
-    this.openConfirmationDialog().subscribe(result => {
+    this.openConfirmationDialog().pipe(take(1)).subscribe(result => {
       if (result) {
         this.store.dispatch(clearList());
       }

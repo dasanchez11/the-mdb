@@ -9,7 +9,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { storeReducer } from './app.store';
 import { AuthModule } from './auth/auth.module';
-import { CoreModule } from './core/core.module';
 import { FavoritesModule } from './favorites/favorites.module';
 import { HomeModule } from './home/home.module';
 import { ListsModule } from './lists/lists.module';
@@ -23,7 +22,6 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     AuthModule,
-    CoreModule,
     FavoritesModule,
     HomeModule,
     ListsModule,
