@@ -1,4 +1,5 @@
 import { mockMoviesResponse } from 'src/app/home/test/mock-response';
+import { mockMovieDetails } from '../test/mock-movie-details';
 import { mockMovieDetailsResponse } from '../test/mock-movie-details.response';
 import {
   detailsInitialState,
@@ -17,6 +18,10 @@ import {
   FetchSimilarFailure,
   FetchSimilarStart,
   FetchSimilarSuccess,
+  UpdateAddSpecificRate,
+  UpdateDeleteSpecificRate,
+  UpdateSpecificFavorite,
+  UpdateSpecificWatchlistSuccess,
 } from './specific-movie.actions';
 import {
   specificMoviesInitialState,
@@ -29,6 +34,157 @@ describe('Specific Movie Reducer', () => {
     const action = { type: 'Unknown' };
     const state = specificMoviesReducer(specificMoviesInitialState, action);
     expect(state).toBe(specificMoviesInitialState);
+  });
+
+  describe('Update', () => {
+    it('should change for add rate', () => {
+      const action = UpdateAddSpecificRate({ payload: 10 });
+      const mockInitial = {
+        ...specificMoviesInitialState,
+        details: {
+          ...specificMoviesInitialState.details,
+          result: mockMovieDetails,
+        },
+      };
+      const state = specificMoviesReducer(mockInitial, action);
+      const newState: SpecificMoviesState = {
+        details: {
+          ...specificMoviesInitialState.details,
+          result: {
+            ...mockInitial.details.result,
+            account_states: {
+              id: mockInitial.details.result.account_states?.id,
+              watchlist: mockInitial.details.result.account_states
+                ?.watchlist as boolean,
+              favorite: mockInitial.details.result.account_states
+                ?.favorite as boolean,
+              rated: {
+                value: 10,
+              },
+            },
+          },
+        },
+        reviews: reviewsInitialState,
+        recommended: recommendedInitialState,
+        similar: similarInitialState,
+      };
+      expect(state).toEqual(newState);
+      expect(state).not.toBe(newState);
+    });
+
+    it('should change for delete rating', () => {
+      const action = UpdateDeleteSpecificRate();
+      const mockAccountStates = {
+        id: 505642,
+        rated: { value: 10 },
+        watchlist: false,
+        favorite: false,
+      };
+      const mockInitial = {
+        ...specificMoviesInitialState,
+        details: {
+          ...specificMoviesInitialState.details,
+          result: {
+            ...mockMovieDetails,
+            account_states: mockAccountStates,
+          },
+        },
+      };
+      const state = specificMoviesReducer(mockInitial, action);
+      const newState: SpecificMoviesState = {
+        details: {
+          ...specificMoviesInitialState.details,
+          result: {
+            ...mockInitial.details.result,
+            account_states: {
+              ...mockAccountStates,
+              rated: false,
+            },
+          },
+        },
+        reviews: reviewsInitialState,
+        recommended: recommendedInitialState,
+        similar: similarInitialState,
+      };
+      expect(state).toEqual(newState);
+      expect(state).not.toBe(newState);
+    });
+
+    it('should change for watchlist', () => {
+      const action = UpdateSpecificWatchlistSuccess({ payload: true });
+      const mockAccountStates = {
+        id: 505642,
+        rated: { value: 10 },
+        watchlist: false,
+        favorite: false,
+      };
+      const mockInitial = {
+        ...specificMoviesInitialState,
+        details: {
+          ...specificMoviesInitialState.details,
+          result: {
+            ...mockMovieDetails,
+            account_states: mockAccountStates,
+          },
+        },
+      };
+      const state = specificMoviesReducer(mockInitial, action);
+      const newState: SpecificMoviesState = {
+        details: {
+          ...specificMoviesInitialState.details,
+          result: {
+            ...mockInitial.details.result,
+            account_states: {
+              ...mockAccountStates,
+              watchlist: true,
+            },
+          },
+        },
+        reviews: reviewsInitialState,
+        recommended: recommendedInitialState,
+        similar: similarInitialState,
+      };
+      expect(state).toEqual(newState);
+      expect(state).not.toBe(newState);
+    });
+
+    it('should change for favorite', () => {
+      const action = UpdateSpecificFavorite({ payload: true });
+      const mockAccountStates = {
+        id: 505642,
+        rated: { value: 10 },
+        watchlist: false,
+        favorite: false,
+      };
+      const mockInitial = {
+        ...specificMoviesInitialState,
+        details: {
+          ...specificMoviesInitialState.details,
+          result: {
+            ...mockMovieDetails,
+            account_states: mockAccountStates,
+          },
+        },
+      };
+      const state = specificMoviesReducer(mockInitial, action);
+      const newState: SpecificMoviesState = {
+        details: {
+          ...specificMoviesInitialState.details,
+          result: {
+            ...mockInitial.details.result,
+            account_states: {
+              ...mockAccountStates,
+              favorite: true,
+            },
+          },
+        },
+        reviews: reviewsInitialState,
+        recommended: recommendedInitialState,
+        similar: similarInitialState,
+      };
+      expect(state).toEqual(newState);
+      expect(state).not.toBe(newState);
+    });
   });
 
   describe('Details ', () => {

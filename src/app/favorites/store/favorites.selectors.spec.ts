@@ -13,6 +13,7 @@ import {
 } from './favorites.selectors';
 import { FavoriteState } from './favorites.reducer';
 import { specificMoviesInitialState } from 'src/app/movie-details/store/specific-movie.reducer';
+import { searchInitialState } from 'src/app/search/store/search.reducer';
 
 describe('Favorite Selectors', () => {
   let mockFavorite: FavoriteState;
@@ -28,6 +29,7 @@ describe('Favorite Selectors', () => {
       lists: initialListsState,
       favorites: mockFavorite,
       specificMovie: specificMoviesInitialState,
+      search: searchInitialState,
     };
   });
 

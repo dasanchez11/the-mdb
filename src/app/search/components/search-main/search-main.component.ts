@@ -40,7 +40,6 @@ export class SearchMainComponent implements OnInit {
       this.page = value.page;
       this.totalPages = value.total_pages;
       this.totalResults = value.total_results;
-      console.log(this.page);
     });
     this.loading$ = this.store.select(selectSearchLoading);
     this.movies$ = this.store.select(selectSearchResults);
@@ -68,9 +67,7 @@ export class SearchMainComponent implements OnInit {
   }
 
   onScroll() {
-    console.log('scroll');
     if (this.page + 1 <= this.totalPages) {
-      console.log('scroll possible');
       this.store.dispatch(
         SearchStart({ payload: { page: ++this.page, query: this.searchQuery } })
       );

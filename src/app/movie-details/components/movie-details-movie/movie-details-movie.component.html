@@ -51,7 +51,9 @@
         </div>
         <button
           mat-mini-fab
-          matTooltip="Add to list"
+          [matTooltip]="
+            (logged$ | async) ? 'Add to list' : 'Login to add movie to list'
+          "
           matTooltipClass="bg-primary"
           color="primary"
           aria-label="add-to-list">
@@ -60,7 +62,11 @@
         <button
           (click)="favoriteClick()"
           mat-mini-fab
-          matTooltip="Mark as favorite"
+          [matTooltip]="
+            (logged$ | async)
+              ? 'Mark as favorite'
+              : 'Login to mark movie as favorite'
+          "
           matTooltipClass="bg-primary"
           color="primary"
           aria-label="add-to-favorite">
@@ -71,7 +77,11 @@
         <button
           (click)="watchlistClick()"
           mat-mini-fab
-          matTooltip="Add to your watchlist "
+          [matTooltip]="
+            (logged$ | async)
+              ? 'Add to your watchlist'
+              : 'Login to add the movie to your watchlist'
+          "
           matTooltipClass="bg-primary"
           color="primary"
           aria-label="add-to-watchlist">
@@ -84,7 +94,9 @@
           <button
             (click)="ratedClick()"
             mat-mini-fab
-            matTooltip="Rate it!"
+            [matTooltip]="
+              (logged$ | async) ? 'Rate it!' : 'Login to rate this movie'
+            "
             matTooltipClass="bg-primary"
             color="primary"
             aria-label="rate">

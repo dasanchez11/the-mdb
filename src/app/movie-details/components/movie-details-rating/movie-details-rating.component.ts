@@ -9,14 +9,12 @@ import { AddRating, RemoveRating } from '../../store/specific-movie.actions';
   templateUrl: './movie-details-rating.component.html',
   styleUrls: ['./movie-details-rating.component.scss'],
 })
-export class MovieDetailsRatingComponent implements OnInit {
+export class MovieDetailsRatingComponent {
   @Input() rating!: number;
   rates = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   @Input() logged$!: Observable<boolean>;
   @Input() movieId!: number;
   constructor(private store: Store<AppState>) {}
-
-  ngOnInit(): void {}
 
   addRate(rate: number) {
     this.logged$.pipe(take(1)).subscribe(loggedIn => {

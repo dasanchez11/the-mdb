@@ -3,7 +3,7 @@ import { authInitialState } from 'src/app/auth/store/auth.reducer';
 import { initialFavoriteState } from 'src/app/favorites/store/favorites.reducer';
 import { initialListsState } from 'src/app/lists/store/lists.reducer';
 import { specificMoviesInitialState } from 'src/app/movie-details/store/specific-movie.reducer';
-import { moviesInitialState } from 'src/app/shared/store/movies.reducer';
+import { searchInitialState } from 'src/app/search/store/search.reducer';
 import { mockMoviesEntities } from 'src/app/shared/test/mock-movies';
 import { mockMoviesState } from 'src/app/shared/test/mock-movies-state';
 import {
@@ -12,7 +12,6 @@ import {
   mockLoadingState,
   mockMetaState,
 } from '../../test/mock-home-store';
-import { mockMovies } from '../../test/mock-results';
 import { HomeState } from './home.reducer';
 import {
   selectHomeErrors,
@@ -44,6 +43,7 @@ describe('Home selectors', () => {
       lists: initialListsState,
       favorites: initialFavoriteState,
       specificMovie: specificMoviesInitialState,
+      search: searchInitialState,
     };
   });
 

@@ -3,6 +3,7 @@ import { authInitialState } from 'src/app/auth/store/auth.reducer';
 import { initialFavoriteState } from 'src/app/favorites/store/favorites.reducer';
 import { homeInitialState } from 'src/app/home/store/home/home.reducer';
 import { initialListsState } from 'src/app/lists/store/lists.reducer';
+import { searchInitialState } from 'src/app/search/store/search.reducer';
 import { mockMoviesState } from 'src/app/shared/test/mock-movies-state';
 import {
   mockDetailsState,
@@ -43,6 +44,7 @@ describe('Speficic movie selectors', () => {
       lists: initialListsState,
       favorites: initialFavoriteState,
       specificMovie: mockSpecific,
+      search: searchInitialState,
     };
   });
 

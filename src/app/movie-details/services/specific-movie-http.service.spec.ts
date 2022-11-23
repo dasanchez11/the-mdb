@@ -10,7 +10,7 @@ import { mockMovieDetailsResponse } from '../test/mock-movie-details.response';
 import { AuthLocalStorageService } from 'src/app/auth/services/auth-local-storage.service';
 import { SpecificMovieHttpService } from './specific-movie-http.service';
 
-fdescribe('SpecificMovieHttpService', () => {
+describe('SpecificMovieHttpService', () => {
   let service: SpecificMovieHttpService;
   let httpController: HttpTestingController;
 
@@ -79,7 +79,7 @@ fdescribe('SpecificMovieHttpService', () => {
     request.flush(mockMoviesResponse);
   });
 
-  it('should postWatchlis', () => {
+  it('should postWatchlist', () => {
     spyOn(AuthLocalStorageService, 'getCurrentUser').and.returnValue(mockUser);
     const userId = mockUser.id;
     const baseUrl = 'https://api.themoviedb.org/3/';
@@ -102,6 +102,48 @@ fdescribe('SpecificMovieHttpService', () => {
     const request = httpController.expectOne(url);
     expect(request.request.method).toEqual('POST');
     expect(request.request.body).toEqual(mockBody);
+    expect(request.request.url).toEqual(url);
+    request.flush(mockResponse);
+  });
+
+  it('should post rate movie', () => {
+    const movieId = 1234;
+    const url = `https://api.themoviedb.org/3/movie/${movieId}/rating`;
+    const mockRating = 10;
+    const mockBody = {
+      value: mockRating,
+    };
+    const mockResponse = {
+      status_code: 3,
+      status_message: 'message',
+    };
+
+    service.postRateMovie(1234, mockRating).subscribe(response => {
+      expect(response).toBe(mockResponse);
+    });
+
+    const request = httpController.expectOne(url);
+    expect(request.request.method).toEqual('POST');
+    expect(request.request.body).toEqual(mockBody);
+    expect(request.request.url).toEqual(url);
+    request.flush(mockResponse);
+  });
+
+  it('should delete rate movie', () => {
+    const movieId = 1234;
+    const url = `https://api.themoviedb.org/3/movie/${movieId}/rating`;
+
+    const mockResponse = {
+      status_code: 3,
+      status_message: 'message',
+    };
+
+    service.deleteRateMovie(1234).subscribe(response => {
+      expect(response).toBe(mockResponse);
+    });
+
+    const request = httpController.expectOne(url);
+    expect(request.request.method).toEqual('DELETE');
     expect(request.request.url).toEqual(url);
     request.flush(mockResponse);
   });

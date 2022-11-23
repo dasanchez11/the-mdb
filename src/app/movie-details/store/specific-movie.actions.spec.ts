@@ -1,8 +1,5 @@
-import { mockErrorResponse } from 'src/app/auth/test/mock-error-response';
 import { mockMoviesResponse } from 'src/app/home/test/mock-response';
-import { mockMovieDetails } from '../test/mock-movie-details';
 import { mockMovieDetailsResponse } from '../test/mock-movie-details.response';
-import { mockMovieReviewsResponse } from '../test/mock-movie-reviews.response';
 import {
   FetchDetailsFailure,
   FetchDetailsStart,
