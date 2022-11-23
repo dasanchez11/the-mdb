@@ -2,7 +2,7 @@ import { SearchHttpService } from '../services/search-http.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { SearchActionTypes } from './search.types';
 import { catchError, EMPTY, of, switchMap } from 'rxjs';
-import { SearchSuccess } from './search.actions';
+import { SearchFailure, SearchSuccess } from './search.actions';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { UpsertManyMovies } from 'src/app/shared/store/movies.actions';
 import { IMoviesReponse } from 'src/app/home/interfaces/movies-response.interface';
@@ -44,7 +44,7 @@ export class SearchEffects {
               }),
               catchError(error => {
                 this.snackBar.openSnackBar(error.error.status_message, true);
-                return EMPTY;
+                return of(SearchFailure());
               })
             );
         }

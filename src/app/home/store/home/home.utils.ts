@@ -3,7 +3,15 @@ import { IMoviesReponse } from '../../interfaces/movies-response.interface';
 
 export class HomeUtils {
   static getIds(state: number[], response: IMoviesReponse): number[] {
-    const newIds = response.results.map(result => result.id);
+    const newIds = response.results
+      .filter(result => {
+        if (state.indexOf(result.id) === -1) {
+          return true;
+        }
+        return false;
+      })
+      .map(movie => movie.id);
+
     return [...state, ...newIds];
   }
 

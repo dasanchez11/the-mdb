@@ -33,6 +33,12 @@ export const searchReducer = createReducer(
     },
   })),
 
+  on(SearchActions.SearchFailure, state => ({
+    ...state,
+    loading: false,
+    results: [],
+  })),
+
   on(SearchActions.ClearSearch, state => ({
     ...state,
     results: [],

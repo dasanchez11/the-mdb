@@ -4,6 +4,7 @@ import { initialFavoriteState } from 'src/app/favorites/store/favorites.reducer'
 import { homeInitialState } from 'src/app/home/store/home/home.reducer';
 import { initialListsState } from 'src/app/lists/store/lists.reducer';
 import { specificMoviesInitialState } from 'src/app/movie-details/store/specific-movie.reducer';
+import { searchInitialState } from 'src/app/search/store/search.reducer';
 import { moviesInitialState } from 'src/app/shared/store/movies.reducer';
 import { AuthState } from './auth.reducer';
 import {
@@ -28,6 +29,7 @@ describe('Auth selectors', () => {
       lists: initialListsState,
       specificMovie: specificMoviesInitialState,
       favorites: initialFavoriteState,
+      search: searchInitialState,
     };
     const result = selectAuthState(mockStore);
     expect(result).toBe(mockAuthState);

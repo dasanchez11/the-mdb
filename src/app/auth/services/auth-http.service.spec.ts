@@ -8,7 +8,6 @@ import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { mockSessionId } from 'src/app/auth/test/mock-session-id';
 import { mockTokenResponse } from 'src/app/auth/test/mock-token-response';
 import { mockUser } from 'src/app/auth/test/mock-user';
-import { API_KEY } from './apiKey';
 import { AuthHttpService } from './auth-http.service';
 import { AuthLocalStorageService } from './auth-local-storage.service';
 import { RedirectService } from './redirect.service';
@@ -21,7 +20,6 @@ describe('AuthHttpService', () => {
   let service: AuthHttpService;
   let httpController: HttpTestingController;
   let baseUrl = 'https://api.themoviedb.org/3/';
-  let apiKey = API_KEY;
   let mockStorage: any;
   let mockSnackBar: any;
   let mockRedirect: any;
@@ -61,8 +59,8 @@ describe('AuthHttpService', () => {
   });
 
   it('should get token', () => {
-    const restUrl = 'authentication/token/new?api_key=';
-    const url = baseUrl + restUrl + apiKey;
+    const restUrl = 'authentication/token/new';
+    const url = baseUrl + restUrl;
 
     service.getToken().subscribe(response => {
       expect(response).toBe(true);
@@ -76,8 +74,8 @@ describe('AuthHttpService', () => {
   });
 
   it('should get sessionId', () => {
-    const restUrl = 'authentication/session/new?api_key=';
-    const url = baseUrl + restUrl + apiKey;
+    const restUrl = 'authentication/session/new';
+    const url = baseUrl + restUrl;
 
     service.postSessionId('testToken').subscribe(response => {
       expect(response).toBe(mockSessionId);
@@ -90,9 +88,9 @@ describe('AuthHttpService', () => {
   });
 
   it('should get user Info', () => {
-    const restUrl = '/account?api_key=';
-    const sessionUrl = '&session_id=';
-    const url = baseUrl + restUrl + apiKey + sessionUrl + 'session';
+    const restUrl = '/account';
+    const sessionUrl = '?session_id=';
+    const url = baseUrl + restUrl + sessionUrl + 'session';
 
     service.getuserInfo('session').subscribe(response => {
       expect(response).toBe(mockUser);
@@ -107,9 +105,9 @@ describe('AuthHttpService', () => {
   describe('should delete session', () => {
     it('should delete session if sessionId', () => {
       mockStorage.getElement.withArgs('sessionId').and.returnValue('session');
-      const restUrl = '/authentication/session?api_key=';
-      const sessionUrl = '&session_id=';
-      const url = baseUrl + restUrl + apiKey + sessionUrl + 'session';
+      const restUrl = '/authentication/session';
+      const sessionUrl = '?session_id=';
+      const url = baseUrl + restUrl + sessionUrl + 'session';
 
       service.deleteSession().subscribe(response => {
         expect(response).toEqual({ success: true });
@@ -131,9 +129,8 @@ describe('AuthHttpService', () => {
 
   describe('Catch Errors', () => {
     it('should catch errors get token', () => {
-      const restUrl = 'authentication/token/new?api_key=';
-      const url = baseUrl + restUrl + apiKey;
-
+      const restUrl = 'authentication/token/new';
+      const url = baseUrl + restUrl;
       service.getToken().subscribe({
         error: error => {
           expect(mockSnackBar.openSnackBar).toHaveBeenCalledTimes(1);
@@ -148,9 +145,9 @@ describe('AuthHttpService', () => {
     });
 
     it('should catch error getUserInfo', () => {
-      const restUrl = '/account?api_key=';
-      const sessionUrl = '&session_id=';
-      const url = baseUrl + restUrl + apiKey + sessionUrl + 'session';
+      const restUrl = '/account';
+      const sessionUrl = '?session_id=';
+      const url = baseUrl + restUrl + sessionUrl + 'session';
 
       service.getuserInfo('session').subscribe({
         next: response => {
@@ -168,8 +165,8 @@ describe('AuthHttpService', () => {
     });
 
     it('should catch errors sessionId', () => {
-      const restUrl = 'authentication/session/new?api_key=';
-      const url = baseUrl + restUrl + apiKey;
+      const restUrl = 'authentication/session/new';
+      const url = baseUrl + restUrl;
 
       service.postSessionId('testToken').subscribe({
         error: error => {
@@ -186,9 +183,9 @@ describe('AuthHttpService', () => {
 
     it('should catch errors delete session', () => {
       mockStorage.getElement.withArgs('sessionId').and.returnValue('session');
-      const restUrl = '/authentication/session?api_key=';
-      const sessionUrl = '&session_id=';
-      const url = baseUrl + restUrl + apiKey + sessionUrl + 'session';
+      const restUrl = '/authentication/session';
+      const sessionUrl = '?session_id=';
+      const url = baseUrl + restUrl + sessionUrl + 'session';
 
       service.deleteSession().subscribe({
         error: error => {

@@ -6,12 +6,13 @@ import {
   SignInStart,
   SignInSuccess,
 } from './auth.actions';
+import { AuthActionTypes } from './auth.types';
 
 describe('Auth Actions', () => {
   it('Should sign in start', () => {
     const mockToken = 'token';
     const action = SignInStart({ payload: mockToken });
-    expect(action.type).toEqual('[AuthHttpService] SIGN_IN_START');
+    expect(action.type).toEqual(AuthActionTypes.SIGN_IN_START);
     expect(action.payload).toEqual(mockToken);
   });
 
@@ -30,31 +31,31 @@ describe('Auth Actions', () => {
       username: 'username',
     };
     const action = SignInSuccess({ payload: signInSuccessMock });
-    expect(action.type).toEqual('[AuthHttpService] SIGN_IN_SUCCESS');
+    expect(action.type).toEqual(AuthActionTypes.SIGN_IN_SUCCESS);
     expect(action.payload).toEqual(signInSuccessMock);
   });
 
   it('Should Sign In Failure', () => {
     const errorMock = 'Error Occurred';
     const action = SignInFailure({ payload: errorMock });
-    expect(action.type).toEqual('[AuthHttpService] SIGN_IN_FAILURE');
+    expect(action.type).toEqual(AuthActionTypes.SIGN_IN_FAILURE);
     expect(action.payload).toEqual(errorMock);
   });
 
   it('Should Logout Start', () => {
     const action = LogoutStart();
-    expect(action.type).toEqual('[Shared Navbar] LOGOUT_START');
+    expect(action.type).toEqual(AuthActionTypes.LOGOUT_START);
   });
 
   it('Should Logout Success', () => {
     const action = LogoutSuccess();
-    expect(action.type).toEqual('[Shared Navbar] LOGOUT_SUCCESS');
+    expect(action.type).toEqual(AuthActionTypes.LOGOUT_SUCCESS);
   });
 
   it('Should Logout Failure', () => {
     const errorMock = 'Error Occurred';
     const action = LogoutFailure({ payload: errorMock });
-    expect(action.type).toEqual('[Shared Navbar] LOGOUT_SUCCESS');
+    expect(action.type).toEqual(AuthActionTypes.LOGOUT_FAILURE);
     expect(action.payload).toEqual(errorMock);
   });
 });

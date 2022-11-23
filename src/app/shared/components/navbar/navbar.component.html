@@ -23,14 +23,14 @@
         </a>
         <a
           id="header-route"
-          routerLink="/movies"
+          routerLink="/search"
           [class]="
             (rlam.isActive ? styleActive : styleNormal) +
             ' flex items-center px-1 pt-1 border-b-2 text-sm font-medium'
           "
           routerLinkActive
           #rlam="routerLinkActive">
-          Movies
+          Search
         </a>
         <a
           id="header-route"
@@ -83,12 +83,12 @@
           class="w-[100vw] min-h-16 bg-primary flex flex-col">
           <a
             (click)="routeClick()"
-            routerLink="/movies"
+            routerLink="/search"
             [class]="
               (rlam.isActive ? styleActive : styleNormal) +
               ' flex items-center p-3 border-l-2 text-lg font-medium'
             ">
-            Movies
+            Search
           </a>
 
           <a

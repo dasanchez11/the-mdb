@@ -3,7 +3,6 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { API_KEY } from 'src/app/auth/services/apiKey';
 import { mockUser } from 'src/app/auth/test/mock-user';
 import { mockMoviesResponse } from 'src/app/home/test/mock-response';
 import { mockMovieDetailsResponse } from '../test/mock-movie-details.response';
@@ -45,11 +44,10 @@ describe('SpecificMovieHttpService', () => {
 
   it('should getRecommended', () => {
     const movieId = 1234;
-    const apiKey = API_KEY;
     const baseUrl = 'https://api.themoviedb.org/3/movie/';
     const queryParams = `&page=${1}`;
     const restUrl = `${movieId}/recommendations?`;
-    const url = baseUrl + restUrl + queryParams + `&api_key=${apiKey}`;
+    const url = baseUrl + restUrl + queryParams;
 
     service.getRecommended(1, 1234).subscribe(response => {
       expect(response).toBe(mockMoviesResponse);
@@ -63,11 +61,10 @@ describe('SpecificMovieHttpService', () => {
 
   it('should get Similar', () => {
     const movieId = 1234;
-    const apiKey = API_KEY;
     const baseUrl = 'https://api.themoviedb.org/3/movie/';
     const queryParams = `&page=${1}`;
     const restUrl = `${movieId}/similar?`;
-    const url = baseUrl + restUrl + queryParams + `&api_key=${apiKey}`;
+    const url = baseUrl + restUrl + queryParams;
 
     service.getSimilar(1, 1234).subscribe(response => {
       expect(response).toBe(mockMoviesResponse);
@@ -79,7 +76,7 @@ describe('SpecificMovieHttpService', () => {
     request.flush(mockMoviesResponse);
   });
 
-  it('should postWatchlis', () => {
+  it('should postWatchlist', () => {
     spyOn(AuthLocalStorageService, 'getCurrentUser').and.returnValue(mockUser);
     const userId = mockUser.id;
     const baseUrl = 'https://api.themoviedb.org/3/';
@@ -102,6 +99,48 @@ describe('SpecificMovieHttpService', () => {
     const request = httpController.expectOne(url);
     expect(request.request.method).toEqual('POST');
     expect(request.request.body).toEqual(mockBody);
+    expect(request.request.url).toEqual(url);
+    request.flush(mockResponse);
+  });
+
+  it('should post rate movie', () => {
+    const movieId = 1234;
+    const url = `https://api.themoviedb.org/3/movie/${movieId}/rating`;
+    const mockRating = 10;
+    const mockBody = {
+      value: mockRating,
+    };
+    const mockResponse = {
+      status_code: 3,
+      status_message: 'message',
+    };
+
+    service.postRateMovie(1234, mockRating).subscribe(response => {
+      expect(response).toBe(mockResponse);
+    });
+
+    const request = httpController.expectOne(url);
+    expect(request.request.method).toEqual('POST');
+    expect(request.request.body).toEqual(mockBody);
+    expect(request.request.url).toEqual(url);
+    request.flush(mockResponse);
+  });
+
+  it('should delete rate movie', () => {
+    const movieId = 1234;
+    const url = `https://api.themoviedb.org/3/movie/${movieId}/rating`;
+
+    const mockResponse = {
+      status_code: 3,
+      status_message: 'message',
+    };
+
+    service.deleteRateMovie(1234).subscribe(response => {
+      expect(response).toBe(mockResponse);
+    });
+
+    const request = httpController.expectOne(url);
+    expect(request.request.method).toEqual('DELETE');
     expect(request.request.url).toEqual(url);
     request.flush(mockResponse);
   });

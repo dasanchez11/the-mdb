@@ -83,6 +83,12 @@ export const mockMovieDetails: MovieDetails = {
   video: false,
   vote_average: 7.511,
   vote_count: 724,
+  account_states: {
+    id: 505642,
+    rated: false,
+    watchlist: false,
+    favorite: false,
+  },
 };
 
 export interface BelongsToCollection {

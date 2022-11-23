@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, take } from 'rxjs';
+import { Observable, Subscription, take } from 'rxjs';
 import { AppState } from 'src/app/app.store';
 import { selectCurrentUserLogged } from 'src/app/auth/store/auth.selectors';
 import {
@@ -22,7 +22,8 @@ import { selectMovieAccountState } from '../../store/specific-movie.selectors';
   templateUrl: './movie-details-movie.component.html',
   styleUrls: ['./movie-details-movie.component.scss'],
 })
-export class MovieDetailsMovieComponent implements OnInit {
+export class MovieDetailsMovieComponent implements OnInit, OnDestroy {
+  subscription!: Subscription;
   logged$!: Observable<boolean>;
   imagePath = 'https://image.tmdb.org/t/p/w500';
   imagePath2 = 'https://image.tmdb.org/t/p/w1920_and_h800_multi_faces';
@@ -38,22 +39,26 @@ export class MovieDetailsMovieComponent implements OnInit {
 
   ngOnInit(): void {
     this.logged$ = this.store.select(selectCurrentUserLogged);
-    this.store.select(selectMovieAccountState).subscribe(accountState => {
-      if (accountState) {
-        this.favorite = accountState.favorite;
-        this.watchlist = accountState.watchlist;
-        if (accountState.rated === false) {
-          this.rated = false;
-          this.rating = 0;
-        } else {
-          this.rated = true;
-          const val = accountState.rated.valueOf() as { value: number };
-          this.rating = val.value;
+    this.subscription = this.store
+      .select(selectMovieAccountState)
+      .subscribe(accountState => {
+        if (accountState) {
+          this.favorite = accountState.favorite;
+          this.watchlist = accountState.watchlist;
+          if (accountState.rated === false) {
+            this.rated = false;
+            this.rating = 0;
+          } else {
+            this.rated = true;
+            const val = accountState.rated.valueOf() as { value: number };
+            this.rating = val.value;
+          }
         }
+
+      });
+        this.loadUserLists()
       }
-    });
-    this.loadUserLists()
-  }
+  
 
   loadUserLists() {
     this.logged$.pipe(take(1)).subscribe(loggedIn => {
@@ -97,6 +102,11 @@ export class MovieDetailsMovieComponent implements OnInit {
     });
   }
 
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   listClicked() {
     this.logged$.pipe(take(1)).subscribe(loggedIn => {
       if (loggedIn) {
@@ -104,6 +114,5 @@ export class MovieDetailsMovieComponent implements OnInit {
       }
     });
   }
-
-
+  
 }
