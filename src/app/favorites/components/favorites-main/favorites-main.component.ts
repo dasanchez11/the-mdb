@@ -4,7 +4,7 @@ import {
   stagger,
   style,
   transition,
-  trigger,
+  trigger
 } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -13,11 +13,8 @@ import { AppState } from 'src/app/app.store';
 import { User } from 'src/app/auth/interfaces/responses/get-account-response';
 import { selectCurrentUser } from 'src/app/auth/store/auth.selectors';
 import { Movie } from 'src/app/home/interfaces/movies.interface';
-import { Meta } from '../../interfaces/meta.interface';
-import {
-  selectFavoriteMovies,
-  selectFavoritesPaginationMeta,
-} from './../../store/favorites.selectors';
+import { loadLists } from 'src/app/lists/store/lists.actions';
+import { loadFavorites } from '../../store/favorites.actions';
 
 @Component({
   selector: 'app-favorites-main',
@@ -40,17 +37,14 @@ import {
   ],
 })
 export class FavoritesMainComponent implements OnInit {
-  meta!: Meta;
   userLoggedIn$!: Observable<User | null>;
   favorites$!: Observable<(Movie | undefined)[]>;
 
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
+    this.store.dispatch(loadFavorites({ page: 1 }));
+    this.store.dispatch(loadLists())
     this.userLoggedIn$ = this.store.select(selectCurrentUser);
-    // this.favorites$ = this.store.select(selectFavoriteMovies);
-    this.store.select(selectFavoritesPaginationMeta).subscribe(meta => {
-      this.meta = meta;
-    });
   }
 }

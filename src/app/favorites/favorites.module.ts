@@ -8,7 +8,6 @@ import { FavoritesCarrouselComponent } from './components/favorites-carrousel/fa
 import { FavoritesMainComponent } from './components/favorites-main/favorites-main.component';
 import { FavoritesRoutingModule } from './favorites-router.module';
 import { FavoritesGuard } from './favorites.guard';
-import { FavoritesResolver } from './resolvers/favorites.resolver';
 import { FavoriteService } from './services/favorite.service';
 import { FavoriteEffects } from './store/favorites.effects';
 import * as fromFavorites from './store/favorites.reducer';
@@ -29,6 +28,6 @@ import * as fromFavorites from './store/favorites.reducer';
     ),
     SharedModule,
   ],
-  providers: [FavoriteService, FavoritesResolver, FavoritesGuard],
+  providers: [FavoriteService, FavoritesGuard],
 })
 export class FavoritesModule {}

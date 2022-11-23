@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { IMovie } from '../../interfaces/movie.interface';
 import { deleteMovieFromList } from '../../store/lists.actions';
@@ -29,7 +29,7 @@ export class MovieComponent {
   }
 
   deleteMovie(): void {
-    this.openConfirmationDialog().subscribe(result => {
+    this.openConfirmationDialog().pipe(take(1)).subscribe(result => {
       if (result) {
         this.store.dispatch(
           deleteMovieFromList({ movieId: this.movie.id, listId: this.listId })
