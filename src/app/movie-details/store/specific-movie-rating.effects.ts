@@ -60,7 +60,7 @@ export class SpecificMovieRateEffects {
             switchMap(response => {
               this.snackBarService.openSnackBar(
                 'Rating Removed successfully',
-                false
+                true
               );
               return of(UpdateDeleteSpecificRate());
             }),

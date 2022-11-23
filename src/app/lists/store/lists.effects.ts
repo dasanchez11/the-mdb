@@ -119,7 +119,8 @@ export class ListsEffects {
       ),
       map(response => {
         this.snackBarService.openSnackBar(
-          'Item removed from list succesfully!'
+          'Item removed from list succesfully!',
+          true
         );
         return deleteMovieFromListSucess({
           movieId: response.movieId,

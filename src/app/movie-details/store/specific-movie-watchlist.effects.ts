@@ -55,7 +55,7 @@ export class SpecificMovieWatchlistEffects {
             switchMap(response => {
               this.snackBarService.openSnackBar(
                 'Removed from watchlist successfully',
-                false
+                true
               );
               return of(UpdateSpecificWatchlistSuccess({ payload: false }));
             }),
