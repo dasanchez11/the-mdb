@@ -1,5 +1,6 @@
 import { NgOptimizedImage } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
@@ -30,20 +31,34 @@ describe('MovieDetailsMovieComponent', () => {
     watchlist: boolean;
     favorite: boolean;
   };
+  let mockDialog: any;
 
   beforeEach(async () => {
+    mockDialog = jasmine.createSpyObj('dialog', ['open']);
     await TestBed.configureTestingModule({
       declarations: [
         MovieDetailsMovieComponent,
         MovieDetailsCircleComponent,
         MovieDetailsRatingComponent,
       ],
-      imports: [MatIconModule, NgOptimizedImage, MatTooltipModule],
-      providers: [provideMockStore()],
+      imports: [
+        MatIconModule,
+        NgOptimizedImage,
+        MatTooltipModule,
+        MatDialogModule,
+      ],
+      providers: [
+        provideMockStore(),
+        {
+          provide: MatDialog,
+          useValue: mockDialog,
+        },
+      ],
     }).compileComponents();
     store = TestBed.inject(MockStore);
     fixture = TestBed.createComponent(MovieDetailsMovieComponent);
     component = fixture.componentInstance;
+    component.subscription = of(true).subscribe();
     component.movie = mockMovieDetails;
   });
 
@@ -98,6 +113,7 @@ describe('MovieDetailsMovieComponent', () => {
 
       it('should dispatch add to watchlist, watchlist=true', () => {
         spyOn(store, 'dispatch');
+        spyOn(component, 'openConfirmationDialog').and.returnValue(of(true));
         component.watchlist = true;
         component.logged$ = of(true);
         component.watchlistClick();
@@ -122,8 +138,9 @@ describe('MovieDetailsMovieComponent', () => {
         );
       });
 
-      it('should dispatch add to watchlist, favorite=true', () => {
+      it('should dispatch add to favorite, favorite=true', () => {
         spyOn(store, 'dispatch');
+        spyOn(component, 'openConfirmationDialog').and.returnValue(of(true));
         component.favorite = true;
         component.logged$ = of(true);
         component.favoriteClick();

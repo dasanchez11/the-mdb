@@ -15,6 +15,7 @@ import { mockCarrouselResponse } from '../../../home/test/mock-selector';
 import { CircleComponent } from '../card/components/circle/circle.component';
 import { CardComponent } from '../card/card.component';
 import { CarrouselComponent } from './carrousel.component';
+import { of } from 'rxjs';
 
 describe('CarrouselComponent', () => {
   let component: CarrouselComponent;
@@ -34,6 +35,8 @@ describe('CarrouselComponent', () => {
     store.overrideSelector(selectHomePopular, mockCarrouselResponse);
     component = fixture.componentInstance;
     component.carrouselSelector = selectHomePopular;
+    component.storeSubscription = of(true).subscribe();
+
     el = fixture.debugElement;
   });
 
