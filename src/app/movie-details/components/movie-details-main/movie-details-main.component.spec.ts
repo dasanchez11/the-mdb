@@ -1,6 +1,7 @@
 import { NgOptimizedImage } from '@angular/common';
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute, convertToParamMap, ParamMap } from '@angular/router';
@@ -32,8 +33,9 @@ describe('MovieDetailsMainComponent', () => {
   let el: DebugElement;
   let paramValue = { id: 235 };
   let queryParam = new BehaviorSubject<ParamMap>(convertToParamMap(paramValue));
-
+  let mockDialog: any;
   beforeEach(async () => {
+    mockDialog = jasmine.createSpyObj('dialog', ['open']);
     await TestBed.configureTestingModule({
       declarations: [
         MovieDetailsMainComponent,
@@ -42,7 +44,12 @@ describe('MovieDetailsMainComponent', () => {
         MovieDetailsReviewsComponent,
         MovieDetailsCircleComponent,
       ],
-      imports: [InfiniteScrollModule, MatIconModule, NgOptimizedImage],
+      imports: [
+        InfiniteScrollModule,
+        MatIconModule,
+        NgOptimizedImage,
+        MatDialogModule,
+      ],
       providers: [
         provideMockStore(),
         {
@@ -50,6 +57,10 @@ describe('MovieDetailsMainComponent', () => {
           useValue: {
             paramMap: queryParam,
           },
+        },
+        {
+          provide: MatDialog,
+          useValue: mockDialog,
         },
       ],
     }).compileComponents();
