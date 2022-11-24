@@ -1,9 +1,12 @@
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { of } from 'rxjs';
 import { IListDetails } from 'src/app/lists/interfaces/list-details-response.interface';
 import { ListsActions } from 'src/app/lists/store/list-actions';
 import { selectAllLists } from 'src/app/lists/store/lists.selector';
@@ -62,7 +65,7 @@ describe('AddToListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatIconModule, RouterTestingModule],
+      imports: [MatIconModule, RouterTestingModule, MatDialogModule, NoopAnimationsModule],
       declarations: [AddToListComponent],
       providers: [provideMockStore({})]
     }).compileComponents();
@@ -79,7 +82,8 @@ describe('AddToListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should dispatch deleteMovieFromList action on delete', () => {
+  it('should dispatch deleteMovieFromList action on confirmation', () => {
+    spyOn(component,'openConfirmationDialog').and.returnValue(of(true))
     const listId = '1'
     const dispatchSpy = spyOn(store, 'dispatch').and.callThrough()
     component.removeMovieFromList(listId)
