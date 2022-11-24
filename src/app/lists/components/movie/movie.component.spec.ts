@@ -60,11 +60,12 @@ describe('MovieComponent', () => {
   });
 
   it('should dispatch delete movie from list action when confirmation is true', () => {
+    component.listId = '1'
     const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
     spyOn(component, 'openConfirmationDialog').and.returnValue(of(true));
     component.deleteMovie();
     expect(dispatchSpy).toHaveBeenCalledOnceWith(
-      ListsActions.deleteMovieFromList({ movieId: mockMovie.id, listId: 1 })
+      ListsActions.deleteMovieFromList({ movieId: mockMovie.id, listId: +component.listId })
     );
   });
 
