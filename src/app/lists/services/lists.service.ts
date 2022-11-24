@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, switchMap, take } from 'rxjs/operators';
+import { AppState } from 'src/app/app.store';
+import { selectCurrentUser } from 'src/app/auth/store/auth.selectors';
 import { Response } from 'src/app/favorites/interfaces/response.interface';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { ICreateListResponse } from '../interfaces/create-list-response.interface';
@@ -12,19 +15,18 @@ import { IListResponse } from '../interfaces/movie-lists-response.interface';
 export class ListsService {
   private readonly url = 'https://api.themoviedb.org/3/';
 
-  constructor(private http: HttpClient, private snackBar: SnackbarService) {}
+  constructor(private http: HttpClient, private snackBar: SnackbarService, private store : Store<AppState>) {}
 
-  getLoggedUserLists(): Observable<IListResponse> {
-    return this.http
-      .get<IListResponse>(
-        `${this.url}account/15719412/lists?language=en-US&page=1`
-      )
-      .pipe(
-        catchError(error => {
-          this.snackBar.openSnackBar(error.error.status_message, true);
-          return throwError(() => 'new Error');
-        })
-      );
+  getLoggedUserLists(): Observable<IListResponse> { 
+    return this.store.select(selectCurrentUser).pipe(
+      take(1),
+      map(user => user?.id),
+      switchMap(val => this.http
+        .get<IListResponse>(
+          `${this.url}account/${val}/lists?language=en-US&page=1`
+        ))
+    );
+    
   }
 
   getListDetails(listId: number): Observable<IListDetails> {

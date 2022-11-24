@@ -15,7 +15,6 @@ import { NewListComponent } from './components/new-list/new-list.component';
 import { ListGuard } from './list.guard';
 import { ListsRoutingModule } from './lists-routing.module';
 import { MovieItemsAverageRatingPipe } from './pipes/movie-items-average-rating.pipe';
-import { ListsResolver } from './resolvers/lists.resolver';
 import { ListsService } from './services/lists.service';
 import { ListsEffects } from './store/lists.effects';
 import * as fromLists from './store/lists.reducer';
@@ -41,6 +40,6 @@ import * as fromLists from './store/lists.reducer';
     EffectsModule.forFeature([ListsEffects]),
     StoreModule.forFeature(fromLists.listsFeatureKey, fromLists.listsReducer),
   ],
-  providers: [ListsService, ListsResolver, ListGuard],
+  providers: [ListsService, ListGuard],
 })
 export class ListsModule {}
