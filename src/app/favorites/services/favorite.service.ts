@@ -5,7 +5,6 @@ import { map, Observable } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 import { AppState } from 'src/app/app.store';
 import { selectCurrentUser } from 'src/app/auth/store/auth.selectors';
-import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { IFavoriteMoviesResponse } from '../interfaces/favorite-list-response.interface';
 
 @Injectable()
@@ -14,7 +13,6 @@ export class FavoriteService {
 
   constructor(
     private http: HttpClient,
-    private snackBar: SnackbarService,
     private store: Store<AppState>
   ) {}
 

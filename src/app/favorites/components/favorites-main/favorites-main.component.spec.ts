@@ -2,11 +2,12 @@ import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { provideMockStore } from '@ngrx/store/testing';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { selectCurrentUser } from 'src/app/auth/store/auth.selectors';
 import { Movie } from 'src/app/home/interfaces/movies.interface';
+import { loadLists } from 'src/app/lists/store/lists.actions';
 import { User } from '../../../auth/interfaces/responses/get-account-response';
-import { selectFavoriteMovies } from '../../store/favorites.selectors';
+import { loadFavorites } from '../../store/favorites.actions';
 import { MockFavoritesPreviewComponent } from '../../tests/mock-components/favorite-preview-mock.component';
 import { FavoritesMainComponent } from './favorites-main.component';
 
@@ -63,7 +64,7 @@ describe('FavoritesMainComponent', () => {
   let component: FavoritesMainComponent;
   let fixture: ComponentFixture<FavoritesMainComponent>;
   let element: DebugElement;
-  let favoritePreviewComponent: MockFavoritesPreviewComponent;
+  let store : MockStore
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -75,17 +76,14 @@ describe('FavoritesMainComponent', () => {
             {
               selector: selectCurrentUser,
               value: userMock,
-            },
-            {
-              selector: selectFavoriteMovies,
-              value: mockMovieList,
-            },
+            }
           ],
         }),
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(FavoritesMainComponent);
+    store = TestBed.inject(MockStore)
     component = fixture.componentInstance;
     element = fixture.debugElement;
     fixture.detectChanges();
@@ -106,20 +104,12 @@ describe('FavoritesMainComponent', () => {
     );
   });
 
-  it('should render the correct amount of favorite movies', () => {
-    const favoritePreviews = element.queryAll(
-      By.directive(MockFavoritesPreviewComponent)
-    );
-    expect(favoritePreviews.length).toEqual(mockMovieList.length);
-  });
+  it('should dispatch actions to load favorites and lists', () => {
+    const dispatchSpy = spyOn(store,'dispatch')
+    component.ngOnInit()
+    expect(dispatchSpy).toHaveBeenCalledTimes(2)
+    expect(dispatchSpy).toHaveBeenCalledWith(loadFavorites({page : 1}))
+    expect(dispatchSpy).toHaveBeenCalledWith(loadLists())
+  })
 
-  it('should pass the correct movie to favorite preview element', () => {
-    const favoritePreviewComponentElement = element.query(
-      By.directive(MockFavoritesPreviewComponent)
-    );
-    favoritePreviewComponent = favoritePreviewComponentElement.injector.get(
-      MockFavoritesPreviewComponent
-    );
-    expect(favoritePreviewComponent.movie).toBe(mockMovieList[0]);
-  });
 });
