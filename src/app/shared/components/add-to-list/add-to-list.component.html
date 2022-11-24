@@ -30,6 +30,7 @@
         [class.hidden]="dropdownHidden">
         <ul class="py-1 text-sm text-gray-700 dark:text-gray-200">
           <li
+            class="list__item"
             *ngFor="let list of userLists"
             (click)="!isMovieInList(list) ? addMovieToList(list.id!) : removeMovieFromList(list.id!)"
             [class.font-bold]="isMovieInList(list)">
@@ -46,7 +47,7 @@
       </div>
     </div>
     <div *ngIf="userLists.length === 0">
-      <div class="italic font-semibold text-center text-white">No existing lists...</div>
+      <div class="no__lists italic font-semibold text-center text-white">No existing lists...</div>
     </div>
   </ng-container>
 </div>
