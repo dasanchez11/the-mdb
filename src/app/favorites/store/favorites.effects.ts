@@ -70,7 +70,7 @@ export class FavoriteEffects {
       switchMap(prop =>
         this.favoriteService.markFavorite(prop.favoriteMovieId, false).pipe(
           map(response => {
-            this.snackBarService.openSnackBar('Favorite deleted successfully!');
+            this.snackBarService.openSnackBar('Favorite deleted succesfully!',true);
             return deleteFavoriteSuccess({ favoriteMovieId: response });
           }),
           catchError(error => {
