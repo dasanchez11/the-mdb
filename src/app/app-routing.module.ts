@@ -35,6 +35,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('src/app/search/search.module').then(m => m.SearchModule),
   },
+  // { path: '**', redirectTo: '/home' },
 ];
 
 @NgModule({

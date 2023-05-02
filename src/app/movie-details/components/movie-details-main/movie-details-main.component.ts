@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { AppState } from 'src/app/app.store';
 import { loadLists } from 'src/app/lists/store/lists.actions';
 import { MovieDetails } from '../../interfaces/responses/movie-details/movie-details.interface';
@@ -11,6 +11,7 @@ import {
   FetchSimilarStart,
 } from '../../store/specific-movie.actions';
 import {
+  areSpecificMovie,
   selectAreMovieReviews,
   selectAreRecommendedMovies,
   selectMovieDetails,
@@ -30,6 +31,8 @@ export class MovieDetailsMainComponent implements OnInit {
   similarStart = FetchSimilarStart;
   recommendedStart = FetchRecommendedStart;
 
+  isMovie$!: Observable<boolean>;
+
   areRecommended$!: Observable<boolean>;
   areReviews$!: Observable<boolean>;
 
@@ -39,6 +42,7 @@ export class MovieDetailsMainComponent implements OnInit {
   constructor(private store: Store<AppState>, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.isMovie$ = this.store.select(areSpecificMovie);
     this.route.paramMap.subscribe(params => {
       const movieId = params.get('id');
       if (movieId) {

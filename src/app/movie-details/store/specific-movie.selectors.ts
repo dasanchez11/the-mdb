@@ -20,6 +20,11 @@ export const selectMovieReviews = createSelector(
   state => state.result
 );
 
+export const areSpecificMovie = createSelector(
+  selectMovieDetailsState,
+  state => state.result === null
+);
+
 export const selectAreMovieReviews = createSelector(
   selectMovieReviews,
   state => {
