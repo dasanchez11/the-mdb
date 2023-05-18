@@ -48,7 +48,7 @@ app/
 
 I made this project along with a partner. We were requested to implement a clone of the movie db page <a href= 'https://www.themoviedb.org/' target="__blank">`https://www.themoviedb.org/`</a> within a time frame of two weeks, in order to get a job as Angualar developers. The app is broadly tested, implements lazy loaded modules, the state is managed via NgRx and it provides a comprenhensive showcase of my skills in technologies such as Angular, Typescript, HTML, CSS.
 
-One feature of code that I am particularly proud of is the NgRx (redux based) one, becuse the state was managed throughout the whole app using Ngrx reducers, selectors, entities and effects. Moreover
+One feature of the code that I am particularly proud of is the NgRx one (present in the store folder of every module). becuse the state was managed throughout the whole app using Ngrx reducers, selectors, entities and effects. Moreover
 we were able to successfully test those pieces of code which I consider to be among the hardest to understand, implement and test.
 
 # Results
