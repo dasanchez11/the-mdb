@@ -24,11 +24,7 @@ export class ListGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
+  ): Observable<boolean | UrlTree> {
     return this.store.select(selectCurrentUser).pipe(
       map(user => {
         if (user === null) {

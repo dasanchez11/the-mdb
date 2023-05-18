@@ -1,27 +1,91 @@
-# Moviedb
+<p align="center">
+  <a href="https://angular.io/docs" target="__blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Angular_full_color_logo.svg" width="200" alt="Angular Logo" /></a>
+</p>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.9.
+<p align="center">
+  <a href="https://www.themoviedb.org/" target="__blank"><img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Tmdb.new.logo.svg" width="200" alt="TMDB Logo" /></a>
+</p>
 
-## Development server
+# Moviedb clone
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+#### \* This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.9.
 
-## Code scaffolding
+# Technologies used
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+<div style="display: flex;">
+<p align="left">
+  <a href="https://angular.io/docs" target="__blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Angular_full_color_logo.svg" width="100" alt="Angular Logo" /></a>
+</p>
 
-## Build
+<p align="right">
+  <a href="https://ngrx.io" target="__blank"><img src="https://ngrx.io/assets/images/badge.svg" width="100" alt="Angular Logo" /></a>
+</p>
+</div>
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-## Running unit tests
+![RxJS](https://img.shields.io/badge/rxjs-%23B7178C.svg?style=for-the-badge&logo=reactivex&logoColor=white)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+![Jasmine](https://img.shields.io/badge/jasmine-%238A4182.svg?style=for-the-badge&logo=jasmine&logoColor=white)
 
-## Running end-to-end tests
+# Code structure
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```
+app/
+  ├── module/
+    ├── components/
+    ├── directives/
+    ├── helpers/
+    ├── interfaces/
+    ├── pipes/
+    ├── services/
+    ├── store (State Management)/
+    ├── tests (mock and utils for testing)/
 
-## Further help
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+# About the Project
+
+I made this project along with a partner. We were requested to implement a clone of the movie db page <a href= 'https://www.themoviedb.org/' target="__blank">`https://www.themoviedb.org/`</a> within a time frame of two weeks, in order to get a job as Angualar developers. The app is broadly tested, implements lazy loaded modules, the state is managed via NgRx and it provides a comprenhensive showcase of my skills in technologies such as Angular, Typescript, HTML, CSS.
+
+One feature of code that I am particularly proud of is the NgRx (redux based) one, becuse the state was managed throughout the whole app using Ngrx reducers, selectors, entities and effects. Moreover
+we were able to successfully test those pieces of code which I consider to be among the hardest to understand, implement and test.
+
+# Results
+
+## Deployed website
+
+<a href= 'https://glistening-melomakarona-1c7381.netlify.app/home' target="__blank">https://glistening-melomakarona-1c7381.netlify.app/home</a>
+
+## Tests
+
+- Tested Specs: 300
+- Testing Results:
+
+<p align="left">
+  <a target="__blank"><img src="./tests.png" width="600" /></a>
+</p>
+
+# Clone Project and run it locally
+
+1. Make sure you got docker-desktop installed on your pc
+2. Clone the Repository
+
+```
+https://github.com/dasanchez11/the-mdb.git
+```
+
+3. Create a **.env** that has the same parameters as the **.env.example**
+4. Run the app on Docker
+
+```
+docker-compose up -d
+```
+
+5. Open the app on your web browser
+
+```
+http://localhost:4200/
+```
+
+6. Enjoy

@@ -41,7 +41,7 @@ describe('AuthInterceptor', () => {
   it('should append api_key and sessionId', () => {
     service.testRequest().subscribe();
     httpMock.expectOne(
-      'https:testurl.com/test?session_id=null&api_key=944147098cdebbad2c5d256f63d396d0'
+      'https:testurl.com/test?session_id=null&api_key=435d9d4f017c15aa000db40b6275236f'
     );
   });
 });
