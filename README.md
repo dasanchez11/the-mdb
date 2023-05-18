@@ -17,7 +17,7 @@
   <a href="https://angular.io/docs" target="__blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Angular_full_color_logo.svg" width="100" alt="Angular Logo" /></a>
 </p>
 
-<p align="right">
+<p align="left">
   <a href="https://ngrx.io" target="__blank"><img src="https://ngrx.io/assets/images/badge.svg" width="100" alt="Angular Logo" /></a>
 </p>
 </div>
