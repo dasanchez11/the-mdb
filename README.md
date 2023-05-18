@@ -66,6 +66,10 @@ we were able to successfully test those pieces of code which I consider to be am
   <a target="__blank"><img src="./tests.png" width="600" /></a>
 </p>
 
+## App overview video
+
+<a href= 'https://drive.google.com/file/d/1vz8FQvslvEH11MCxxSQb9yeT1nLGcolC/view?usp=sharing' target="__blank">https://drive.google.com/file/d/1vz8FQvslvEH11MCxxSQb9yeT1nLGcolC/view?usp=sharing</a>
+
 # Clone Project and run it locally
 
 1. Make sure you got docker-desktop installed on your pc
