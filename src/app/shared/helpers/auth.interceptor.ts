@@ -7,7 +7,7 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthLocalStorageService } from 'src/app/auth/services/auth-local-storage.service';
-import { API_KEY } from 'src/app/auth/services/apiKey';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -20,7 +20,7 @@ export class AuthInterceptor implements HttpInterceptor {
     request = request.clone({
       params: request.params
         .append('session_id', this.localStorage.getElement('sessionId'))
-        .append('api_key', API_KEY),
+        .append('api_key', environment.apiKey),
     });
     return next.handle(request);
   }

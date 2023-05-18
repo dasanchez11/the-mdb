@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IGetTokenResponse } from '../interfaces/get-token-reponse.interface';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -7,7 +8,7 @@ import { IGetTokenResponse } from '../interfaces/get-token-reponse.interface';
 export class RedirectService {
   private redirectBaseUrl = 'https://www.themoviedb.org/';
   private redirectPath = '?redirect_to=';
-  private redirectLink = 'http://localhost:4200/authenticate';
+  private redirectLink = environment.redirectLink;
 
   redirectToLogin(response: IGetTokenResponse): void {
     const url =
